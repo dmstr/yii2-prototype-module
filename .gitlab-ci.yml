@@ -1,0 +1,38 @@
+before_script:
+  - export BUILD_PREFIX=buildref${CI_BUILD_REF}$(echo ${CI_BUILD_REF_NAME} | tr -dc '[:alnum:]\n\r' | tr '[:upper:]' '[:lower:]')
+  - export COMPOSE_PROJECT_NAME=${BUILD_PREFIX}prototypemodule
+  - cd tests
+
+stages:
+  - test
+  - report
+  - cleanup
+
+test:
+  stage: test
+  script:
+    - set +e
+    - docker-compose up -d
+    - docker-compose run --rm phpfpm setup.sh
+    - docker-compose run --rm phpfpm sh -c "YII_ENV=test codecept clean -c /app/vendor/dmstr/yii2-prototype-module/codeception.yml"
+    - docker-compose run --rm phpfpm sh -c "YII_ENV=test codecept run --html=_report.html -c /app/vendor/dmstr/yii2-prototype-module/codeception.yml"; TESTS_EXIT_CODE=$?
+    - set -e
+    - mv _output /tmp/${BUILD_PREFIX}
+    - exit $TESTS_EXIT_CODE
+
+report:
+  stage: report
+  script:
+    - mv /tmp/${BUILD_PREFIX} _output
+  artifacts:
+    paths:
+      - tests/_output/
+  when: always
+
+cleanup:
+  stage: cleanup
+  script:
+    - docker-compose kill && docker-compose rm -fv
+    - docker-compose down --rmi local --volumes
+  when: always
+

@@ -22,6 +22,7 @@ services:
       YII_DEBUG: 'false'
       DB_PORT_3306_TCP_ADDR: mariadb
       DB_PORT_3306_TCP_PORT: 3306
+      DB_ENV_MYSQL_ROOT_USER: root
       DB_ENV_MYSQL_ROOT_PASSWORD: secretadmin
     volumes:
       - /app
@@ -29,14 +30,14 @@ services:
       #- ../tests/_config/local.php:/app/src/config/local.php
 
   mariadb:
-    image: 'tutum/mariadb:10.1'
+    image: 'percona:5.7'
     ports:
       - '3306'
     environment:
-      MARIADB_PASS: secretadmin
+      MYSQL_ROOT_PASSWORD: secretadmin
 
   seleniumfirefox:
-    image: 'selenium/standalone-firefox-debug:2.52.0'
+    image: 'selenium/standalone-firefox-debug:2.47.1'
     expose:
         - '4444'
     ports:
