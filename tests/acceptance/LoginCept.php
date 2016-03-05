@@ -2,8 +2,8 @@
 $I = new AcceptanceTester($scenario);
 
 $I->wantTo('sign in');
-$I->amOnPage('/login');
-$I->fillField('username', 'davert');
-$I->fillField('password', 'qwerty');
-$I->click('LOGIN');
-$I->see('Welcome, Davert!');
+$I->amOnPage('/user/login');
+$I->fillField('#login-form-login', 'admin');
+$I->fillField('#login-form-password', 'admin');
+$I->click('Sign in');
+$I->see('admin', '#link-user-menu');
