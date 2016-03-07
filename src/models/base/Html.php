@@ -22,7 +22,7 @@ abstract class Html extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'app_html';
+        return '{{%html}}';
     }
 
     /**
