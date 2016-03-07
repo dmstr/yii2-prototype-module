@@ -22,7 +22,7 @@ abstract class Less extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'app_less';
+        return '{{%less}}';
     }
 
     /**
