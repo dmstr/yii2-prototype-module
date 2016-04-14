@@ -25,7 +25,12 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+*TBD*
 
-```php
-<?= \dmstr\modules\prototype\AutoloadExample::widget(); ?>```
+
+Testing
+-------
+
+    docker-compose up -d
+    
+    docker-compose run phpfpm codecept run

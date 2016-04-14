@@ -11,12 +11,14 @@ services:
       - phpfpm
 
   phpfpm:
-    image: phundament/app:4.2.0-rc1
+    image: phundament/app:4.3.0-beta6
+    working_dir: /app/vendor/dmstr/yii2-prototype-module
+    command: sh -c 'chown -R 33 /app/web/assets && run.sh'
     depends_on:
       - mariadb
       - seleniumfirefox
     environment:
-      APP_NAME: dmstr-prototype-module
+      APP_NAME: prototype-module
       APP_TITLE: 'dmstr/yii2-prototype-module'
       YII_ENV: 'prod'
       YII_DEBUG: 'false'
@@ -30,7 +32,7 @@ services:
       #- ../tests/_config/local.php:/app/src/config/local.php
 
   mariadb:
-    image: 'percona:5.7'
+    image: 'percona:5.6'
     ports:
       - '3306'
     environment:
