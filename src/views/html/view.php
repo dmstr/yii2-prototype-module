@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
             'attributes' => [
                 'id',
                 'key',
-                'value:ntext',
+                'value:html',
             ],
         ]
     ); ?>

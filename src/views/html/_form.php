@@ -3,6 +3,7 @@
 use dmstr\bootstrap\Tabs;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use dosamigos\ckeditor\CKEditor;
 
 /**
  * @var yii\web\View $this
@@ -23,8 +24,8 @@ use yii\helpers\Html;
             'fieldConfig' => [
                 'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
                 'horizontalCssClasses' => [
-                    'label' => 'col-sm-2',
-                    'wrapper' => 'col-sm-8',
+                    'label' => 'col-sm-1',
+                    'wrapper' => 'col-sm-11',
                     'error' => '',
                     'hint' => '',
                 ],
@@ -39,7 +40,10 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className()) ?>
+            <?= $form->field($model, 'value')->widget(CKEditor::className(), [
+                #'options' => ['height' => '400'],
+                'preset' => 'full'
+            ]) ?>
         </p>
         <?php $this->endBlock(); ?>
 

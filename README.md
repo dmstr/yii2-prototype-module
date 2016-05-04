@@ -34,3 +34,18 @@ Testing
     docker-compose up -d
     
     docker-compose run phpfpm codecept run
+    
+    
+CRUDS
+-----
+
+:bangbang: Do no regenerate CRUDs for `html`
+
+    $ yii batch \
+        --tables=app_twig \
+        --modelNamespace=dmstr\\modules\\prototype\\models \
+        --modelQueryNamespace=dmstr\\modules\\prototype\\models\\query \
+        --crudSearchModelNamespace=dmstr\\modules\\prototype\\models\\query \
+        --crudControllerNamespace=dmstr\\modules\\prototype\\controllers \
+        --crudViewPath=@dmstr/modules/prototype/views \
+        
