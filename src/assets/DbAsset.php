@@ -24,17 +24,15 @@ class DbAsset extends AssetBundle
 
     public $sourcePath = '@runtime/settings-asset';
 
-    public $css = [
-        self::MAIN_LESS_FILE,
-    ];
-
     public $depends = [
         // if a full Bootstrap CSS is compiled, it's recommended to disable the asset in assetManager configuration
-        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 
     public function init()
     {
+        $this->css[] = \Yii::$app->settings->get('registerPrototypeAssetKey','app.assets').'-'.self::MAIN_LESS_FILE;
+
         parent::init();
 
         $sourcePath = \Yii::getAlias($this->sourcePath);
