@@ -11,7 +11,8 @@ services:
       - phpfpm
 
   phpfpm:
-    image: phundament/app:4.3.0-beta6
+    #image: phundament/app:4.3.0-beta6
+    build: .
     working_dir: /app/vendor/dmstr/yii2-prototype-module
     command: sh -c 'chown -R 33 /app/web/assets && run.sh'
     depends_on:
