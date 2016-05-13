@@ -9,12 +9,11 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
-use rmrevin\yii\fontawesome\component\Icon;
-use rmrevin\yii\fontawesome\FA;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\twig\ViewRenderer;
 
-class HtmlWidget extends Widget
+class TwigWidget extends Widget
 {
     const SETTINGS_SECTION = 'app.html';
     const ACCESS_ROLE = 'Editor';
@@ -23,13 +22,19 @@ class HtmlWidget extends Widget
     public $enableFlash = false;
     public $enableBackendMenuItem = false;
 
-
     public function run()
     {
-        $html = \dmstr\modules\prototype\models\Html::findOne(['key' => $this->generateKey()]);
+        $model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
+
+        $tmpFile = \Yii::getAlias('@runtime').'/'.uniqid('twig_');
+        file_put_contents($tmpFile, ($model?$model->value:null));
+        $render = new ViewRenderer;
+        $html = $render->render('renderer.twig', $tmpFile, []);
 
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
-            $link = ($html) ? $this->generateEditLink($html->id) : $this->generateCreateLink();
+
+            $link = Html::a('prototype module', ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
+
             if ($this->enableFlash) {
                 \Yii::$app->session->addFlash(
                     ($html) ? 'success' : 'info',
@@ -39,13 +44,13 @@ class HtmlWidget extends Widget
 
             if ($this->enableBackendMenuItem) {
                 \Yii::$app->params['backend.menuItems'][] = [
-                    'label' => 'Edit HTML',
-                    'url' => ($html) ? $this->generateEditRoute($html->id) : $this->generateCreateRoute()
+                    'label' => 'Edit Twig',
+                    'url' => ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
                 ];
             }
         }
 
-        return $html ? $html->value : $this->renderEmpty();
+        return $html ?: $this->renderEmpty();
     }
 
     private function generateKey()
@@ -61,7 +66,7 @@ class HtmlWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> HTML', ['/prototype/html/create', 'Html' => ['key' => $this->generateKey()]]);
+        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Twig', ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 
     private function generateEditLink($id)
@@ -71,15 +76,16 @@ class HtmlWidget extends Widget
 
     private function generateCreateRoute()
     {
-        return ['/prototype/html/create', 'Twig' => ['key' => $this->generateKey()]];
+        return ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]];
     }
 
     private function generateEditRoute($id)
     {
-        return ['/prototype/html/update', 'id' => $id];
+        return ['/prototype/twig/update', 'id' => $id];
     }
 
     private function renderEmpty(){
         return '<div class="alert alert-info">'.$this->generateCreateLink().'</div>';
     }
+
 }
