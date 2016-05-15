@@ -48,9 +48,13 @@ class TwigWidget extends Widget
                     'url' => ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
                 ];
             }
+
+            if (!$html) {
+                $html = $this->renderEmpty();
+            }
         }
 
-        return $html ?: $this->renderEmpty();
+        return $html;
     }
 
     private function generateKey()

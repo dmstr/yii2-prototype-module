@@ -26,13 +26,14 @@ class HtmlWidget extends Widget
 
     public function run()
     {
-        $html = \dmstr\modules\prototype\models\Html::findOne(['key' => $this->generateKey()]);
+        $model = \dmstr\modules\prototype\models\Html::findOne(['key' => $this->generateKey()]);
+        $html = '';
 
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
-            $link = ($html) ? $this->generateEditLink($html->id) : $this->generateCreateLink();
+            $link = ($model) ? $this->generateEditLink($model->id) : $this->generateCreateLink();
             if ($this->enableFlash) {
                 \Yii::$app->session->addFlash(
-                    ($html) ? 'success' : 'info',
+                    ($model) ? 'success' : 'info',
                     "Edit contents in {$link}, key: <code>{$this->generateKey()}</code>"
                 );
             }
@@ -40,12 +41,18 @@ class HtmlWidget extends Widget
             if ($this->enableBackendMenuItem) {
                 \Yii::$app->params['backend.menuItems'][] = [
                     'label' => 'Edit HTML',
-                    'url' => ($html) ? $this->generateEditRoute($html->id) : $this->generateCreateRoute()
+                    'url' => ($model) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
                 ];
+            }
+
+            if (!$model) {
+                $html = $this->renderEmpty();
+            } else {
+                $html = $model->value;
             }
         }
 
-        return $html ? $html->value : $this->renderEmpty();
+        return $html;
     }
 
     private function generateKey()
