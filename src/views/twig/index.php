@@ -63,6 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>        </div>
     </div>
 
+    <hr />
 
     <div class="table-responsive">
         <?= GridView::widget([

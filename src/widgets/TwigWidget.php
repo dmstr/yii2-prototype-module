@@ -9,8 +9,11 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
+use Aws\CloudFront\Exception\Exception;
+use yii\base\ErrorException;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\twig\ViewRenderer;
 
 class TwigWidget extends Widget
@@ -24,17 +27,26 @@ class TwigWidget extends Widget
 
     public function run()
     {
-        $model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
+        Url::remember();
 
-        $tmpFile = \Yii::getAlias('@runtime').'/'.uniqid('twig_');
-        file_put_contents($tmpFile, ($model ? $model->value : null));
+        $model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
+        $twigCode = ($model ? $model->value : null);
+        $tmpFile = \Yii::getAlias('@runtime').'/'.md5($twigCode);
+        file_put_contents($tmpFile, $twigCode);
         $render = new ViewRenderer;
-        $html = $render->render('renderer.twig', $tmpFile, []);
+
+        try {
+            $html = $render->render('renderer.twig', $tmpFile, []);
+        } catch (\Twig_Error_Runtime $e) {
+            \Yii::$app->session->addFlash('error', $e->getMessage());
+            $html = '';
+        }
+
 
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
 
             $link = Html::a('prototype module',
-                ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
+                ($model) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
 
             if ($this->enableFlash) {
                 \Yii::$app->session->addFlash(
@@ -46,11 +58,11 @@ class TwigWidget extends Widget
             if ($this->enableBackendMenuItem) {
                 \Yii::$app->params['backend.menuItems'][] = [
                     'label' => 'Edit '.$this->id.' <span class="label label-info">Twig</span>',
-                    'url' => ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
+                    'url' => ($model) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
                 ];
             }
 
-            if (!$html) {
+            if (!$model) {
                 $html = $this->renderEmpty();
             }
         }
@@ -71,7 +83,7 @@ class TwigWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Twig',
+        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> '.$this->id.' Twig',
             ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 

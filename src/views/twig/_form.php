@@ -18,7 +18,16 @@ use yii\helpers\Html;
             'id' => 'Twig',
             'layout' => 'horizontal',
             'enableClientValidation' => true,
-            'errorSummaryCssClass' => 'error-summary alert alert-error'
+            'errorSummaryCssClass' => 'error-summary alert alert-error',
+            'fieldConfig' => [
+                'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
+                'horizontalCssClasses' => [
+                    'label' => 'col-sm-1',
+                    'wrapper' => 'col-sm-11',
+                    'error' => '',
+                    'hint' => '',
+                ],
+            ],
         ]
     );
     ?>

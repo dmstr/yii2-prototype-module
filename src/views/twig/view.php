@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
             <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('app', 'Edit'),
                 ['update', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
             <?= Html::a('<span class="glyphicon glyphicon-copy"></span> '.Yii::t('app', 'Copy'),
-                ['create', 'id' => $model->id, 'Twig            ' => $copyParams], ['class' => 'btn btn-success']) ?>
+                ['create', 'id' => $model->id, 'Twig' => $copyParams], ['class' => 'btn btn-success']) ?>
             <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'New'), ['create'],
                 ['class' => 'btn btn-success']) ?>
         </div>
@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
 
     </div>
 
+    <hr />
 
     <?php $this->beginBlock('dmstr\modules\prototype\models\Twig'); ?>
 
@@ -59,7 +60,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
         'attributes' => [
             'id',
             'key',
-            'value:ntext',
+            [
+                'attribute' => 'value',
+                'format' => 'raw',
+                'value' => "<pre>{$model->value}</pre>",
+            ]
         ],
     ]); ?>
 

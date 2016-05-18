@@ -25,6 +25,8 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Edit');
             ['view', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
     </div>
 
+    <hr />
+
     <?php echo $this->render('_form', [
         'model' => $model,
     ]); ?>
