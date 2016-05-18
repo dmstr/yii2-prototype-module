@@ -27,13 +27,14 @@ class TwigWidget extends Widget
         $model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
 
         $tmpFile = \Yii::getAlias('@runtime').'/'.uniqid('twig_');
-        file_put_contents($tmpFile, ($model?$model->value:null));
+        file_put_contents($tmpFile, ($model ? $model->value : null));
         $render = new ViewRenderer;
         $html = $render->render('renderer.twig', $tmpFile, []);
 
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
 
-            $link = Html::a('prototype module', ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
+            $link = Html::a('prototype module',
+                ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
 
             if ($this->enableFlash) {
                 \Yii::$app->session->addFlash(
@@ -44,7 +45,7 @@ class TwigWidget extends Widget
 
             if ($this->enableBackendMenuItem) {
                 \Yii::$app->params['backend.menuItems'][] = [
-                    'label' => 'Edit Twig',
+                    'label' => 'Edit '.$this->id.' <span class="label label-info">Twig</span>',
                     'url' => ($html) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
                 ];
             }
@@ -70,7 +71,8 @@ class TwigWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Twig', ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
+        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Twig',
+            ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 
     private function generateEditLink($id)
@@ -88,7 +90,8 @@ class TwigWidget extends Widget
         return ['/prototype/twig/update', 'id' => $id];
     }
 
-    private function renderEmpty(){
+    private function renderEmpty()
+    {
         return '<div class="alert alert-info">'.$this->generateCreateLink().'</div>';
     }
 

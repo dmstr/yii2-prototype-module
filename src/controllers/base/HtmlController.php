@@ -4,9 +4,9 @@
 
 namespace dmstr\modules\prototype\controllers\base;
 
+use dmstr\bootstrap\Tabs;
 use dmstr\modules\prototype\models\Html;
 use dmstr\modules\prototype\models\search\Html as HtmlSearch;
-use dmstr\bootstrap\Tabs;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;

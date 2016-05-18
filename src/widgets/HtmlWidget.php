@@ -9,8 +9,6 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
-use rmrevin\yii\fontawesome\component\Icon;
-use rmrevin\yii\fontawesome\FA;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -68,7 +66,8 @@ class HtmlWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> HTML', ['/prototype/html/create', 'Html' => ['key' => $this->generateKey()]]);
+        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> HTML',
+            ['/prototype/html/create', 'Html' => ['key' => $this->generateKey()]]);
     }
 
     private function generateEditLink($id)
@@ -86,7 +85,8 @@ class HtmlWidget extends Widget
         return ['/prototype/html/update', 'id' => $id];
     }
 
-    private function renderEmpty(){
+    private function renderEmpty()
+    {
         return '<div class="alert alert-info">'.$this->generateCreateLink().'</div>';
     }
 }

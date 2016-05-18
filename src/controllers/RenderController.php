@@ -15,7 +15,8 @@ class RenderController extends Controller
         return $this->render('twig');
     }
 
-    public function actionHtml(){
+    public function actionHtml()
+    {
         return $this->render('html');
     }
 

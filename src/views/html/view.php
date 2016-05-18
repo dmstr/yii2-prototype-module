@@ -97,11 +97,12 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
         [
             'id' => 'relation-tabs',
             'encodeLabels' => false,
-            'items' => [[
-                'label' => '<b class=""># '.$model->id.'</b>',
-                'content' => $this->blocks['dmstr\modules\prototype\models\Html'],
-                'active' => true,
-            ],
+            'items' => [
+                [
+                    'label' => '<b class=""># '.$model->id.'</b>',
+                    'content' => $this->blocks['dmstr\modules\prototype\models\Html'],
+                    'active' => true,
+                ],
             ]
         ]
     );

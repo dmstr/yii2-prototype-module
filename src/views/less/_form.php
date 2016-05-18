@@ -47,11 +47,12 @@ use yii\helpers\Html;
         Tabs::widget(
             [
                 'encodeLabels' => false,
-                'items' => [[
-                    'label' => 'Less',
-                    'content' => $this->blocks['main'],
-                    'active' => true,
-                ],
+                'items' => [
+                    [
+                        'label' => 'Less',
+                        'content' => $this->blocks['main'],
+                        'active' => true,
+                    ],
                 ]
             ]
         );

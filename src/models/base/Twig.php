@@ -18,7 +18,6 @@ abstract class Twig extends \yii\db\ActiveRecord
 {
 
 
-
     /**
      * @inheritdoc
      */
@@ -28,15 +27,24 @@ abstract class Twig extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     * @return \dmstr\modules\prototype\models\query\TwigQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new \dmstr\modules\prototype\models\query\TwigQuery(get_called_class());
+    }
+
+    /**
      * Alias name of table for crud viewsLists all Area models.
      * Change the alias name manual if needed later
      * @return string
      */
-    public function getAliasModel($plural=false)
+    public function getAliasModel($plural = false)
     {
-        if($plural){
+        if ($plural) {
             return Yii::t('app', 'Twigs');
-        }else{
+        } else {
             return Yii::t('app', 'Twig');
         }
     }
@@ -74,21 +82,10 @@ abstract class Twig extends \yii\db\ActiveRecord
         return array_merge(
             parent::attributeHints(),
             [
-            'id' => Yii::t('app', 'ID'),
-            'key' => Yii::t('app', 'Key'),
-            'value' => Yii::t('app', 'Value'),
+                'id' => Yii::t('app', 'ID'),
+                'key' => Yii::t('app', 'Key'),
+                'value' => Yii::t('app', 'Value'),
             ]);
-    }
-
-
-    
-    /**
-     * @inheritdoc
-     * @return \dmstr\modules\prototype\models\query\TwigQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new \dmstr\modules\prototype\models\query\TwigQuery(get_called_class());
     }
 
 

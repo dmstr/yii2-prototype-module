@@ -4,9 +4,9 @@
 
 namespace dmstr\modules\prototype\controllers\base;
 
+use dmstr\bootstrap\Tabs;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\search\Less as LessSearch;
-use dmstr\bootstrap\Tabs;
 use yii\filters\AccessControl;
 use yii\helpers\Url;
 use yii\web\Controller;

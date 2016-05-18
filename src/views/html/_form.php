@@ -1,9 +1,9 @@
 <?php
 
 use dmstr\bootstrap\Tabs;
+use dosamigos\ckeditor\CKEditor;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use dosamigos\ckeditor\CKEditor;
 
 /**
  * @var yii\web\View $this
@@ -51,11 +51,12 @@ use dosamigos\ckeditor\CKEditor;
         Tabs::widget(
             [
                 'encodeLabels' => false,
-                'items' => [[
-                    'label' => 'Html',
-                    'content' => $this->blocks['main'],
-                    'active' => true,
-                ],
+                'items' => [
+                    [
+                        'label' => 'Html',
+                        'content' => $this->blocks['main'],
+                        'active' => true,
+                    ],
                 ]
             ]
         );

@@ -31,7 +31,7 @@ class DbAsset extends AssetBundle
 
     public function init()
     {
-        $this->css[] = \Yii::$app->settings->get('registerPrototypeAssetKey','app.assets').'-'.self::MAIN_LESS_FILE;
+        $this->css[] = \Yii::$app->settings->get('registerPrototypeAssetKey', 'app.assets').'-'.self::MAIN_LESS_FILE;
 
         parent::init();
 
