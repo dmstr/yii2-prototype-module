@@ -9,6 +9,7 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
+use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -48,7 +49,7 @@ class TwigWidget extends Widget
 
         try {
             $html = $render->render('renderer.twig', $tmpFile, []);
-        } catch (\Twig_Error_Runtime $e) {
+        } catch (\Twig_Error $e) {
             \Yii::$app->session->addFlash('error', $e->getMessage());
             $html = '';
         }
@@ -78,7 +79,7 @@ class TwigWidget extends Widget
     {
         return [
             [
-                'label' => ($this->_model?'Edit':'Create').' '.$this->id.' <span class="label label-info">Twig</span>',
+                'label' => ($this->_model?FA::icon(FA::_EDIT):FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->id.'</b> <span class="label label-warning">Twig</span>',
                 'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute()
             ]
         ];

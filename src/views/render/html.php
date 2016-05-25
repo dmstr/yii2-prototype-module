@@ -1,3 +1,3 @@
 <?= \dmstr\modules\prototype\widgets\HtmlWidget::widget([
-    'id' => 'main'
+    'id' => 'base'
 ]) ?>
