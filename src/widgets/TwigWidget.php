@@ -23,8 +23,8 @@ class TwigWidget extends Widget
 
     public $key = null;
     public $enableFlash = false;
-
     public $registerMenuItems = true;
+    public $renderEmpty = true;
 
     private $_model;
 
@@ -66,7 +66,7 @@ class TwigWidget extends Widget
                 );
             }
 
-            if (!$model) {
+            if (!$model && $this->renderEmpty) {
                 $html = $this->renderEmpty();
             }
         }

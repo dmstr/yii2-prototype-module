@@ -27,6 +27,13 @@ Usage
 
 *TBD*
 
+### Twig example
+
+    {{ use ('hrzg/moxiecode/moxiemanager/widgets') }}
+    
+    {{ browse_button_widget( {"tagName": "a"} ) }}
+
+
 
 Testing
 -------
