@@ -23,7 +23,7 @@ abstract class Twig extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'app_twig';
+        return '{{%twig}}';
     }
 
     /**
