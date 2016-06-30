@@ -25,8 +25,9 @@ class DbAsset extends AssetBundle
     public $sourcePath = '@runtime/settings-asset';
 
     public $depends = [
-        // if a full Bootstrap CSS is compiled, it's recommended to disable the asset in assetManager configuration
-        'yii\bootstrap\BootstrapPluginAsset',
+        'yii\web\YiiAsset',
+        // if a full BootstrapAsset (CSS) is compiled, it's recommended to disable it in assetManager configuration
+        'yii\bootstrap\BootstrapPluginAsset', // (JS)
     ];
 
     public function init()
