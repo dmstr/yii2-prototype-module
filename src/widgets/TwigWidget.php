@@ -38,7 +38,8 @@ class TwigWidget extends Widget
 
     public function run()
     {
-        Url::remember();
+        Url::remember('',$this->generateKey());
+
 
         // create temporary file
         $model = $this->_model;
