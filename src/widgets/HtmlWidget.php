@@ -20,7 +20,7 @@ class HtmlWidget extends Widget
     public $key = null;
     public $enableFlash = false;
     public $enableBackendMenuItem = false;
-
+    public $renderEmpty = true;
 
     public function run()
     {
@@ -44,7 +44,9 @@ class HtmlWidget extends Widget
             }
 
             if (!$model) {
-                $html = $this->renderEmpty();
+                if ($this->renderEmpty) {
+                    $html = $this->renderEmpty();
+                }
             } else {
                 $html = $model->value;
             }
