@@ -17,6 +17,7 @@ class RenderController extends Controller
 
     public function actionHtml()
     {
+        $this->layout = '//main';
         return $this->render('html');
     }
 

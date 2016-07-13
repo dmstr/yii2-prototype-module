@@ -6,10 +6,12 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'dmstr\modules\prototype\controllers';
 
-    public function init()
+    public function beforeAction($action)
     {
-        parent::init();
+        parent::beforeAction($action);
 
-        // custom initialization code goes here
+        \Yii::$app->controller->view->params['breadcrumbs'][] = ['label' => 'Prototype', 'url' => ['/'.$this->id]];
+
+        return true;
     }
 }
