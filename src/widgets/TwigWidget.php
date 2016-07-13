@@ -30,6 +30,7 @@ class TwigWidget extends Widget
 
     public function init()
     {
+        parent::init();
         $this->_model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
         if ($this->registerMenuItems) {
             \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));

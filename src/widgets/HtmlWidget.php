@@ -9,6 +9,8 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
+use rmrevin\yii\fontawesome\FA;
+use yii\base\Event;
 use yii\base\Widget;
 use yii\helpers\Html;
 
@@ -19,12 +21,23 @@ class HtmlWidget extends Widget
 
     public $key = null;
     public $enableFlash = false;
-    public $enableBackendMenuItem = false;
+    public $registerMenuItems = true;
     public $renderEmpty = true;
+
+    private $_model;
+
+    public function init()
+    {
+        parent::init();
+        $this->_model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
+        if ($this->registerMenuItems) {
+            \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
+        }
+    }
 
     public function run()
     {
-        $model = \dmstr\modules\prototype\models\Html::findOne(['key' => $this->generateKey()]);
+        $this->_model = $model = \dmstr\modules\prototype\models\Html::findOne(['key' => $this->generateKey()]);
         $html = '';
 
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
@@ -36,23 +49,26 @@ class HtmlWidget extends Widget
                 );
             }
 
-            if ($this->enableBackendMenuItem) {
-                \Yii::$app->params['backend.menuItems'][] = [
-                    'label' => 'Edit HTML',
-                    'url' => ($model) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute()
-                ];
-            }
-
-            if (!$model) {
-                if ($this->renderEmpty) {
-                    $html = $this->renderEmpty();
-                }
-            } else {
-                $html = $model->value;
+            if (!$model && $this->renderEmpty) {
+                $html = $this->renderEmpty();
             }
         }
 
+        if ($model) {
+            $html = $model->value;
+        }
+
         return $html;
+    }
+
+    public function getMenuItems()
+    {
+        return [
+            [
+                'label' => ($this->_model?FA::icon(FA::_EDIT):FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-danger">HTML</span>',
+                'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute()
+            ]
+        ];
     }
 
     private function generateKey()
@@ -79,7 +95,7 @@ class HtmlWidget extends Widget
 
     private function generateCreateRoute()
     {
-        return ['/prototype/html/create', 'Twig' => ['key' => $this->generateKey()]];
+        return ['/prototype/html/create', 'Html' => ['key' => $this->generateKey()]];
     }
 
     private function generateEditRoute($id)
