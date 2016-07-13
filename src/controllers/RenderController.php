@@ -21,4 +21,16 @@ class RenderController extends Controller
         return $this->render('html');
     }
 
+    public function actionBackendTwig()
+    {
+        $this->layout = '@backend/views/layouts/main';
+        return $this->render('twig');
+    }
+
+    public function actionBackendHtml()
+    {
+        $this->layout = '@backend/views/layouts/main';
+        return $this->render('html');
+    }
+
 }
