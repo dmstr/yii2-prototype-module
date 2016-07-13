@@ -80,7 +80,7 @@ class TwigWidget extends Widget
     {
         return [
             [
-                'label' => ($this->_model?FA::icon(FA::_EDIT):FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->id.'</b> <span class="label label-warning">Twig</span>',
+                'label' => ($this->_model?FA::icon(FA::_EDIT):FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-warning">Twig</span>',
                 'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute()
             ]
         ];
@@ -99,7 +99,7 @@ class TwigWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> '.$this->id.' Twig',
+        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> '.$this->generateKey().' Twig',
             ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 
