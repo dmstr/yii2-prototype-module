@@ -50,9 +50,18 @@ use yii\helpers\Html;
     This module provides routes for rendering dynamic views. Content can be varied by request parameter <code>id</code>.
 </p>
 
+<h3>Frontend</h3>
+
 <ul>
     <li><?= Html::a('/prototype/render/twig', ['/prototype/render/twig']) ?></li>
     <li><?= Html::a('/prototype/render/html', ['/prototype/render/html']) ?></li>
+</ul>
+
+<h3>Backend</h3>
+
+<ul>
+    <li><?= Html::a('/prototype/render/backend-twig', ['/prototype/render/backend-twig']) ?></li>
+    <li><?= Html::a('/prototype/render/backend-html', ['/prototype/render/backend-html']) ?></li>
 </ul>
 
 <hr/>
