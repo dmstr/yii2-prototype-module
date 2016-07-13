@@ -66,6 +66,8 @@ class Less extends LessModel
         $query->andFilterWhere(['like', 'key', $this->key])
             ->andFilterWhere(['like', 'value', $this->value]);
 
+        $query->orderBy('key');
+
         return $dataProvider;
     }
 }
