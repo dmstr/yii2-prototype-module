@@ -1,7 +1,7 @@
 <?php
 
 use dmstr\bootstrap\Tabs;
-use dmstr\helpers\Html;
+use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /**

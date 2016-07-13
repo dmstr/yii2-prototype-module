@@ -38,29 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'New'), ['create'],
                 ['class' => 'btn btn-success']) ?>
         </div>
-
-        <div class="pull-right">
-
-
-            <?=
-            \yii\bootstrap\ButtonDropdown::widget(
-                [
-                    'id' => 'giiant-relations',
-                    'encodeLabel' => false,
-                    'label' => '<span class="glyphicon glyphicon-paperclip"></span> '.Yii::t('app', 'Relations'),
-                    'dropdown' => [
-                        'options' => [
-                            'class' => 'dropdown-menu-right'
-                        ],
-                        'encodeLabels' => false,
-                        'items' => []
-                    ],
-                    'options' => [
-                        'class' => 'btn-default'
-                    ]
-                ]
-            );
-            ?>        </div>
     </div>
 
     <hr />
