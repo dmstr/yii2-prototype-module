@@ -38,7 +38,8 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className()) ?>
+            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(),
+                ['containerOptions' => ['style' => 'height: 500px;']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
