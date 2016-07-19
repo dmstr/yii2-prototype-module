@@ -21,6 +21,8 @@ class TwigWidget extends Widget
     const SETTINGS_SECTION = 'app.html';
     const ACCESS_ROLE = 'Editor';
 
+
+    public $queryParam = 'pageId';
     public $key = null;
     public $enableFlash = false;
     public $registerMenuItems = true;
@@ -92,7 +94,7 @@ class TwigWidget extends Widget
         if ($this->key) {
             return $this->key;
         } else {
-            $key = \Yii::$app->request->getQueryParam('id');
+            $key = \Yii::$app->request->getQueryParam($this->queryParam);
         }
         return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '');
     }
