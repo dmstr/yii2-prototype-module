@@ -20,7 +20,8 @@
     "beowulfenator/yii2-json-editor": "^1.1.2"
   },
   "conflict": {
-    "dmstr/yii2-pages-module": "<0.18.0"
+    "dmstr/yii2-pages-module": "<0.18.0",
+    "yiisoft/yii2-twig": "2.0.5"
   },
   "autoload": {
     "psr-4": {
