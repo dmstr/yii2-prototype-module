@@ -36,25 +36,30 @@ class DbAsset extends AssetBundle
 
         parent::init();
 
-        $sourcePath = \Yii::getAlias($this->sourcePath);
-        @mkdir($sourcePath);
+        if (!$this->sourcePath) {
+            // TODO: this is workaround for empty source path when using bundled assets
+            return;
+        } else {
+            $sourcePath = \Yii::getAlias($this->sourcePath);
+            @mkdir($sourcePath);
 
-        $models = Less::find()->all();
-        $hash = sha1(Json::encode($models));
+            $models = Less::find()->all();
+            $hash = sha1(Json::encode($models));
 
-        if ($hash !== \Yii::$app->cache->get(self::CACHE_ID)) {
-            $lessFiles = FileHelper::findFiles($sourcePath, ['only' => ['*.less']]);
-            foreach ($lessFiles as $file) {
-                unlink($file);
+            if ($hash !== \Yii::$app->cache->get(self::CACHE_ID)) {
+                $lessFiles = FileHelper::findFiles($sourcePath, ['only' => ['*.less']]);
+                foreach ($lessFiles as $file) {
+                    unlink($file);
+                }
+                foreach ($models as $model) {
+                    file_put_contents("$sourcePath/{$model->key}.less", $model->value);
+                }
+
+                $dependency = new FileDependency();
+                $dependency->fileName = __FILE__;
+                \Yii::$app->cache->set(self::CACHE_ID, $hash, 0, $dependency);
+                @touch($sourcePath);
             }
-            foreach ($models as $model) {
-                file_put_contents("$sourcePath/{$model->key}.less", $model->value);
-            }
-
-            $dependency = new FileDependency();
-            $dependency->fileName = __FILE__;
-            \Yii::$app->cache->set(self::CACHE_ID, $hash, 0, $dependency);
-            @touch($sourcePath);
         }
     }
 }
