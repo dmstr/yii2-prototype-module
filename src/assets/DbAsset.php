@@ -21,8 +21,11 @@ class DbAsset extends AssetBundle
     const CACHE_ID = 'app\assets\SettingsAsset';
     const SETTINGS_KEY = 'app.less';
     const MAIN_LESS_FILE = 'main.less';
+    const SETTINGS_SECTION = 'app.assets';
 
     public $sourcePath = '@runtime/settings-asset';
+
+    public $settingsKey = 'registerPrototypeAssetKey';
 
     public $depends = [
         'yii\web\YiiAsset',
@@ -32,7 +35,7 @@ class DbAsset extends AssetBundle
 
     public function init()
     {
-        $this->css[] = \Yii::$app->settings->get('registerPrototypeAssetKey', 'app.assets').'-'.self::MAIN_LESS_FILE;
+        $this->css[] = \Yii::$app->settings->get($this->settingsKey, self::SETTINGS_SECTION).'-'.self::MAIN_LESS_FILE;
 
         parent::init();
 
