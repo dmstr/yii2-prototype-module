@@ -11,6 +11,8 @@ else
 	DOCKER_HOST_IP  ?= 127.0.0.1
 endif
 
+all: setup up
+
 up:
 	$(DOCKER_COMPOSE) up -d
 
