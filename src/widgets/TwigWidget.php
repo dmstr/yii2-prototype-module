@@ -34,7 +34,7 @@ class TwigWidget extends Widget
     {
         parent::init();
         $this->_model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
-        if ($this->registerMenuItems && \Yii::$app->user->can('/prototype/twig', ['route'=>true])) {
+        if ($this->registerMenuItems && \Yii::$app->user->can('prototype_twig', ['route'=>true])) {
             \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
         }
     }
