@@ -27,6 +27,7 @@ class TwigWidget extends Widget
     public $enableFlash = false;
     public $registerMenuItems = true;
     public $renderEmpty = true;
+    public $position = null;
 
     private $_model;
 
@@ -54,7 +55,7 @@ class TwigWidget extends Widget
         try {
             $html = $render->render('renderer.twig', $tmpFile, []);
         } catch (\Twig_Error $e) {
-            \Yii::$app->session->addFlash('error', $e->getMessage());
+            \Yii::$app->session->addFlash('warning', $e->getMessage());
             $html = '';
         }
 
@@ -74,6 +75,8 @@ class TwigWidget extends Widget
                 $html = $this->renderEmpty();
             }
         }
+
+        \Yii::trace('Twig widget rendered', __METHOD__);
 
         return $html;
     }
@@ -96,7 +99,7 @@ class TwigWidget extends Widget
         } else {
             $key = \Yii::$app->request->getQueryParam($this->queryParam);
         }
-        return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '');
+        return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ? '#'.$this->position : '');
     }
 
     private function generateCreateLink()
