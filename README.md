@@ -33,7 +33,9 @@ Usage
     
     {{ browse_button_widget( {"tagName": "a"} ) }}
 
+### Cache trigger time
 
+    \Yii::$app->cache->get('prototype.less.changed_at');
 
 Testing
 -------

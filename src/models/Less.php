@@ -10,4 +10,9 @@ use Yii;
  */
 class Less extends BaseLess
 {
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        \Yii::$app->cache->set('prototype.less.changed_at', time());
+    }
 }
