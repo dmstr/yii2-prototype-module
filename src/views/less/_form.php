@@ -23,8 +23,8 @@ use yii\helpers\Html;
             'fieldConfig' => [
                 'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
                 'horizontalCssClasses' => [
-                    'label' => 'col-sm-2',
-                    'wrapper' => 'col-sm-8',
+                    'label' => 'col-sm-1',
+                    'wrapper' => 'col-sm-11',
                     'error' => '',
                     'hint' => '',
                 ],
@@ -39,7 +39,7 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(), ['mode' => 'less']) ?>
+            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(), ['mode' => 'less', 'containerOptions' => ['style' => 'height: 800px;']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
