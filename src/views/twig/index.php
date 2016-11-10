@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'New'), ['create'],
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'), ['create'],
                 ['class' => 'btn btn-success']) ?>
         </div>
     </div>
@@ -48,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'pager' => [
                 'class' => yii\widgets\LinkPager::className(),
-                'firstPageLabel' => Yii::t('app', 'First'),
-                'lastPageLabel' => Yii::t('app', 'Last')
+                'firstPageLabel' => Yii::t('prototype', 'First'),
+                'lastPageLabel' => Yii::t('prototype', 'Last')
             ],
             'filterModel' => $searchModel,
             'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],

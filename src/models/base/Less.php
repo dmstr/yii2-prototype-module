@@ -53,9 +53,9 @@ abstract class Less extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'key' => Yii::t('app', 'Key'),
-            'value' => Yii::t('app', 'Value'),
+            'id' => Yii::t('prototype', 'ID'),
+            'key' => Yii::t('prototype', 'Key'),
+            'value' => Yii::t('prototype', 'Value'),
         ];
     }
 

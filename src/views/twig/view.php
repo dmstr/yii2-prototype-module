@@ -13,7 +13,7 @@ $copyParams = $model->attributes;
 $this->title = $model->getAliasModel().$model->id;
 $this->params['breadcrumbs'][] = ['label' => $model->getAliasModel(true), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'View');
+$this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
 ?>
 <div class="giiant-crud twig-view">
 
@@ -36,15 +36,15 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
     <div class="clearfix crud-navigation">
         <!-- menu buttons -->
         <div class='pull-left'>
-            <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('app', 'Edit'),
+            <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('prototype', 'Edit'),
                 ['update', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-copy"></span> '.Yii::t('app', 'Copy'),
+            <?= Html::a('<span class="glyphicon glyphicon-copy"></span> '.Yii::t('prototype', 'Copy'),
                 ['create', 'id' => $model->id, 'Twig' => $copyParams], ['class' => 'btn btn-success']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'New'), ['create'],
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'), ['create'],
                 ['class' => 'btn btn-success']) ?>
         </div>
         <div class="pull-right">
-            <?= Html::a('<span class="glyphicon glyphicon-list"></span> '.Yii::t('app', 'Full list'), ['index'],
+            <?= Html::a('<span class="glyphicon glyphicon-list"></span> '.Yii::t('prototype', 'Full list'), ['index'],
                 ['class' => 'btn btn-default']) ?>
         </div>
 
@@ -71,11 +71,11 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'View');
 
     <hr/>
 
-    <?= Html::a('<span class="glyphicon glyphicon-trash"></span> '.Yii::t('app', 'Delete'),
+    <?= Html::a('<span class="glyphicon glyphicon-trash"></span> '.Yii::t('prototype', 'Delete'),
         ['delete', 'id' => $model->id],
         [
             'class' => 'btn btn-danger',
-            'data-confirm' => ''.Yii::t('app', 'Are you sure to delete this item?').'',
+            'data-confirm' => ''.Yii::t('prototype', 'Are you sure to delete this item?').'',
             'data-method' => 'post',
         ]); ?>
     <?php $this->endBlock(); ?>

@@ -7,14 +7,14 @@ use yii\helpers\Html;
  * @var dmstr\modules\prototype\models\Html $model
  */
 
-$this->title = Yii::t('app', 'Create');
+$this->title = Yii::t('prototype', 'Create');
 $this->params['breadcrumbs'][] = ['label' => 'Htmls', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud html-create">
 
     <h1>
-        <?= Yii::t('app', 'Html') ?>
+        <?= Yii::t('prototype', 'Html') ?>
         <small>
             <?= $model->id ?>        </small>
     </h1>
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?= Html::a(
-                Yii::t('app', 'Cancel'),
+                Yii::t('prototype', 'Cancel'),
                 \yii\helpers\Url::previous(),
                 ['class' => 'btn btn-default']
             ) ?>

@@ -43,9 +43,9 @@ abstract class Twig extends \yii\db\ActiveRecord
     public function getAliasModel($plural = false)
     {
         if ($plural) {
-            return Yii::t('app', 'Twigs');
+            return Yii::t('prototype', 'Twigs');
         } else {
-            return Yii::t('app', 'Twig');
+            return Yii::t('prototype', 'Twig');
         }
     }
 
@@ -68,9 +68,9 @@ abstract class Twig extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'key' => Yii::t('app', 'Key'),
-            'value' => Yii::t('app', 'Value'),
+            'id' => Yii::t('prototype', 'ID'),
+            'key' => Yii::t('prototype', 'Key'),
+            'value' => Yii::t('prototype', 'Value'),
         ];
     }
 
@@ -82,9 +82,9 @@ abstract class Twig extends \yii\db\ActiveRecord
         return array_merge(
             parent::attributeHints(),
             [
-                'id' => Yii::t('app', 'ID'),
-                'key' => Yii::t('app', 'Key'),
-                'value' => Yii::t('app', 'Value'),
+                'id' => Yii::t('prototype', 'ID'),
+                'key' => Yii::t('prototype', 'Key'),
+                'value' => Yii::t('prototype', 'Value'),
             ]);
     }
 

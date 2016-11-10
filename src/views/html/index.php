@@ -10,7 +10,7 @@ use yii\helpers\Url;
  * @var dmstr\modules\prototype\models\search\Html $searchModel
  */
 
-$this->title = Yii::t('app', 'Htmls');
+$this->title = Yii::t('prototype', 'Htmls');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ) ?>
 
     <h1>
-        <?= Yii::t('app', 'Htmls') ?>
+        <?= Yii::t('prototype', 'Htmls') ?>
         <small>
             List
         </small>
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?= Html::a(
-                '<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'New'),
+                '<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'),
                 ['create'],
                 ['class' => 'btn btn-success']
             ) ?>
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'id' => 'giiant-relations',
                     'encodeLabel' => false,
-                    'label' => '<span class="glyphicon glyphicon-paperclip"></span> '.Yii::t('app', 'Relations'),
+                    'label' => '<span class="glyphicon glyphicon-paperclip"></span> '.Yii::t('prototype', 'Relations'),
                     'dropdown' => [
                         'options' => [
                             'class' => 'dropdown-menu-right'
@@ -76,8 +76,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'pager' => [
                     'class' => yii\widgets\LinkPager::className(),
-                    'firstPageLabel' => Yii::t('app', 'First'),
-                    'lastPageLabel' => Yii::t('app', 'Last')
+                    'firstPageLabel' => Yii::t('prototype', 'First'),
+                    'lastPageLabel' => Yii::t('prototype', 'Last')
                 ],
                 'filterModel' => $searchModel,
                 'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
