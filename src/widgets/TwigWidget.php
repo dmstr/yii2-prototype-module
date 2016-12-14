@@ -11,16 +11,20 @@ namespace dmstr\modules\prototype\widgets;
 
 use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
+use yii\base\InvalidCallException;
 use yii\base\Widget;
+use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 use yii\twig\ViewRenderer;
+use yii\widgets\Block;
 
 class TwigWidget extends Widget
 {
     const SETTINGS_SECTION = 'app.html';
     const ACCESS_ROLE = 'Editor';
-
+    const TEMP_ALIAS = '@runtime/TwigWidget';
 
     public $queryParam = 'pageId';
     public $key = null;
@@ -34,6 +38,7 @@ class TwigWidget extends Widget
     public function init()
     {
         parent::init();
+        FileHelper::createDirectory(\Yii::getAlias(self::TEMP_ALIAS));
         $this->_model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
         if ($this->registerMenuItems && \Yii::$app->user->can('prototype_twig', ['route'=>true])) {
             \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
@@ -48,14 +53,16 @@ class TwigWidget extends Widget
         // create temporary file
         $model = $this->_model;
         $twigCode = ($model ? $model->value : null);
-        $tmpFile = \Yii::getAlias('@runtime').'/'.md5($twigCode);
-        file_put_contents($tmpFile, $twigCode);
+        $tmpFile = \Yii::getAlias(self::TEMP_ALIAS.'/'.md5($twigCode));
+        if (!file_exists($tmpFile)) {
+            file_put_contents($tmpFile, $twigCode);
+        }
         $render = new ViewRenderer;
 
         try {
             $html = $render->render('renderer.twig', $tmpFile, []);
         } catch (\Twig_Error $e) {
-            \Yii::$app->session->addFlash('warning', $e->getMessage());
+            \Yii::$app->session->addFlash('error', $e->getMessage());
             $html = '';
         }
 
