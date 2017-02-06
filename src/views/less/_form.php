@@ -39,7 +39,7 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(), ['mode' => 'less', 'containerOptions' => ['style' => 'height: 800px;']]) ?>
+            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(), ['mode' => 'less', 'containerOptions' => ['style' => 'height: 50vh']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
@@ -62,7 +62,7 @@ use yii\helpers\Html;
         <?php echo $form->errorSummary($model); ?>
 
         <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> '.
+            '<span class="glyphicon glyphicon-save"></span> '.
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),
@@ -70,6 +70,20 @@ use yii\helpers\Html;
             ]
         );
         ?>
+
+        <?php if (!$model->isNewRecord): ?>
+        <?= Html::submitButton(
+            '<span class="glyphicon glyphicon-saved"></span> '.
+            ($model->isNewRecord ? Yii::t('prototype', 'Apply') : Yii::t('prototype', 'Apply')),
+            [
+                'id' => 'apply-'.$model->formName(),
+                'name' => 'subaction',
+                'value' => 'apply',
+                'class' => 'btn btn-success'
+            ]
+        );
+        ?>
+        <?php endif ?>
 
         <?php ActiveForm::end(); ?>
 

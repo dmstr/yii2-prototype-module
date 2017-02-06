@@ -8,6 +8,7 @@ use dmstr\bootstrap\Tabs;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\search\Less as LessSearch;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -124,17 +125,18 @@ class LessController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load($_POST) && $model->save()) {
-            return $this->redirect(Url::previous());
-        } else {
-            return $this->render(
-                'update',
-                [
-                    'model' => $model,
-                ]
-            );
+            \Yii::$app->session->addFlash('success', 'Record has been updated');
+            if (ArrayHelper::getValue($_POST, 'subaction') != 'apply') {
+                return $this->redirect(Url::previous());
+            }
         }
+        return $this->render(
+            'update',
+            [
+                'model' => $model,
+            ]
+        );
     }
 
     /**
