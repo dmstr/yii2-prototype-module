@@ -1,6 +1,7 @@
-Content prototyping module for Yii 2.0 Framework
-================================================
-Backend UI for static files
+dmstr/yii2-prototype-module
+===========================
+
+Twig, LESS and HTML Content prototyping module for Yii 2.0 Framework
 
 Installation
 ------------
