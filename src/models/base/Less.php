@@ -43,7 +43,7 @@ abstract class Less extends \yii\db\ActiveRecord
             [['key'], 'required'],
             [['value'], 'string'],
             [['key'], 'string', 'max' => 255],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

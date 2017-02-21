@@ -37,20 +37,24 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
         <!-- menu buttons -->
         <div class='pull-left'>
             <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('prototype', 'Edit'),
-                ['update', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+                ['update', 'id' => $model->id],
+                ['class' => 'btn btn-info']) ?>
             <?= Html::a('<span class="glyphicon glyphicon-copy"></span> '.Yii::t('prototype', 'Copy'),
-                ['create', 'id' => $model->id, 'Twig' => $copyParams], ['class' => 'btn btn-success']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'), ['create'],
+                ['create', 'id' => $model->id, 'Twig' => $copyParams],
+                ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'),
+                ['create'],
                 ['class' => 'btn btn-success']) ?>
         </div>
         <div class="pull-right">
-            <?= Html::a('<span class="glyphicon glyphicon-list"></span> '.Yii::t('prototype', 'Full list'), ['index'],
+            <?= Html::a('<span class="glyphicon glyphicon-list"></span> '.Yii::t('prototype', 'Full list'),
+                ['index'],
                 ['class' => 'btn btn-default']) ?>
         </div>
 
     </div>
 
-    <hr />
+    <hr/>
 
     <?php $this->beginBlock('dmstr\modules\prototype\models\Twig'); ?>
 
@@ -64,7 +68,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
                 'attribute' => 'value',
                 'format' => 'raw',
                 'value' => "<pre>{$model->value}</pre>",
-            ]
+            ],
         ],
     ]); ?>
 
@@ -92,7 +96,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
                     'content' => $this->blocks['dmstr\modules\prototype\models\Twig'],
                     'active' => true,
                 ],
-            ]
+            ],
         ]
     );
     ?>

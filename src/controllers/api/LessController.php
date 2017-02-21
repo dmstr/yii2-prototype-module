@@ -32,9 +32,9 @@ class LessController extends \yii\rest\ActiveController
                                     ['route' => true]
                                 );
                             },
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         );
     }

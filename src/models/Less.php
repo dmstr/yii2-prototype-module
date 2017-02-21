@@ -2,9 +2,7 @@
 
 namespace dmstr\modules\prototype\models;
 
-use bedezign\yii2\audit\AuditTrailBehavior;
 use dmstr\modules\prototype\models\base\Less as BaseLess;
-use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -17,7 +15,7 @@ class Less extends BaseLess
         return ArrayHelper::merge(
             parent::behaviors(),
             [
-                'bedezign\yii2\audit\AuditTrailBehavior'
+                'bedezign\yii2\audit\AuditTrailBehavior',
             ]
         );
     }

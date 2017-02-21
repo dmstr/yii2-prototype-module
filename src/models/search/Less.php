@@ -3,7 +3,6 @@
 namespace dmstr\modules\prototype\models\search;
 
 use dmstr\modules\prototype\models\Less as LessModel;
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

@@ -39,7 +39,9 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(), ['mode' => 'less', 'containerOptions' => ['style' => 'height: 50vh']]) ?>
+            <?= $form->field($model, 'value')
+                ->widget(\trntv\aceeditor\AceEditor::className(),
+                    ['mode' => 'less', 'containerOptions' => ['style' => 'height: 50vh']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
@@ -53,7 +55,7 @@ use yii\helpers\Html;
                         'content' => $this->blocks['main'],
                         'active' => true,
                     ],
-                ]
+                ],
             ]
         );
         ?>
@@ -66,23 +68,23 @@ use yii\helpers\Html;
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),
-                'class' => 'btn btn-success'
+                'class' => 'btn btn-success',
             ]
         );
         ?>
 
         <?php if (!$model->isNewRecord): ?>
-        <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-saved"></span> '.
-            ($model->isNewRecord ? Yii::t('prototype', 'Apply') : Yii::t('prototype', 'Apply')),
-            [
-                'id' => 'apply-'.$model->formName(),
-                'name' => 'subaction',
-                'value' => 'apply',
-                'class' => 'btn btn-success'
-            ]
-        );
-        ?>
+            <?= Html::submitButton(
+                '<span class="glyphicon glyphicon-saved"></span> '.
+                ($model->isNewRecord ? Yii::t('prototype', 'Apply') : Yii::t('prototype', 'Apply')),
+                [
+                    'id' => 'apply-'.$model->formName(),
+                    'name' => 'subaction',
+                    'value' => 'apply',
+                    'class' => 'btn btn-success',
+                ]
+            );
+            ?>
         <?php endif ?>
 
         <?php ActiveForm::end(); ?>

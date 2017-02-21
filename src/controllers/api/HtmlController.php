@@ -32,9 +32,9 @@ class HtmlController extends \yii\rest\ActiveController
                                     ['route' => true]
                                 );
                             },
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         );
     }

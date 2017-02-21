@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id' => 'pjax-main',
             'enableReplaceState' => false,
             'linkSelector' => '#pjax-main ul.pagination a, th a',
-            'clientOptions' => ['pjax:success' => 'function(){alert("yo")}']
+            'clientOptions' => ['pjax:success' => 'function(){alert("yo")}'],
         ]
     ) ?>
 
@@ -55,14 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => '<span class="glyphicon glyphicon-paperclip"></span> '.Yii::t('prototype', 'Relations'),
                     'dropdown' => [
                         'options' => [
-                            'class' => 'dropdown-menu-right'
+                            'class' => 'dropdown-menu-right',
                         ],
                         'encodeLabels' => false,
-                        'items' => []
+                        'items' => [],
                     ],
                     'options' => [
-                        'class' => 'btn-default'
-                    ]
+                        'class' => 'btn-default',
+                    ],
                 ]
             );
             ?>        </div>
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'pager' => [
                     'class' => yii\widgets\LinkPager::className(),
                     'firstPageLabel' => Yii::t('prototype', 'First'),
-                    'lastPageLabel' => Yii::t('prototype', 'Last')
+                    'lastPageLabel' => Yii::t('prototype', 'Last'),
                 ],
                 'filterModel' => $searchModel,
                 'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
@@ -92,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             $params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id.'/'.$action : $action;
                             return Url::toRoute($params);
                         },
-                        'contentOptions' => ['nowrap' => 'nowrap']
+                        'contentOptions' => ['nowrap' => 'nowrap'],
                     ],
                     'key',
                 ],

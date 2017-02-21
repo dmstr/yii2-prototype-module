@@ -103,7 +103,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
                     'content' => $this->blocks['dmstr\modules\prototype\models\Html'],
                     'active' => true,
                 ],
-            ]
+            ],
         ]
     );
     ?>

@@ -65,9 +65,10 @@ class HtmlWidget extends Widget
     {
         return [
             [
-                'label' => ($this->_model?FA::icon(FA::_EDIT):FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-danger">HTML</span>',
-                'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute()
-            ]
+                'label' => ($this->_model ? FA::icon(FA::_EDIT) :
+                        FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-danger">HTML</span>',
+                'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute(),
+            ],
         ];
     }
 

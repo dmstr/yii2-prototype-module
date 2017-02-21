@@ -11,14 +11,10 @@ namespace dmstr\modules\prototype\widgets;
 
 use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
-use yii\base\InvalidCallException;
 use yii\base\Widget;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\helpers\VarDumper;
-use yii\twig\ViewRenderer;
-use yii\widgets\Block;
 
 class TwigWidget extends Widget
 {
@@ -40,15 +36,14 @@ class TwigWidget extends Widget
         parent::init();
         FileHelper::createDirectory(\Yii::getAlias(self::TEMP_ALIAS));
         $this->_model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
-        if ($this->registerMenuItems && \Yii::$app->user->can('prototype_twig', ['route'=>true])) {
+        if ($this->registerMenuItems && \Yii::$app->user->can('prototype_twig', ['route' => true])) {
             \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
         }
     }
 
     public function run()
     {
-        Url::remember('',$this->generateKey());
-
+        Url::remember('', $this->generateKey());
 
         // create temporary file
         $model = $this->_model;
@@ -92,9 +87,10 @@ class TwigWidget extends Widget
     {
         return [
             [
-                'label' => ($this->_model?FA::icon(FA::_EDIT):FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-warning">Twig</span>',
-                'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute()
-            ]
+                'label' => ($this->_model ? FA::icon(FA::_EDIT) :
+                        FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-warning">Twig</span>',
+                'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute(),
+            ],
         ];
     }
 
@@ -105,7 +101,8 @@ class TwigWidget extends Widget
         } else {
             $key = \Yii::$app->request->getQueryParam($this->queryParam);
         }
-        return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ? '#'.$this->position : '');
+        return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ?
+            '#'.$this->position : '');
     }
 
     private function generateCreateLink()

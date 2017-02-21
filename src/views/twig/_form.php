@@ -53,7 +53,7 @@ use yii\helpers\Html;
                         'content' => $this->blocks['main'],
                         'active' => true,
                     ],
-                ]
+                ],
             ]
         );
         ?>
@@ -66,7 +66,7 @@ use yii\helpers\Html;
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),
-                'class' => 'btn btn-success'
+                'class' => 'btn btn-success',
             ]
         );
         ?>

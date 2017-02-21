@@ -30,9 +30,9 @@ class TwigController extends \yii\rest\ActiveController
                                 return \Yii::$app->user->can($this->module->id.'_'.$this->id.'_'.$action->id,
                                     ['route' => true]);
                             },
-                        ]
-                    ]
-                ]
+                        ],
+                    ],
+                ],
             ]
         );
     }

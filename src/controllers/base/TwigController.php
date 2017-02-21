@@ -4,13 +4,13 @@
 
 namespace dmstr\modules\prototype\controllers\base;
 
-use dmstr\modules\prototype\models\Twig;
+use dmstr\bootstrap\Tabs;
 use dmstr\modules\prototype\models\query\Twig as TwigSearch;
+use dmstr\modules\prototype\models\Twig;
+use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\HttpException;
-use yii\helpers\Url;
-use yii\filters\AccessControl;
-use dmstr\bootstrap\Tabs;
 
 /**
  * TwigController implements the CRUD actions for Twig model.
@@ -38,9 +38,9 @@ class TwigController extends Controller
                             return \Yii::$app->user->can($this->module->id.'_'.$this->id.'_'.$action->id,
                                 ['route' => true]);
                         },
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -58,10 +58,11 @@ class TwigController extends Controller
         Url::remember();
         \Yii::$app->session['__crudReturnUrl'] = null;
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
-        ]);
+        return $this->render('index',
+            [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
     }
 
     /**
@@ -77,9 +78,10 @@ class TwigController extends Controller
         Url::remember();
         Tabs::rememberActiveState();
 
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->render('view',
+            [
+                'model' => $this->findModel($id),
+            ]);
     }
 
     /**
@@ -96,7 +98,7 @@ class TwigController extends Controller
                 if (Url::previous($model->key)) {
                     return $this->redirect(Url::previous($model->key));
                 } else {
-                    return $this->redirect(['view', 'id'=>$model->id]);
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
             } elseif (!\Yii::$app->request->isPost) {
                 $model->load($_GET);
@@ -124,12 +126,13 @@ class TwigController extends Controller
             if (Url::previous($model->key)) {
                 return $this->redirect(Url::previous($model->key));
             } else {
-                return $this->redirect(['view', 'id'=>$model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render('update',
+                [
+                    'model' => $model,
+                ]);
         }
     }
 

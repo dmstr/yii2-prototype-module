@@ -43,7 +43,7 @@ abstract class Html extends \yii\db\ActiveRecord
             [['key', 'value'], 'required'],
             [['value'], 'string'],
             [['key'], 'string', 'max' => 255],
-            [['key'], 'unique']
+            [['key'], 'unique'],
         ];
     }
 

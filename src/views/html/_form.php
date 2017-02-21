@@ -40,10 +40,11 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(CKEditor::className(), [
-                #'options' => ['height' => '400'],
-                'preset' => 'full'
-            ]) ?>
+            <?= $form->field($model, 'value')->widget(CKEditor::className(),
+                [
+                    #'options' => ['height' => '400'],
+                    'preset' => 'full',
+                ]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
@@ -57,7 +58,7 @@ use yii\helpers\Html;
                         'content' => $this->blocks['main'],
                         'active' => true,
                     ],
-                ]
+                ],
             ]
         );
         ?>
@@ -70,7 +71,7 @@ use yii\helpers\Html;
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),
-                'class' => 'btn btn-success'
+                'class' => 'btn btn-success',
             ]
         );
         ?>

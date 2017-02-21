@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'pjax-main',
         'enableReplaceState' => false,
         'linkSelector' => '#pjax-main ul.pagination a, th a',
-        'clientOptions' => ['pjax:success' => 'function(){alert("yo")}']
+        'clientOptions' => ['pjax:success' => 'function(){alert("yo")}'],
     ]) ?>
 
     <h1>
@@ -35,12 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'), ['create'],
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'),
+                ['create'],
                 ['class' => 'btn btn-success']) ?>
         </div>
     </div>
 
-    <hr />
+    <hr/>
 
     <div class="table-responsive">
         <?= GridView::widget([
@@ -49,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pager' => [
                 'class' => yii\widgets\LinkPager::className(),
                 'firstPageLabel' => Yii::t('prototype', 'First'),
-                'lastPageLabel' => Yii::t('prototype', 'Last')
+                'lastPageLabel' => Yii::t('prototype', 'Last'),
             ],
             'filterModel' => $searchModel,
             'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
@@ -64,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id.'/'.$action : $action;
                         return Url::toRoute($params);
                     },
-                    'contentOptions' => ['nowrap' => 'nowrap']
+                    'contentOptions' => ['nowrap' => 'nowrap'],
                 ],
                 'key',
             ],

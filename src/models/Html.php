@@ -3,7 +3,6 @@
 namespace dmstr\modules\prototype\models;
 
 use dmstr\modules\prototype\models\base\Html as BaseHtml;
-use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -16,7 +15,7 @@ class Html extends BaseHtml
         return ArrayHelper::merge(
             parent::behaviors(),
             [
-                'bedezign\yii2\audit\AuditTrailBehavior'
+                'bedezign\yii2\audit\AuditTrailBehavior',
             ]
         );
     }

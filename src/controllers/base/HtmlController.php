@@ -40,9 +40,9 @@ class HtmlController extends Controller
                                 ['route' => true]
                             );
                         },
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
     }
 

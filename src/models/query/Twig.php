@@ -3,7 +3,6 @@
 namespace dmstr\modules\prototype\models\query;
 
 use dmstr\modules\prototype\models\Twig as TwigModel;
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

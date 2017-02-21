@@ -41,9 +41,9 @@ class LessController extends Controller
                                 ['route' => true]
                             );
                         },
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ];
     }
 
