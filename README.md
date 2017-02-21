@@ -21,6 +21,10 @@ or add
 
 to the require section of your `composer.json` file.
 
+Requirements
+------------
+
+- configured Twig view renderer in application (since 0.5.0-rc6)
 
 Usage
 -----

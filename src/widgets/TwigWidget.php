@@ -53,14 +53,13 @@ class TwigWidget extends Widget
         // create temporary file
         $model = $this->_model;
         $twigCode = ($model ? $model->value : null);
-        $tmpFile = \Yii::getAlias(self::TEMP_ALIAS.'/'.md5($twigCode));
+        $tmpFile = \Yii::getAlias(self::TEMP_ALIAS.'/'.md5($twigCode)).'.twig';
         if (!file_exists($tmpFile)) {
             file_put_contents($tmpFile, $twigCode);
         }
-        $render = new ViewRenderer;
 
         try {
-            $html = $render->render('renderer.twig', $tmpFile, []);
+            $html = \Yii::$app->view->renderFile($tmpFile, []);
         } catch (\Twig_Error $e) {
             \Yii::$app->session->addFlash('error', $e->getMessage());
             $html = '';
