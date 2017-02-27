@@ -29,6 +29,8 @@ class TwigWidget extends Widget
     public $renderEmpty = true;
     public $position = null;
 
+    public $params = [];
+
     private $_model;
 
     public function init()
@@ -54,7 +56,7 @@ class TwigWidget extends Widget
         }
 
         try {
-            $html = \Yii::$app->view->renderFile($tmpFile, []);
+            $html = \Yii::$app->view->renderFile($tmpFile, $this->params);
         } catch (\Twig_Error $e) {
             \Yii::$app->session->addFlash('error', $e->getMessage());
             $html = '';
