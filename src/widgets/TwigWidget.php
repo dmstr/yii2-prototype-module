@@ -19,7 +19,7 @@ use yii\helpers\Url;
 class TwigWidget extends Widget
 {
     const SETTINGS_SECTION = 'app.html';
-    const ACCESS_ROLE = 'Editor';
+    const ACCESS_ROLE = 'prototype_twig';
     const TEMP_ALIAS = '@runtime/TwigWidget';
 
     public $queryParam = 'pageId';
