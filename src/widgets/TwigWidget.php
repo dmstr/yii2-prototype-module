@@ -9,6 +9,7 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
+use dmstr\db\traits\ActiveRecordAccessTrait;
 use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
 use yii\base\Widget;
@@ -24,6 +25,7 @@ class TwigWidget extends Widget
 
     public $queryParam = 'pageId';
     public $key = null;
+    public $localized = true;
     public $enableFlash = false;
     public $registerMenuItems = true;
     public $renderEmpty = true;
@@ -103,7 +105,8 @@ class TwigWidget extends Widget
         } else {
             $key = \Yii::$app->request->getQueryParam($this->queryParam);
         }
-        return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ?
+        $language = ($this->localized) ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
+        return $language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ?
             '#'.$this->position : '');
     }
 
