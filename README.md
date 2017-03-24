@@ -1,4 +1,4 @@
-dmstr/yii2-prototype-module
+Yii2 Prototype Module
 ===========================
 
 [![Latest Stable Version](https://poser.pugx.org/dmstr/yii2-prototype-module/v/stable.svg)](https://packagist.org/packages/dmstr/yii2-prototype-module) 
