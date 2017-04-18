@@ -58,11 +58,11 @@ class TwigWidget extends Widget
         }
 
         try {
-            // TODO: workaround for broken context (runtime/TwigWidget) when having an error
-            $view = clone (\Yii::$app->view);
-            $html = $view->renderFile($tmpFile, $this->params);
-            unset($view);
+            // remember context before switching to runtime/TwigWidget. reset when on error
+            $context = \Yii::$app->view->context;
+            $html = \Yii::$app->view->renderFile($tmpFile, $this->params);
         } catch (\Twig_Error $e) {
+            \Yii::$app->view->context = $context;
             $msg = "{$e->getMessage()} #{$model->id} Line {$e->getLine()}";
             \Yii::$app->session->addFlash('error', $msg);
             \Yii::error($msg, __METHOD__);
