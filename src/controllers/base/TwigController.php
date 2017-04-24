@@ -95,11 +95,7 @@ class TwigController extends Controller
 
         try {
             if ($model->load($_POST) && $model->save()) {
-                if (Url::previous($model->key)) {
-                    return $this->redirect(Url::previous($model->key));
-                } else {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
+                return $this->redirect(['view', 'id' => $model->id]);
             } elseif (!\Yii::$app->request->isPost) {
                 $model->load($_GET);
             }
@@ -123,11 +119,7 @@ class TwigController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load($_POST) && $model->save()) {
-            if (Url::previous($model->key)) {
-                return $this->redirect(Url::previous($model->key));
-            } else {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update',
                 [
