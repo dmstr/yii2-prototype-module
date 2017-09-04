@@ -52,14 +52,15 @@ class TwigWidget extends Widget
         // create temporary file
         $model = $this->_model;
         $twigCode = ($model ? $model->value : null);
-        $tmpFile = \Yii::getAlias(self::TEMP_ALIAS.'/'.md5($twigCode)).'.twig';
-        if (!file_exists($tmpFile)) {
-            file_put_contents($tmpFile, $twigCode);
+        $tmpFilePath = \Yii::getAlias(self::TEMP_ALIAS.'/');
+        $tmpFileName = md5($twigCode).'.twig';
+        if (!file_exists($tmpFilePath.$tmpFileName)) {
+            file_put_contents($tmpFilePath.$tmpFileName, $twigCode);
         }
 
         $html = '';
         try {
-            $html = \Yii::$app->getModule($this->moduleId)->view->renderFile($tmpFile, $this->params);
+            $html = \Yii::$app->getModule($this->moduleId)->view->renderFile($tmpFilePath.$tmpFileName, $this->params);
         } catch (\Twig_Error $e) {
             $msg = "Twig #{$this->_model->id} {$e->getMessage()} Line {$e->getLine()}";
             \Yii::$app->session->addFlash('error', $msg);
@@ -112,7 +113,7 @@ class TwigWidget extends Widget
         }
         $language = ($this->localized) ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
         return $language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ?
-            '#'.$this->position : '');
+                '#'.$this->position : '');
     }
 
     private function generateCreateLink()
