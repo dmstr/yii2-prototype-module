@@ -97,7 +97,7 @@ class TwigWidget extends Widget
                         FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-warning">Twig</span>',
                 'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute(),
                 'linkOptions' => [
-                    'target'=>\Yii::$app->params['backend.iframe.name']
+                    'target'=> \Yii::$app->params['backend.iframe.name'] ?? '_self'
                 ]
             ],
         ];
