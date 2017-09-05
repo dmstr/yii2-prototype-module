@@ -23,6 +23,7 @@ class TwigWidget extends Widget
     const ACCESS_ROLE = 'prototype_twig';
     const TEMP_ALIAS = '@runtime/TwigWidget';
 
+    public $moduleId = 'prototype';
     public $queryParam = 'pageId';
     public $key = null;
     public $localized = true;
@@ -30,7 +31,6 @@ class TwigWidget extends Widget
     public $registerMenuItems = true;
     public $renderEmpty = true;
     public $position = null;
-
     public $params = [];
 
     private $_model;
@@ -52,21 +52,19 @@ class TwigWidget extends Widget
         // create temporary file
         $model = $this->_model;
         $twigCode = ($model ? $model->value : null);
-        $tmpFile = \Yii::getAlias(self::TEMP_ALIAS.'/'.md5($twigCode)).'.twig';
-        if (!file_exists($tmpFile)) {
-            file_put_contents($tmpFile, $twigCode);
+        $tmpFilePath = \Yii::getAlias(self::TEMP_ALIAS.'/');
+        $tmpFileName = md5($twigCode).'.twig';
+        if (!file_exists($tmpFilePath.$tmpFileName)) {
+            file_put_contents($tmpFilePath.$tmpFileName, $twigCode);
         }
 
+        $html = '';
         try {
-            // remember context before switching to runtime/TwigWidget. reset when on error
-            $context = \Yii::$app->view->context;
-            $html = \Yii::$app->view->renderFile($tmpFile, $this->params);
+            $html = \Yii::$app->getModule($this->moduleId)->view->renderFile($tmpFilePath.$tmpFileName, $this->params);
         } catch (\Twig_Error $e) {
-            \Yii::$app->view->context = $context;
-            $msg = "{$e->getMessage()} #{$model->id} Line {$e->getLine()}";
+            $msg = "Twig #{$this->_model->id} {$e->getMessage()} Line {$e->getLine()}";
             \Yii::$app->session->addFlash('error', $msg);
             \Yii::error($msg, __METHOD__);
-            $html = '';
         }
 
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
@@ -100,7 +98,7 @@ class TwigWidget extends Widget
                         FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-warning">Twig</span>',
                 'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute(),
                 'linkOptions' => [
-                    'target'=>\Yii::$app->params['backend.iframe.name']
+                    'target'=> \Yii::$app->params['backend.iframe.name'] ?? '_self'
                 ]
             ],
         ];
@@ -115,7 +113,7 @@ class TwigWidget extends Widget
         }
         $language = ($this->localized) ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
         return $language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ?
-            '#'.$this->position : '');
+                '#'.$this->position : '');
     }
 
     private function generateCreateLink()
