@@ -44,12 +44,11 @@ class DbAsset extends AssetBundle
             return;
         } else {
             $sourcePath = \Yii::getAlias($this->sourcePath);
-            @mkdir($sourcePath);
 
             $models = Less::find()->all();
             $hash = sha1(Json::encode($models));
-
-            if ($hash !== \Yii::$app->cache->get(self::CACHE_ID)) {
+            if (!is_dir($sourcePath) || ($hash !== \Yii::$app->cache->get(self::CACHE_ID))) {
+                FileHelper::createDirectory($sourcePath);
                 $lessFiles = FileHelper::findFiles($sourcePath, ['only' => ['*.less']]);
                 foreach ($lessFiles as $file) {
                     unlink($file);
