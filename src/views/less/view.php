@@ -72,7 +72,11 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
             'attributes' => [
                 'id',
                 'key',
-                'value:ntext',
+                [
+                    'attribute' => 'Code',
+                    'format'    => 'html',
+                    'value'     => '<pre>' . Html::encode($model->value) . '</pre>'
+                ],
             ],
         ]
     ); ?>
