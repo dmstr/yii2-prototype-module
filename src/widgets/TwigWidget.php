@@ -104,16 +104,22 @@ class TwigWidget extends Widget
         ];
     }
 
+    /**
+     * Generates a key based on the current route/queryParam
+     * @return null|string
+     */
     private function generateKey()
     {
+        $key = null;
         if ($this->key) {
             return $this->key;
-        } else {
-            $key = \Yii::$app->request->getQueryParam($this->queryParam);
+        } elseif ($this->queryParam) {
+            $key = \Yii::$app->controller->actionParams[$this->queryParam];
         }
         $language = ($this->localized) ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
-        return $language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').($this->position ?
-                '#'.$this->position : '');
+
+        return $language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').
+            ($this->position ? '#'.$this->position : '');
     }
 
     private function generateCreateLink()
