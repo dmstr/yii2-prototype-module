@@ -113,7 +113,7 @@ class TwigWidget extends Widget
         $key = null;
         if ($this->key) {
             return $this->key;
-        } elseif ($this->queryParam) {
+        } elseif (isset(\Yii::$app->controller->actionParams[$this->queryParam])) {
             $key = \Yii::$app->controller->actionParams[$this->queryParam];
         }
         $language = ($this->localized) ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
