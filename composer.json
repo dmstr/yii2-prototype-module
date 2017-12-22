@@ -20,7 +20,8 @@
     "2amigos/yii2-ckeditor-widget": "^2.0.2",
     "beowulfenator/yii2-json-editor": "^1.1.2",
     "bedezign/yii2-audit": "^1.0",
-    "trntv/yii2-aceeditor": "^2.0.2"
+    "trntv/yii2-aceeditor": "^2.0.2",
+    "dmstr/yii2-bootstrap": "~0.2"
   },
   "conflict": {
     "dmstr/yii2-pages-module": "<0.18.0",

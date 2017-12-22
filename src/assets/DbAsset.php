@@ -60,6 +60,8 @@ class DbAsset extends AssetBundle
                 $dependency = new FileDependency();
                 $dependency->fileName = __FILE__;
                 \Yii::$app->cache->set(self::CACHE_ID, $hash, 0, $dependency);
+
+                // force republishing of asset files by Yii Framework
                 @touch($sourcePath);
             }
         }
