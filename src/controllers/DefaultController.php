@@ -7,8 +7,6 @@ use yii\web\Controller;
 
 class DefaultController extends Controller
 {
-    use AccessBehaviorTrait;
-
     public function actionIndex()
     {
         return $this->render('index');

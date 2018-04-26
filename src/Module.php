@@ -2,21 +2,22 @@
 
 namespace dmstr\modules\prototype;
 
+use dmstr\web\traits\AccessBehaviorTrait;
 use yii\web\View;
 
 class Module extends \yii\base\Module
 {
+    use AccessBehaviorTrait;
+
     public $controllerNamespace = 'dmstr\modules\prototype\controllers';
 
     private $_view = null;
 
     public function beforeAction($action)
     {
-        parent::beforeAction($action);
-
         \Yii::$app->controller->view->params['breadcrumbs'][] = ['label' => 'Prototype', 'url' => ['/'.$this->id]];
 
-        return true;
+        return parent::beforeAction($action);
     }
 
     /**
