@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace dmstr\modules\prototype\commands;
+namespace dmstr\modules\prototype\commands\actions;
 
 use yii\base\Action;
 use yii\console\ExitCode;

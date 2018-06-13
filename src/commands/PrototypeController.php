@@ -42,17 +42,17 @@ class PrototypeController extends Controller
     {
         $actions = parent::actions();
         $actions['export-html'] = [
-            'class' => 'dmstr\modules\prototype\commands\ExportAction',
+            'class' => 'dmstr\modules\prototype\commands\actions\ExportAction',
             'modelClass' => 'dmstr\modules\prototype\models\Html',
             'extention' => 'html',
         ];
         $actions['export-less'] = [
-            'class' => 'dmstr\modules\prototype\commands\ExportAction',
+            'class' => 'dmstr\modules\prototype\commands\actions\ExportAction',
             'modelClass' => 'dmstr\modules\prototype\models\Less',
             'extention' => 'less',
         ];
         $actions['export-twig'] = [
-            'class' => 'dmstr\modules\prototype\commands\ExportAction',
+            'class' => 'dmstr\modules\prototype\commands\actions\ExportAction',
             'modelClass' => 'dmstr\modules\prototype\models\Twig',
             'extention' => 'twig',
         ];
