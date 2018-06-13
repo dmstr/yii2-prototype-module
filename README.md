@@ -35,7 +35,28 @@ Requirements
 Usage
 -----
 
-*TBD*
+####Prototype command:
+
+#####Configuration
+
+In your console config add:
+
+```
+'controllerMap' => [
+    'prototype' => 'dmstr\modules\prototype\commands'
+]
+```
+
+##### Commands:
+
+- prototype/export-html
+- prototype/export-less
+- prototype/export-twig
+
+Each of these commands exports either html, less or twig as a file on a given file path (via `--exportPath` flag) default is `@runtime/exports`
+
+Note: To escape file names you can use the `--escapeFileNames` flag
+
 
 ### Twig example
 
