@@ -83,12 +83,13 @@ class PrototypeController extends Controller
     }
 
     /**
+     * @param $mainLessFile string
      * @return int
      * @throws \yii\base\ErrorException
      *
      * Export asset bundle with defined style sheets applied
      */
-    public function actionExportAssetBundle()
+    public function actionExportAssetBundle($mainLessFile = 'default-main.less')
     {
 
         $exportPath = $this->getExportPath() . DIRECTORY_SEPARATOR;
@@ -98,14 +99,16 @@ class PrototypeController extends Controller
         $this->stdout("\n");
         $exportedFiles = FileHelper::findFiles($publishPath);
 
-        $namespace = $this->prompt('Choose a namespace for the asset bundle:',['default' => 'app\assets']);
+        $namespace = $this->prompt('Choose a namespace for the asset bundle:', ['default' => 'app\assets']);
         $this->stdout("\n");
 
         $lessFiles = [];
+
         foreach ($exportedFiles as $exportedFile) {
             $exportedFileName = basename($exportedFile);
 
-            if ($this->confirm("Add file '" . $exportedFileName . "' to asset bundle?")) {
+            if ($this->confirm("Add file '" . $exportedFileName . "' to asset bundle?",
+                $mainLessFile === $exportedFileName)) {
                 $lessFiles[] = $exportedFileName;
             }
         }
@@ -113,7 +116,8 @@ class PrototypeController extends Controller
         if (!empty($lessFiles)) {
 
             if (file_put_contents($exportPath . 'AssetBundle.php',
-                    $this->renderFile(__DIR__ . '/templates/AssetBundle.php', ['lessFiles' => $lessFiles,'namespace' => $namespace])) === false) {
+                    $this->renderFile(__DIR__ . '/templates/AssetBundle.php',
+                        ['lessFiles' => $lessFiles, 'namespace' => $namespace])) === false) {
                 $this->stdout("Error while writing file '{$exportPath}'\n", Console::FG_GREEN);
                 return ExitCode::IOERR;
             }
@@ -123,7 +127,10 @@ class PrototypeController extends Controller
         $this->stdout("\nYou have to add at least 1 file to the asset bundle.\n", Console::FG_YELLOW);
         FileHelper::removeDirectory($exportPath);
         return ExitCode::OK;
+    }
 
-
+    public function confirm($message, $default = false)
+    {
+        return $this->interactive ? Console::confirm($message, $default) : $default;
     }
 }
