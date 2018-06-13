@@ -57,6 +57,14 @@ Each of these commands exports either html, less or twig as a file on a given fi
 
 Note: To escape file names you can use the `--escapeFileNames` flag
 
+- prototype/export-asset-bundle
+
+Exports less files and an asset bunde to a given export path (via `--exportPath` flag) default is `@runtime/exports`
+
+Note: You will be prompted to choose a namespace and to select less files which should be added to the asset bundle
+
+--> if you run this command on non interactive mode (--interactive=0), all less files will be added to the asset bundle and the namespace will be set to `app\assets`
+
 
 ### Twig example
 
