@@ -9,6 +9,8 @@
 
 namespace dmstr\modules\prototype\commands;
 
+use yii\console\Controller;
+
 
 /**
  * Prototype command
