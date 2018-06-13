@@ -51,7 +51,7 @@ class ExportAction extends Action
         } catch (\Exception $e) {
             $exportPath = $this->controller->exportPath;
         }
-        return rtrim($exportPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $this->extention;
+        return rtrim($exportPath, DIRECTORY_SEPARATOR);
     }
 
     /**
