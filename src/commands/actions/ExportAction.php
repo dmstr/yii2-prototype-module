@@ -24,6 +24,7 @@ use yii\helpers\FileHelper;
  *
  * @property ActiveRecord modelClass
  * @property  string extention
+ * @property  PrototypeController controller
  */
 class ExportAction extends Action
 {
@@ -35,24 +36,6 @@ class ExportAction extends Action
         'dmstr\modules\prototype\models\Less',
         'dmstr\modules\prototype\models\Twig'
     ];
-
-
-    /**
-     * @return bool|string
-     *
-     * Returns path alias if alias defined otherwise return plain path
-     * Removes slash from end
-     * Add sub dir with name of extention
-     */
-    public function getExportPath()
-    {
-        try {
-           $exportPath = \Yii::getAlias($this->controller->exportPath);
-        } catch (\Exception $e) {
-            $exportPath = $this->controller->exportPath;
-        }
-        return rtrim($exportPath, DIRECTORY_SEPARATOR);
-    }
 
     /**
      * @return int ExitCode
@@ -73,7 +56,7 @@ class ExportAction extends Action
             return ExitCode::IOERR;
         }
 
-        $exportPath = $this->getExportPath();
+        $exportPath = $this->controller->getExportPath();
 
         try {
             if (!FileHelper::createDirectory($exportPath)) {
