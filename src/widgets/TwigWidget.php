@@ -125,7 +125,7 @@ class TwigWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> '.$this->generateKey().' Twig',
+        return Html::a( FA::icon(FA::_PLUS_SQUARE) . ' '.$this->generateKey().' Twig',
             ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 

@@ -85,7 +85,7 @@ class HtmlWidget extends Widget
     private function generateCreateLink()
     {
 
-        return Html::a('<i class="glyphicon glyphicon-plus-sign"></i> HTML',
+        return Html::a(FA::icon(FA::_PLUS_SQUARE) . ' HTML',
             ['/prototype/html/create', 'Html' => ['key' => $this->generateKey()]]);
     }
 
