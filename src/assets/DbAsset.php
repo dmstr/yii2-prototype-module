@@ -24,6 +24,7 @@ class DbAsset extends AssetBundle
     const SETTINGS_SECTION = 'app.assets';
 
     public $sourcePath = '@runtime/settings-asset';
+    public $tmpPath = '@runtime/settings-asset-tmp';
 
     public $settingsKey = 'registerPrototypeAssetKey';
 
@@ -48,13 +49,11 @@ class DbAsset extends AssetBundle
             $models = Less::find()->all();
             $hash = sha1(Json::encode($models));
             if (!is_dir($sourcePath) || ($hash !== \Yii::$app->cache->get(self::CACHE_ID))) {
-                FileHelper::createDirectory($sourcePath);
-                $lessFiles = FileHelper::findFiles($sourcePath, ['only' => ['*.less']]);
-                foreach ($lessFiles as $file) {
-                    unlink($file);
-                }
+                $tmpPath = uniqid($sourcePath.'-');
+                FileHelper::createDirectory($tmpPath);
+
                 foreach ($models as $model) {
-                    file_put_contents("$sourcePath/{$model->key}.less", $model->value);
+                    file_put_contents("$tmpPath/{$model->key}.less", $model->value);
                 }
 
                 $dependency = new FileDependency();
@@ -62,7 +61,8 @@ class DbAsset extends AssetBundle
                 \Yii::$app->cache->set(self::CACHE_ID, $hash, 0, $dependency);
 
                 // force republishing of asset files by Yii Framework
-                @touch($sourcePath);
+                FileHelper::removeDirectory($sourcePath);
+                rename($tmpPath, $sourcePath);
             }
         }
     }
