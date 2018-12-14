@@ -47,8 +47,22 @@ class DbAsset extends AssetBundle
             $sourcePath = \Yii::getAlias($this->sourcePath);
 
             $models = Less::find()->all();
+
             $hash = sha1(Json::encode($models));
             if (!is_dir($sourcePath) || ($hash !== \Yii::$app->cache->get(self::CACHE_ID))) {
+
+                $errors = false;
+                foreach ($models as $model) {
+                    $model->validateLess();
+                    if ($model->hasErrors()) {
+                        \Yii::error($model->errors, __METHOD__);
+                        $errors = true;
+                    }
+                }
+                if ($errors) {
+                    //return;
+                }
+
                 $tmpPath = uniqid($sourcePath.'-');
                 FileHelper::createDirectory($tmpPath);
 
