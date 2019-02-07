@@ -7,9 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace dmstr\modules\prototype\widgets;
 
 use dmstr\db\traits\ActiveRecordAccessTrait;
+use dmstr\modules\prototype\models\Twig;
 use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
 use yii\base\Widget;
@@ -17,6 +19,16 @@ use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+/**
+ *
+ * @property array $menuItems
+ * @property Twig $_model
+ * @property string $moduleId
+ * @property array $params
+ * @property string|null $key
+ * @property bool $localized
+ * @property string $queryParam
+ */
 class TwigWidget extends Widget
 {
     const SETTINGS_SECTION = 'app.html';
@@ -39,7 +51,7 @@ class TwigWidget extends Widget
     {
         parent::init();
         FileHelper::createDirectory(\Yii::getAlias(self::TEMP_ALIAS));
-        $this->_model = \dmstr\modules\prototype\models\Twig::findOne(['key' => $this->generateKey()]);
+        $this->_model = Twig::findOne(['key' => $this->generateKey()]);
         if ($this->registerMenuItems && \Yii::$app->user->can('prototype_twig', ['route' => true])) {
             \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
         }
@@ -52,15 +64,15 @@ class TwigWidget extends Widget
         // create temporary file
         $model = $this->_model;
         $twigCode = ($model ? $model->value : null);
-        $tmpFilePath = \Yii::getAlias(self::TEMP_ALIAS.'/');
-        $tmpFileName = md5($twigCode).'.twig';
-        if (!file_exists($tmpFilePath.$tmpFileName)) {
-            file_put_contents($tmpFilePath.$tmpFileName, $twigCode);
+        $tmpFilePath = \Yii::getAlias(self::TEMP_ALIAS . '/');
+        $tmpFileName = md5($twigCode) . '.twig';
+        if (!file_exists($tmpFilePath . $tmpFileName)) {
+            file_put_contents($tmpFilePath . $tmpFileName, $twigCode);
         }
 
         $html = '';
         try {
-            $html = \Yii::$app->getModule($this->moduleId)->view->renderFile($tmpFilePath.$tmpFileName, $this->params);
+            $html = \Yii::$app->getModule($this->moduleId)->view->renderFile($tmpFilePath . $tmpFileName, $this->params);
         } catch (\Twig_Error $e) {
             $msg = "Twig #{$this->_model->id} {$e->getMessage()} Line {$e->getLine()}";
             \Yii::$app->session->addFlash('error', $msg);
@@ -70,11 +82,11 @@ class TwigWidget extends Widget
         if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
 
             $link = Html::a('prototype module',
-                ($model) ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
+                $model ? $this->generateEditRoute($model->id) : $this->generateCreateRoute());
 
             if ($this->enableFlash) {
                 \Yii::$app->session->addFlash(
-                    ($html) ? 'success' : 'info',
+                    $html ? 'success' : 'info',
                     "Edit contents in {$link}, key: <code>{$this->generateKey()}</code>"
                 );
             }
@@ -95,10 +107,10 @@ class TwigWidget extends Widget
         return [
             [
                 'label' => ($this->_model ? FA::icon(FA::_EDIT) :
-                        FA::icon(FA::_PLUS_SQUARE)).' <b>'.$this->generateKey().'</b> <span class="label label-warning">Twig</span>',
-                'url' => ($this->_model) ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute(),
+                        FA::icon(FA::_PLUS_SQUARE)) . ' <b>' . $this->generateKey() . '</b> <span class="label label-warning">Twig</span>',
+                'url' => $this->_model ? $this->generateEditRoute($this->_model->id) : $this->generateCreateRoute(),
                 'linkOptions' => [
-                    'target'=> \Yii::$app->params['backend.iframe.name'] ?? '_self'
+                    'target' => \Yii::$app->params['backend.iframe.name'] ?? '_self'
                 ]
             ],
         ];
@@ -113,35 +125,37 @@ class TwigWidget extends Widget
         $key = null;
         if ($this->key) {
             return $this->key;
-        } elseif (isset(\Yii::$app->controller->actionParams[$this->queryParam])) {
+        }
+
+        if (isset(\Yii::$app->controller->actionParams[$this->queryParam])) {
             $key = \Yii::$app->controller->actionParams[$this->queryParam];
         }
-        $language = ($this->localized) ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
+        $language = $this->localized ? \Yii::$app->language : ActiveRecordAccessTrait::$_all;
 
-        return $language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '').
-            ($this->position ? '#'.$this->position : '');
+        return $language . '/' . \Yii::$app->controller->route . ($key ? '/' . $key : '') .
+            ($this->position ? '#' . $this->position : '');
     }
 
     private function generateCreateLink()
     {
 
-        return Html::a( FA::icon(FA::_PLUS_SQUARE) . ' '.$this->generateKey().' Twig',
-            ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
+        return Html::a(FA::icon(FA::_PLUS_SQUARE) . ' ' . $this->generateKey() . ' Twig',
+            ['/' . $this->moduleId . '/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 
     private function generateCreateRoute()
     {
-        return ['/prototype/twig/create', 'Twig' => ['key' => $this->generateKey()]];
+        return ['/' . $this->moduleId . '/twig/create', 'Twig' => ['key' => $this->generateKey()]];
     }
 
     private function generateEditRoute($id)
     {
-        return ['/prototype/twig/update', 'id' => $id];
+        return ['/' . $this->moduleId . '/twig/update', 'id' => $id];
     }
 
     private function renderEmpty()
     {
-        return '<div class="alert alert-info">'.$this->generateCreateLink().'</div>';
+        return '<div class="alert alert-info">' . $this->generateCreateLink() . '</div>';
     }
 
 }

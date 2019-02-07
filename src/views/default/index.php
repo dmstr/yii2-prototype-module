@@ -13,31 +13,31 @@ use yii\helpers\Html;
 
 <div class="row">
     <div class="col-sm-4">
-        <?= \insolita\wgadminlte\SmallBox::widget(
+        <?= SmallBox::widget(
             [
                 'head' => 'Less',
                 'type' => SmallBox::TYPE_LBLUE,
-                'icon' => 'fa fa-'.FA::_PENCIL_SQUARE,
+                'icon' => 'fa fa-' . FA::_PENCIL_SQUARE,
                 'footer' => 'Themes',
                 'footer_link' => ['/prototype/less'],
             ]) ?>
     </div>
     <div class="col-sm-4">
-        <?= \insolita\wgadminlte\SmallBox::widget(
+        <?= SmallBox::widget(
             [
                 'head' => 'Twig',
                 'type' => SmallBox::TYPE_ORANGE,
-                'icon' => 'fa fa-'.FA::_STICKY_NOTE,
+                'icon' => 'fa fa-' . FA::_STICKY_NOTE,
                 'footer' => 'Layouts',
                 'footer_link' => ['/prototype/twig'],
             ]) ?>
     </div>
     <div class="col-sm-4">
-        <?= \insolita\wgadminlte\SmallBox::widget(
+        <?= SmallBox::widget(
             [
                 'head' => 'HTML',
                 'type' => SmallBox::TYPE_MAR,
-                'icon' => 'fa fa-'.FA::_STICKY_NOTE_O,
+                'icon' => 'fa fa-' . FA::_STICKY_NOTE_O,
                 'footer' => 'Snippets',
                 'footer_link' => ['/prototype/html'],
             ]) ?>

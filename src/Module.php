@@ -8,9 +8,7 @@ use yii\web\View;
 class Module extends \yii\base\Module
 {
     use AccessBehaviorTrait;
-
-    public $controllerNamespace = 'dmstr\modules\prototype\controllers';
-
+    
     private $_view = null;
 
     public function beforeAction($action)
@@ -27,7 +25,7 @@ class Module extends \yii\base\Module
      */
     public function getView(){
         if ($this->_view === null) {
-            $this->_view  = clone(\Yii::$app->getComponents(false)['view']);
+            $this->_view  = clone \Yii::$app->getComponents(false)['view'];
         }
         return $this->_view;
     }

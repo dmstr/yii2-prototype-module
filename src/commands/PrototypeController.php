@@ -9,6 +9,10 @@
 
 namespace dmstr\modules\prototype\commands;
 
+use dmstr\modules\prototype\commands\actions\ExportAction;
+use dmstr\modules\prototype\models\Html;
+use dmstr\modules\prototype\models\Less;
+use dmstr\modules\prototype\models\Twig;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
@@ -48,18 +52,18 @@ class PrototypeController extends Controller
     {
         $actions = parent::actions();
         $actions['export-html'] = [
-            'class' => 'dmstr\modules\prototype\commands\actions\ExportAction',
-            'modelClass' => 'dmstr\modules\prototype\models\Html',
+            'class' => ExportAction::class,
+            'modelClass' => Html::class,
             'extention' => 'html',
         ];
         $actions['export-less'] = [
-            'class' => 'dmstr\modules\prototype\commands\actions\ExportAction',
-            'modelClass' => 'dmstr\modules\prototype\models\Less',
+            'class' => ExportAction::class,
+            'modelClass' => Less::class,
             'extention' => 'less',
         ];
         $actions['export-twig'] = [
-            'class' => 'dmstr\modules\prototype\commands\actions\ExportAction',
-            'modelClass' => 'dmstr\modules\prototype\models\Twig',
+            'class' => ExportAction::class,
+            'modelClass' => Twig::class,
             'extention' => 'twig',
         ];
         return $actions;

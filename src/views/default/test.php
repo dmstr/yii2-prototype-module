@@ -1,14 +1,17 @@
 <?php
 
+use dmstr\modules\prototype\assets\DbAsset;
+use dmstr\modules\prototype\widgets\TwigWidget;
+
 ?>
 
 <h2>Test</h2>
 
-<?php \dmstr\modules\prototype\assets\DbAsset::register($this) ?>
+<?php DbAsset::register($this) ?>
 
 
 
-<?= \dmstr\modules\prototype\widgets\TwigWidget::widget([
+<?= TwigWidget::widget([
     'id' => 'test',
     'enableFlash' => true,
 ]) ?>
