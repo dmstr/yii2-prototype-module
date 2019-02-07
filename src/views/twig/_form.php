@@ -38,8 +38,8 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\trntv\aceeditor\AceEditor::className(),
-                ['containerOptions' => ['style' => 'height: 500px;']]) ?>
+            <?= $form->field($model, 'value')->widget(\eluhr\aceeditor\widgets\AceEditor::class,
+                    ['mode' => 'twig', 'container_options' => ['style' => 'height: 50vh']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 

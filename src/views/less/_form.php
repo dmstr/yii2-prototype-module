@@ -40,8 +40,8 @@ use yii\helpers\Html;
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'value')
-                ->widget(\trntv\aceeditor\AceEditor::className(),
-                    ['mode' => 'less', 'containerOptions' => ['style' => 'height: 50vh']]) ?>
+                ->widget(\eluhr\aceeditor\widgets\AceEditor::class,
+                    ['mode' => 'less', 'container_options' => ['style' => 'height: 50vh']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
@@ -76,7 +76,7 @@ use yii\helpers\Html;
         <?php if (!$model->isNewRecord): ?>
             <?= Html::submitButton(
                 '<span class="glyphicon glyphicon-saved"></span> '.
-                ($model->isNewRecord ? Yii::t('prototype', 'Apply') : Yii::t('prototype', 'Apply')),
+                Yii::t('prototype', 'Apply'),
                 [
                     'id' => 'apply-'.$model->formName(),
                     'name' => 'subaction',
