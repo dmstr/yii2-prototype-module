@@ -17,7 +17,7 @@ use yii\helpers\Html;
     <?php $form = ActiveForm::begin([
             'id' => 'Twig',
             'layout' => 'horizontal',
-            'enableClientValidation' => true,
+            'enableClientValidation' => false,
             'errorSummaryCssClass' => 'error-summary alert alert-error',
             'fieldConfig' => [
                 'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
