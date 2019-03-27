@@ -11,6 +11,7 @@
 namespace dmstr\modules\prototype\widgets;
 
 use dmstr\db\traits\ActiveRecordAccessTrait;
+use dmstr\modules\backend\interfaces\ContextMenuItemsInterface;
 use dmstr\modules\prototype\models\Twig;
 use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
@@ -29,7 +30,7 @@ use yii\helpers\Url;
  * @property bool $localized
  * @property string $queryParam
  */
-class TwigWidget extends Widget
+class TwigWidget extends Widget implements ContextMenuItemsInterface
 {
     const SETTINGS_SECTION = 'app.html';
     const ACCESS_ROLE = 'prototype_twig';
@@ -37,12 +38,12 @@ class TwigWidget extends Widget
 
     public $moduleId = 'prototype';
     public $queryParam = 'pageId';
-    public $key = null;
+    public $key;
     public $localized = true;
     public $enableFlash = false;
     public $registerMenuItems = true;
     public $renderEmpty = true;
-    public $position = null;
+    public $position;
     public $params = [];
 
     private $_model;
@@ -57,6 +58,9 @@ class TwigWidget extends Widget
         }
     }
 
+    /**
+     * @return string
+     */
     public function run()
     {
         Url::remember('', $this->generateKey());
@@ -102,6 +106,9 @@ class TwigWidget extends Widget
     }
 
 
+    /**
+     * @return array
+     */
     public function getMenuItems()
     {
         return [
@@ -118,6 +125,7 @@ class TwigWidget extends Widget
 
     /**
      * Generates a key based on the current route/queryParam
+     *
      * @return null|string
      */
     private function generateKey()
@@ -136,6 +144,9 @@ class TwigWidget extends Widget
             ($this->position ? '#' . $this->position : '');
     }
 
+    /**
+     * @return string
+     */
     private function generateCreateLink()
     {
 
@@ -143,16 +154,27 @@ class TwigWidget extends Widget
             ['/' . $this->moduleId . '/twig/create', 'Twig' => ['key' => $this->generateKey()]]);
     }
 
+    /**
+     * @return array
+     */
     private function generateCreateRoute()
     {
         return ['/' . $this->moduleId . '/twig/create', 'Twig' => ['key' => $this->generateKey()]];
     }
 
+    /**
+     * @param $id
+     *
+     * @return array
+     */
     private function generateEditRoute($id)
     {
         return ['/' . $this->moduleId . '/twig/update', 'id' => $id];
     }
 
+    /**
+     * @return string
+     */
     private function renderEmpty()
     {
         return '<div class="alert alert-info">' . $this->generateCreateLink() . '</div>';
