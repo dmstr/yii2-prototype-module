@@ -9,6 +9,7 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
+use dmstr\modules\backend\interfaces\ContextMenuItemsInterface;
 use rmrevin\yii\fontawesome\FA;
 use yii\base\Event;
 use yii\base\Widget;
@@ -25,12 +26,12 @@ use dmstr\modules\prototype\models\Html as HtmlModel;
  * @property bool $renderEmpty
  * @property Html $_model
  */
-class HtmlWidget extends Widget
+class HtmlWidget extends Widget implements ContextMenuItemsInterface
 {
     const SETTINGS_SECTION = 'app.html';
     const ACCESS_ROLE = 'Editor';
 
-    public $key = null;
+    public $key;
     public $enableFlash = false;
     public $moduleId = 'prototype';
     public $registerMenuItems = true;
@@ -47,6 +48,9 @@ class HtmlWidget extends Widget
         }
     }
 
+    /**
+     * @return string
+     */
     public function run()
     {
         $this->_model = $model = HtmlModel::findOne(['key' => $this->generateKey()]);
@@ -73,6 +77,9 @@ class HtmlWidget extends Widget
         return $html;
     }
 
+    /**
+     * @return array
+     */
     public function getMenuItems()
     {
         return [
@@ -84,6 +91,9 @@ class HtmlWidget extends Widget
         ];
     }
 
+    /**
+     * @return null|string
+     */
     private function generateKey()
     {
         if ($this->key) {
@@ -94,6 +104,9 @@ class HtmlWidget extends Widget
         return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '');
     }
 
+    /**
+     * @return string
+     */
     private function generateCreateLink()
     {
 
@@ -101,21 +114,37 @@ class HtmlWidget extends Widget
             ['/' . $this->moduleId . '/html/create', 'Html' => ['key' => $this->generateKey()]]);
     }
 
+    /**
+     * @param $id
+     *
+     * @return string
+     */
     private function generateEditLink($id)
     {
         return Html::a($this->moduleId . ' module', ['/' . $this->moduleId . '/html/update', 'id' => $id]);
     }
 
+    /**
+     * @return array
+     */
     private function generateCreateRoute()
     {
         return ['/' . $this->moduleId . '/html/create', 'Html' => ['key' => $this->generateKey()]];
     }
 
+    /**
+     * @param $id
+     *
+     * @return array
+     */
     private function generateEditRoute($id)
     {
         return ['/' . $this->moduleId . '/html/update', 'id' => $id];
     }
 
+    /**
+     * @return string
+     */
     private function renderEmpty()
     {
         return '<div class="alert alert-info">'.$this->generateCreateLink().'</div>';
