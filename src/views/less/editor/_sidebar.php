@@ -10,10 +10,8 @@
  *
  * @var array $allEntries
  * @var \dmstr\modules\prototype\models\Search $searchModel
- * @var Less $currentEntry
  */
 
-use dmstr\modules\prototype\models\Less;
 use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -24,8 +22,7 @@ use yii\widgets\ActiveForm;
     <?php
     $form = ActiveForm::begin([
         'action' => [
-            'editor',
-            'entryId' => $currentEntry ? $currentEntry->id : null
+            'editor'
         ],
         'method' => 'get',
         'fieldConfig' => [
@@ -51,7 +48,7 @@ use yii\widgets\ActiveForm;
     <div class="list-group">
         <?php
         foreach ($allEntries as $entry) {
-            echo Html::a($entry['name'], ['open-entry', 'entryId' => $entry['id'],'term' => $searchModel->term],
+            echo Html::a($entry['name'], ['open-entry', 'entryId' => $entry['id'], 'term' => $searchModel->term],
                 ['class' => 'list-group-item' . ($entry['opened'] ? ' list-group-item-info' : '')]);
         }
         ?>

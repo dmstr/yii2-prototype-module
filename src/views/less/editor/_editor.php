@@ -8,32 +8,26 @@
  *
  * --- VARIABLES ---
  *
+ * @var View $this
  * @var array $activeEntries
  * @var array $pendingEntries
  * @var \dmstr\modules\prototype\models\Search $searchModel
- * @var Less $currentEntry
+ * @var Less[] $currentEntries
  */
 
 use dmstr\modules\prototype\models\Less;
-use eluhr\aceeditor\widgets\AceEditor;
 use rmrevin\yii\fontawesome\FA;
 use yii\bootstrap\ButtonDropdown;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
-$items = [
-    [
-        'label' => Yii::t('prototype', 'New'),
-        'url' => ['editor']
-    ]
-];
-$items = ArrayHelper::merge($items, array_map(function ($entry) {
+$items = array_map(function ($entry) {
     return [
         'label' => $entry['name'],
         'url' => ['open-entry', 'entryId' => $entry['id']]
     ];
-}, $pendingEntries));
+}, $pendingEntries);
 ?>
 <section class="editor-canvas">
     <?php
@@ -43,8 +37,9 @@ $items = ArrayHelper::merge($items, array_map(function ($entry) {
         <?php
         foreach ($activeEntries as $activeEntry):
             ?>
-            <li class="btn <?= $activeEntry['id'] == $currentEntry->id ? 'active' : '' ?>">
-                <?= Html::a($activeEntry['name'], ['', 'entryId' => $activeEntry['id']]) ?>
+            <li class="btn">
+                <a href="javascript:void(0)" data-target="#<?= 'tab-' . $activeEntry['id'] ?>" data-toggle="tab"
+                   role="tab"><?= $activeEntry['name'] ?></a>
                 <?= Html::a(FA::icon(FA::_TIMES), ['close-entry', 'entryId' => $activeEntry['id']]) ?>
             </li>
         <?php
@@ -53,7 +48,7 @@ $items = ArrayHelper::merge($items, array_map(function ($entry) {
             ?>
             <li>
                 <?= ButtonDropdown::widget([
-                    'label' => FA::icon(FA::_PLUS_SQUARE),
+                    'label' => FA::icon(FA::_FILE_O),
                     'dropdown' => [
                         'items' => $items
                     ],
@@ -67,19 +62,13 @@ $items = ArrayHelper::merge($items, array_map(function ($entry) {
             <button class="btn btn-block btn-primary"><?= Yii::t('prototype', 'Save changes') ?></button>
         </li>
     </ul>
-    <div>
-        <?= $form->field($currentEntry, 'key')->textInput([
-            'placeholder' => Yii::t('prototype', 'Name')
-        ])->label(false); ?>
-
-        <?= $form->field($currentEntry, 'value')->widget(AceEditor::class, [
-                'id' => 'editor',
-            'mode' => 'less',
-            'container_options' => ['style' => 'height: 80vh']
-        ])->label(false) ?>
-    </div>
-    <div>
-        <?= Html::errorSummary($currentEntry) ?>
+    <div class="tab-content">
+        <?php
+        foreach ($currentEntries->models() as $model) {
+            echo $this->render('_work_area',
+                ['currentEntries' => $currentEntries, 'form' => $form, 'id' => $model['id']]);
+        }
+        ?>
     </div>
     <?php
     ActiveForm::end();
@@ -87,11 +76,13 @@ $items = ArrayHelper::merge($items, array_map(function ($entry) {
 </section>
 <?php
 if (!empty($searchModel->term)) {
-    $this->registerJs(<<<JS
+    foreach ($currentEntries->models() as $model) {
+        $this->registerJs(<<<JS
 setTimeout(function() {
-  ace.edit('editor').findAll("{$searchModel->term}");
+  ace.edit('editor{$model['id']}').findAll("{$searchModel->term}");
 }, 0)
 JS
-    );
+        );
+    }
 }
 ?>

@@ -2,9 +2,11 @@
 
 namespace dmstr\modules\prototype\controllers;
 
+use dmstr\modules\prototype\models\Edit;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\Search;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -17,19 +19,18 @@ class LessController extends \dmstr\modules\prototype\controllers\base\LessContr
      *
      * @return string
      */
-    public function actionEditor($entryId = null)
+    public function actionEditor()
     {
-        if ($entryId !== null) {
-            $currentEntry = Less::findOne($entryId);
-            if ($currentEntry === null) {
-                throw new NotFoundHttpException(Yii::t('prototype', 'Entry not found'));
-            }
-        } else {
-            $currentEntry = new Less();
-        }
 
-        if ($currentEntry->load(Yii::$app->request->post()) && $currentEntry->save()) {
-            return $this->redirect(['open-entry','entryId' => $currentEntry->id]);
+        $activeEntries = Less::activeEntries();
+
+        $currentEntries = new Edit([
+            'models' => $activeEntries,
+            'modelClass' => Less::class
+        ]);
+
+        if ($currentEntries->load(Yii::$app->request->post()) && $currentEntries->save()) {
+            return $this->refresh();
         }
 
         $searchModel = new Search([
@@ -47,7 +48,7 @@ class LessController extends \dmstr\modules\prototype\controllers\base\LessContr
                 'pendingEntries' => array_filter($allEntries, function ($entry) {
                     return $entry['opened'] === false;
                 }),
-                'currentEntry' => $currentEntry,
+                'currentEntries' => $currentEntries,
                 'searchModel' => $searchModel
             ]);
     }
@@ -68,7 +69,7 @@ class LessController extends \dmstr\modules\prototype\controllers\base\LessContr
             throw new NotFoundHttpException(Yii::t('prototype', 'Entry not found'));
         }
 
-        return $this->redirect(['editor', 'entryId' => $entryId, 'term' => $term]);
+        return $this->redirect(['editor', '#' => 'tab-' . $entryId, 'term' => $term]);
     }
 
     /**
