@@ -10,6 +10,7 @@
  *
  * @var array $activeEntries
  * @var array $pendingEntries
+ * @var \dmstr\modules\prototype\models\Search $searchModel
  * @var Less $currentEntry
  */
 
@@ -72,6 +73,7 @@ $items = ArrayHelper::merge($items, array_map(function ($entry) {
         ])->label(false); ?>
 
         <?= $form->field($currentEntry, 'value')->widget(AceEditor::class, [
+                'id' => 'editor',
             'mode' => 'less',
             'container_options' => ['style' => 'height: 80vh']
         ])->label(false) ?>
@@ -83,3 +85,13 @@ $items = ArrayHelper::merge($items, array_map(function ($entry) {
     ActiveForm::end();
     ?>
 </section>
+<?php
+if (!empty($searchModel->term)) {
+    $this->registerJs(<<<JS
+setTimeout(function() {
+  ace.edit('editor').findAll("{$searchModel->term}");
+}, 0)
+JS
+    );
+}
+?>

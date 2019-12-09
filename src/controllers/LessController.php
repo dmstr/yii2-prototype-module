@@ -55,10 +55,12 @@ class LessController extends \dmstr\modules\prototype\controllers\base\LessContr
     /**
      * @param $entryId
      *
+     * @param null $term
+     *
      * @return \yii\web\Response
      * @throws NotFoundHttpException
      */
-    public function actionOpenEntry($entryId)
+    public function actionOpenEntry($entryId, $term = null)
     {
         $allEntries = Less::activeEntries();
 
@@ -66,7 +68,7 @@ class LessController extends \dmstr\modules\prototype\controllers\base\LessContr
             throw new NotFoundHttpException(Yii::t('prototype', 'Entry not found'));
         }
 
-        return $this->redirect(['editor', 'entryId' => $entryId]);
+        return $this->redirect(['editor', 'entryId' => $entryId, 'term' => $term]);
     }
 
     /**

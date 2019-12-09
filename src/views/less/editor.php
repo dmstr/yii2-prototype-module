@@ -59,6 +59,7 @@ CSS
     echo $this->render('editor/_editor', [
         'activeEntries' => $activeEntries,
         'pendingEntries' => $pendingEntries,
+        'searchModel' => $searchModel,
         'currentEntry' => $currentEntry
     ]);
     ?>

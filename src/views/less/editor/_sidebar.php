@@ -51,7 +51,7 @@ use yii\widgets\ActiveForm;
     <div class="list-group">
         <?php
         foreach ($allEntries as $entry) {
-            echo Html::a($entry['name'], ['open-entry', 'entryId' => $entry['id']],
+            echo Html::a($entry['name'], ['open-entry', 'entryId' => $entry['id'],'term' => $searchModel->term],
                 ['class' => 'list-group-item' . ($entry['opened'] ? ' list-group-item-info' : '')]);
         }
         ?>
