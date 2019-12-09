@@ -4,12 +4,15 @@ namespace dmstr\modules\prototype\models;
 
 use bedezign\yii2\audit\AuditTrailBehavior;
 use dmstr\modules\prototype\models\base\Less as BaseLess;
+use dmstr\modules\prototype\traits\EditorEntry;
 
 /**
  * This is the model class for table "app_less".
  */
 class Less extends BaseLess
 {
+    use EditorEntry;
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
