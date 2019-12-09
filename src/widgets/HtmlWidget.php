@@ -11,6 +11,7 @@ namespace dmstr\modules\prototype\widgets;
 
 use dmstr\modules\backend\interfaces\ContextMenuItemsInterface;
 use rmrevin\yii\fontawesome\FA;
+use Yii;
 use yii\base\Event;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -44,7 +45,7 @@ class HtmlWidget extends Widget implements ContextMenuItemsInterface
         parent::init();
         $this->_model = HtmlModel::findOne(['key' => $this->generateKey()]);
         if ($this->registerMenuItems) {
-            \Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
+            Yii::$app->trigger('registerMenuItems', new Event(['sender' => $this]));
         }
     }
 
@@ -56,10 +57,10 @@ class HtmlWidget extends Widget implements ContextMenuItemsInterface
         $this->_model = $model = HtmlModel::findOne(['key' => $this->generateKey()]);
         $html = '';
 
-        if (\Yii::$app->user->can(self::ACCESS_ROLE)) {
+        if (Yii::$app->user->can(self::ACCESS_ROLE)) {
             $link = $model ? $this->generateEditLink($model->id) : $this->generateCreateLink();
             if ($this->enableFlash) {
-                \Yii::$app->session->addFlash(
+                Yii::$app->session->addFlash(
                     $model ? 'success' : 'info',
                     "Edit contents in {$link}, key: <code>{$this->generateKey()}</code>"
                 );
@@ -100,8 +101,8 @@ class HtmlWidget extends Widget implements ContextMenuItemsInterface
             return $this->key;
         }
 
-        $key = \Yii::$app->request->getQueryParam('id');
-        return \Yii::$app->language.'/'.\Yii::$app->controller->route.($key ? '/'.$key : '');
+        $key = Yii::$app->request->getQueryParam('id');
+        return Yii::$app->language.'/'. Yii::$app->controller->route.($key ? '/'.$key : '');
     }
 
     /**

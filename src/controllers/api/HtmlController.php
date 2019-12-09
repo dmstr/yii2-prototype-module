@@ -6,10 +6,12 @@ namespace dmstr\modules\prototype\controllers\api;
  * This is the class for REST controller "HtmlController".
  */
 
+use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\rest\ActiveController;
 
-class HtmlController extends \yii\rest\ActiveController
+class HtmlController extends ActiveController
 {
     public $modelClass = 'dmstr\modules\prototype\models\Html';
 
@@ -27,7 +29,7 @@ class HtmlController extends \yii\rest\ActiveController
                         [
                             'allow' => true,
                             'matchCallback' => function ($rule, $action) {
-                                return \Yii::$app->user->can(
+                                return Yii::$app->user->can(
                                     $this->module->id.'_'.$this->id.'_'.$action->id,
                                     ['route' => true]
                                 );

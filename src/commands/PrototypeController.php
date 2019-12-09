@@ -13,6 +13,9 @@ use dmstr\modules\prototype\commands\actions\ExportAction;
 use dmstr\modules\prototype\models\Html;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\Twig;
+use Exception;
+use Yii;
+use yii\base\ErrorException;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\Console;
@@ -79,8 +82,8 @@ class PrototypeController extends Controller
     public function getExportPath()
     {
         try {
-            $exportPath = \Yii::getAlias($this->exportPath);
-        } catch (\Exception $e) {
+            $exportPath = Yii::getAlias($this->exportPath);
+        } catch (Exception $e) {
             $exportPath = $this->exportPath;
         }
         return rtrim($exportPath, DIRECTORY_SEPARATOR);
@@ -89,7 +92,7 @@ class PrototypeController extends Controller
     /**
      * @param $mainLessFile string
      * @return int
-     * @throws \yii\base\ErrorException
+     * @throws ErrorException
      *
      * Export asset bundle with defined style sheets applied
      */

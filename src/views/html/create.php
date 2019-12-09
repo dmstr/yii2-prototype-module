@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var yii\web\View $this
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="pull-left">
             <?= Html::a(
                 Yii::t('prototype', 'Cancel'),
-                \yii\helpers\Url::previous(),
+                Url::previous(),
                 ['class' => 'btn btn-default']
             ) ?>
         </div>

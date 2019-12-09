@@ -5,12 +5,13 @@ namespace _generated;
     // You should not change it manually as it will be overwritten on next build
 // @codingStandardsIgnoreFile
 
+use Codeception\Scenario;
 use Helper\Functional;
 
 trait FunctionalTesterActions
 {
     /**
-     * @return \Codeception\Scenario
+     * @return Scenario
      */
     abstract protected function getScenario();
 

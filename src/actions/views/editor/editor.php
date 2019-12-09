@@ -10,8 +10,8 @@
  *
  * @var View $this
  * @var array $activeEntries
+ * @var string $mode
  * @var array $allEntries
- * @var array $pendingEntries
  * @var Less[] $currentEntries
  * @var \dmstr\modules\prototype\models\Search $searchModel
  */
@@ -26,6 +26,10 @@ $this->registerCss(<<<CSS
 .editor-sidebar {
     width: 25%;
     padding-right: 1rem;
+}
+.editor-sidebar .list-group {
+    max-height: 350px;
+    overflow-y: scroll;
 }
 .editor-top-navigation {
     list-style-type: none;
@@ -84,15 +88,15 @@ JS
 
 <main class="editor-main">
     <?php
-    echo $this->render('editor/_sidebar', [
+    echo $this->render('_sidebar', [
         'allEntries' => $allEntries,
         'searchModel' => $searchModel,
     ]);
-    echo $this->render('editor/_editor', [
+    echo $this->render('_editor', [
         'activeEntries' => $activeEntries,
-        'pendingEntries' => $pendingEntries,
         'searchModel' => $searchModel,
-        'currentEntries' => $currentEntries
-    ]);
+        'currentEntries' => $currentEntries,
+        'mode' => $mode
+    ])
     ?>
 </main>

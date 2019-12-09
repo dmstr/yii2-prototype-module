@@ -1,6 +1,7 @@
 <?php
 
 use dmstr\bootstrap\Tabs;
+use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -18,11 +19,11 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
 <div class="giiant-crud html-view">
 
     <!-- flash message -->
-    <?php if (\Yii::$app->session->getFlash('deleteError') !== null) : ?>
+    <?php if (Yii::$app->session->getFlash('deleteError') !== null) : ?>
         <span class="alert alert-info alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-            <?= \Yii::$app->session->getFlash('deleteError') ?>
+            <?= Yii::$app->session->getFlash('deleteError') ?>
         </span>
     <?php endif; ?>
 
@@ -37,24 +38,29 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
         <!-- menu buttons -->
         <div class='pull-left'>
             <?= Html::a(
-                '<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('prototype', 'Edit'),
+                FA::icon(FA::_pencil) . ' '.Yii::t('prototype', 'Edit'),
                 ['update', 'id' => $model->id],
                 ['class' => 'btn btn-info']
             ) ?>
             <?= Html::a(
-                '<span class="glyphicon glyphicon-copy"></span> '.Yii::t('prototype', 'Copy'),
+                FA::icon(FA::_COPY) . ' '.Yii::t('prototype', 'Copy'),
                 ['create', 'id' => $model->id, 'Html' => $copyParams],
                 ['class' => 'btn btn-success']
             ) ?>
             <?= Html::a(
-                '<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'),
+                FA::icon(FA::_PLUS) . ' '.Yii::t('prototype', 'New'),
                 ['create'],
+                ['class' => 'btn btn-success']
+            ) ?>
+            <?= Html::a(
+                FA::icon(FA::_PLUS) . ' '.Yii::t('prototype', 'Editor'),
+                ['editor','#' => 'tab-' . $model->id],
                 ['class' => 'btn btn-success']
             ) ?>
         </div>
         <div class="pull-right">
             <?= Html::a(
-                '<span class="glyphicon glyphicon-list"></span> '.Yii::t('prototype', 'List Htmls'),
+                FA::icon(FA::_LIST) . ' '.Yii::t('prototype', 'List Htmls'),
                 ['index'],
                 ['class' => 'btn btn-default']
             ) ?>
@@ -81,7 +87,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
     <hr/>
 
     <?= Html::a(
-        '<span class="glyphicon glyphicon-trash"></span> '.Yii::t('prototype', 'Delete'),
+        FA::icon(FA::_TRASH) . ' '.Yii::t('prototype', 'Delete'),
         ['delete', 'id' => $model->id],
         [
             'class' => 'btn btn-danger',

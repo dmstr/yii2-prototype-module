@@ -7,6 +7,8 @@ namespace dmstr\modules\prototype\controllers\base;
 use dmstr\bootstrap\Tabs;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\search\Less as LessSearch;
+use Exception;
+use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -24,28 +26,6 @@ class LessController extends Controller
      */
     public $enableCsrfValidation = false;
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            return \Yii::$app->user->can(
-                                $this->module->id.'_'.$this->id.'_'.$action->id,
-                                ['route' => true]
-                            );
-                        },
-                    ],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all Less models.
@@ -59,7 +39,7 @@ class LessController extends Controller
         Tabs::clearLocalStorage();
 
         Url::remember();
-        \Yii::$app->session['__crudReturnUrl'] = null;
+        Yii::$app->session['__crudReturnUrl'] = null;
 
         return $this->render(
             'index',
@@ -79,7 +59,7 @@ class LessController extends Controller
      */
     public function actionView($id)
     {
-        \Yii::$app->session['__crudReturnUrl'] = Url::previous();
+        Yii::$app->session['__crudReturnUrl'] = Url::previous();
 
         #Url::remember();
         #Tabs::rememberActiveState();
@@ -104,10 +84,10 @@ class LessController extends Controller
         try {
             if ($model->load($_POST) && $model->save()) {
                 return $this->redirect(Url::previous());
-            } elseif (!\Yii::$app->request->isPost) {
+            } elseif (!Yii::$app->request->isPost) {
                 $model->load($_GET);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
             $model->addError('_exception', $msg);
         }
@@ -126,7 +106,7 @@ class LessController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load($_POST) && $model->save()) {
-            \Yii::$app->session->addFlash('success', 'Record has been updated');
+            Yii::$app->session->addFlash('success', 'Record has been updated');
             if (ArrayHelper::getValue($_POST, 'subaction') != 'apply') {
                 return $this->redirect(Url::previous());
             }
@@ -151,9 +131,9 @@ class LessController extends Controller
     {
         try {
             $this->findModel($id)->delete();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
-            \Yii::$app->getSession()->addFlash('error', $msg);
+            Yii::$app->getSession()->addFlash('error', $msg);
             return $this->redirect(Url::previous());
         }
 
@@ -161,10 +141,10 @@ class LessController extends Controller
         $isPivot = strstr('$id', ',');
         if ($isPivot == true) {
             return $this->redirect(Url::previous());
-        } elseif (isset(\Yii::$app->session['__crudReturnUrl']) && \Yii::$app->session['__crudReturnUrl'] != '/') {
+        } elseif (isset(Yii::$app->session['__crudReturnUrl']) && Yii::$app->session['__crudReturnUrl'] != '/') {
             Url::remember(null);
-            $url = \Yii::$app->session['__crudReturnUrl'];
-            \Yii::$app->session['__crudReturnUrl'] = null;
+            $url = Yii::$app->session['__crudReturnUrl'];
+            Yii::$app->session['__crudReturnUrl'] = null;
 
             return $this->redirect($url);
         } else {

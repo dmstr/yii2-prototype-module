@@ -1,5 +1,6 @@
 <?php
 
+use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 
 /**
@@ -7,21 +8,21 @@ use yii\helpers\Html;
  * @var dmstr\modules\prototype\models\Twig $model
  */
 
-$this->title = $model->getAliasModel().$model->id.', '.Yii::t('prototype', 'Edit');
-$this->params['breadcrumbs'][] = ['label' => $model->getAliasModel(true), 'url' => ['index']];
+$this->title = Yii::t('prototype', 'Twig').$model->id.', '.Yii::t('prototype', 'Edit');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('prototype', 'Twigs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('prototype', 'Edit');
 ?>
 <div class="giiant-crud twig-update">
 
     <h1>
-        <?= $model->getAliasModel() ?>
+        <?= Yii::t('prototype', 'Twig')?>
         <small>
             <?= $model->id ?>        </small>
     </h1>
 
     <div class="crud-navigation">
-        <?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> '.Yii::t('prototype', 'View'),
+        <?= Html::a(FA::icon(FA::_EYE) . ' '.Yii::t('prototype', 'View'),
             ['view', 'id' => $model->id],
             ['class' => 'btn btn-default']) ?>
     </div>

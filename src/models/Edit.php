@@ -13,6 +13,7 @@ namespace dmstr\modules\prototype\models;
 use Yii;
 use yii\base\Model;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 /**
  * @package dmstr\modules\prototype\models
@@ -31,8 +32,11 @@ class Edit extends Model
     public $_models = [];
     public $modelClass;
 
+    const NEW_MODEL_ID = 9999999;
+
     public $keys = [];
     public $values = [];
+    public $initNew = false;
 
     /**
      * @return array
@@ -64,7 +68,8 @@ class Edit extends Model
 
         /** @var ActiveRecord $modelClass */
         $modelClass = $this->modelClass;
-        foreach ($this->_models as $model) {
+        $models = $this->models();
+        foreach ($models as $model) {
             /** @var Less $model */
             $model = $modelClass::findOne($model['id']);
             if ($model) {
@@ -72,6 +77,11 @@ class Edit extends Model
                 $this->values[$model->id] = $model->value;
             }
         }
+        if ($this->initNew && isset($models[self::NEW_MODEL_ID])) {
+            $this->keys[self::NEW_MODEL_ID] = '';
+            $this->values[self::NEW_MODEL_ID] = '';
+        }
+
     }
 
     /**
@@ -79,12 +89,19 @@ class Edit extends Model
      */
     public function models()
     {
-        return $this->_models;
+        $models = $this->_models;
+        if ($this->initNew) {
+            $models[self::NEW_MODEL_ID] = [
+                'id' => self::NEW_MODEL_ID,
+                'name' => Yii::t('prototype','New')
+            ];
+        }
+        return $models;
     }
 
     /**
      * @return bool
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     public function save()
     {
@@ -103,6 +120,7 @@ class Edit extends Model
 
                 if ($model === null) {
                     $model = new $modelClass($config);
+                    $model->id = null;
                 }
 
                 $model->key = $this->keys[$modelId];

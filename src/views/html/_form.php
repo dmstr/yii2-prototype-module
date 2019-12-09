@@ -2,6 +2,7 @@
 
 use dmstr\bootstrap\Tabs;
 use dosamigos\ckeditor\CKEditor;
+use rmrevin\yii\fontawesome\FA;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -67,7 +68,7 @@ use yii\helpers\Html;
         <?php echo $form->errorSummary($model); ?>
 
         <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> '.
+            FA::icon(FA::_SAVE) . ' '.
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),

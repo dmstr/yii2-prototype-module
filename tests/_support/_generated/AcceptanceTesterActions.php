@@ -5,13 +5,22 @@ namespace _generated;
     // You should not change it manually as it will be overwritten on next build
 // @codingStandardsIgnoreFile
 
+use Closure;
+use Codeception\Exception\ElementNotFound;
+use Codeception\Exception\TestRuntimeException;
 use Codeception\Module\WebDriver;
+use Codeception\Scenario;
+use Codeception\Step\Action;
+use Codeception\Step\Assertion;
+use Codeception\Step\Condition;
+use Codeception\Step\ConditionalAssertion;
+use Exception;
 use Helper\Acceptance;
 
 trait AcceptanceTesterActions
 {
     /**
-     * @return \Codeception\Scenario
+     * @return Scenario
      */
     abstract protected function getScenario();
 
@@ -24,7 +33,7 @@ trait AcceptanceTesterActions
      */
     public function debugWebDriverLogs()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('debugWebDriverLogs', func_get_args()));
+        return $this->getScenario()->runStep(new Action('debugWebDriverLogs', func_get_args()));
     }
 
 
@@ -53,7 +62,7 @@ trait AcceptanceTesterActions
      */
     public function amOnSubdomain($subdomain)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnSubdomain', func_get_args()));
+        return $this->getScenario()->runStep(new Condition('amOnSubdomain', func_get_args()));
     }
 
 
@@ -76,7 +85,7 @@ trait AcceptanceTesterActions
      */
     public function makeScreenshot($name)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('makeScreenshot', func_get_args()));
+        return $this->getScenario()->runStep(new Action('makeScreenshot', func_get_args()));
     }
 
 
@@ -98,7 +107,7 @@ trait AcceptanceTesterActions
      */
     public function resizeWindow($width, $height)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('resizeWindow', func_get_args()));
+        return $this->getScenario()->runStep(new Action('resizeWindow', func_get_args()));
     }
 
 
@@ -123,7 +132,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeCookie($cookie, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCookie', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeCookie', func_get_args()));
     }
 
     /**
@@ -146,7 +155,7 @@ trait AcceptanceTesterActions
      */
     public function seeCookie($cookie, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCookie', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeCookie', func_get_args()));
     }
 
 
@@ -166,7 +175,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeCookie($cookie, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCookie',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeCookie',
             func_get_args()));
     }
 
@@ -185,7 +194,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeCookie($cookie, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCookie', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeCookie', func_get_args()));
     }
 
 
@@ -210,7 +219,7 @@ trait AcceptanceTesterActions
      */
     public function setCookie($cookie, $value, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('setCookie', func_get_args()));
+        return $this->getScenario()->runStep(new Action('setCookie', func_get_args()));
     }
 
 
@@ -229,7 +238,7 @@ trait AcceptanceTesterActions
      */
     public function resetCookie($cookie, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('resetCookie', func_get_args()));
+        return $this->getScenario()->runStep(new Action('resetCookie', func_get_args()));
     }
 
 
@@ -248,7 +257,7 @@ trait AcceptanceTesterActions
      */
     public function grabCookie($cookie, $params = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabCookie', func_get_args()));
+        return $this->getScenario()->runStep(new Action('grabCookie', func_get_args()));
     }
 
 
@@ -267,7 +276,7 @@ trait AcceptanceTesterActions
      */
     public function amOnUrl($url)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnUrl', func_get_args()));
+        return $this->getScenario()->runStep(new Condition('amOnUrl', func_get_args()));
     }
 
 
@@ -290,7 +299,7 @@ trait AcceptanceTesterActions
      */
     public function amOnPage($page)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Condition('amOnPage', func_get_args()));
+        return $this->getScenario()->runStep(new Condition('amOnPage', func_get_args()));
     }
 
 
@@ -331,7 +340,7 @@ trait AcceptanceTesterActions
      */
     public function canSee($text, $selector = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('see', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('see', func_get_args()));
     }
 
     /**
@@ -370,7 +379,7 @@ trait AcceptanceTesterActions
      */
     public function see($text, $selector = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('see', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('see', func_get_args()));
     }
 
 
@@ -409,7 +418,7 @@ trait AcceptanceTesterActions
      */
     public function cantSee($text, $selector = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSee', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSee', func_get_args()));
     }
 
     /**
@@ -446,7 +455,7 @@ trait AcceptanceTesterActions
      */
     public function dontSee($text, $selector = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSee', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSee', func_get_args()));
     }
 
 
@@ -468,7 +477,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInSource($raw)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInSource',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInSource',
             func_get_args()));
     }
 
@@ -489,7 +498,7 @@ trait AcceptanceTesterActions
      */
     public function seeInSource($raw)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInSource', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInSource', func_get_args()));
     }
 
 
@@ -511,7 +520,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeInSource($raw)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInSource',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeInSource',
             func_get_args()));
     }
 
@@ -532,7 +541,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeInSource($raw)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInSource', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeInSource', func_get_args()));
     }
 
 
@@ -553,7 +562,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInPageSource($text)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInPageSource',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInPageSource',
             func_get_args()));
     }
 
@@ -573,7 +582,7 @@ trait AcceptanceTesterActions
      */
     public function seeInPageSource($text)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInPageSource', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInPageSource', func_get_args()));
     }
 
 
@@ -589,7 +598,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeInPageSource($text)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInPageSource',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeInPageSource',
             func_get_args()));
     }
 
@@ -604,7 +613,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeInPageSource($text)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInPageSource', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeInPageSource', func_get_args()));
     }
 
 
@@ -645,7 +654,7 @@ trait AcceptanceTesterActions
      */
     public function click($link, $context = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('click', func_get_args()));
+        return $this->getScenario()->runStep(new Action('click', func_get_args()));
     }
 
 
@@ -670,7 +679,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeLink($text, $url = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeLink', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeLink', func_get_args()));
     }
 
     /**
@@ -693,7 +702,7 @@ trait AcceptanceTesterActions
      */
     public function seeLink($text, $url = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeLink', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeLink', func_get_args()));
     }
 
 
@@ -718,7 +727,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeLink($text, $url = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeLink',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeLink',
             func_get_args()));
     }
 
@@ -742,7 +751,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeLink($text, $url = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeLink', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeLink', func_get_args()));
     }
 
 
@@ -767,7 +776,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInCurrentUrl($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInCurrentUrl',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInCurrentUrl',
             func_get_args()));
     }
 
@@ -791,7 +800,7 @@ trait AcceptanceTesterActions
      */
     public function seeInCurrentUrl($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInCurrentUrl', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInCurrentUrl', func_get_args()));
     }
 
 
@@ -815,7 +824,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeCurrentUrlEquals($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlEquals',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeCurrentUrlEquals',
             func_get_args()));
     }
 
@@ -838,7 +847,7 @@ trait AcceptanceTesterActions
      */
     public function seeCurrentUrlEquals($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCurrentUrlEquals', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeCurrentUrlEquals', func_get_args()));
     }
 
 
@@ -861,7 +870,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeCurrentUrlMatches($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCurrentUrlMatches',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeCurrentUrlMatches',
             func_get_args()));
     }
 
@@ -883,7 +892,7 @@ trait AcceptanceTesterActions
      */
     public function seeCurrentUrlMatches($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCurrentUrlMatches', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeCurrentUrlMatches', func_get_args()));
     }
 
 
@@ -905,7 +914,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeInCurrentUrl($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInCurrentUrl',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeInCurrentUrl',
             func_get_args()));
     }
 
@@ -926,7 +935,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeInCurrentUrl($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInCurrentUrl', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeInCurrentUrl', func_get_args()));
     }
 
 
@@ -950,7 +959,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeCurrentUrlEquals($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlEquals',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeCurrentUrlEquals',
             func_get_args()));
     }
 
@@ -973,7 +982,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeCurrentUrlEquals($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCurrentUrlEquals',
+        return $this->getScenario()->runStep(new Assertion('dontSeeCurrentUrlEquals',
             func_get_args()));
     }
 
@@ -997,7 +1006,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeCurrentUrlMatches($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCurrentUrlMatches',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeCurrentUrlMatches',
             func_get_args()));
     }
 
@@ -1019,7 +1028,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeCurrentUrlMatches($uri)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCurrentUrlMatches',
+        return $this->getScenario()->runStep(new Assertion('dontSeeCurrentUrlMatches',
             func_get_args()));
     }
 
@@ -1044,7 +1053,7 @@ trait AcceptanceTesterActions
      */
     public function grabFromCurrentUrl($uri = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabFromCurrentUrl', func_get_args()));
+        return $this->getScenario()->runStep(new Action('grabFromCurrentUrl', func_get_args()));
     }
 
 
@@ -1068,7 +1077,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeCheckboxIsChecked($checkbox)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeCheckboxIsChecked',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeCheckboxIsChecked',
             func_get_args()));
     }
 
@@ -1091,7 +1100,7 @@ trait AcceptanceTesterActions
      */
     public function seeCheckboxIsChecked($checkbox)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeCheckboxIsChecked', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeCheckboxIsChecked', func_get_args()));
     }
 
 
@@ -1114,7 +1123,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeCheckboxIsChecked($checkbox)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeCheckboxIsChecked',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeCheckboxIsChecked',
             func_get_args()));
     }
 
@@ -1136,7 +1145,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeCheckboxIsChecked($checkbox)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeCheckboxIsChecked',
+        return $this->getScenario()->runStep(new Assertion('dontSeeCheckboxIsChecked',
             func_get_args()));
     }
 
@@ -1166,7 +1175,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInField($field, $value)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInField', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInField', func_get_args()));
     }
 
     /**
@@ -1193,7 +1202,7 @@ trait AcceptanceTesterActions
      */
     public function seeInField($field, $value)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInField', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInField', func_get_args()));
     }
 
 
@@ -1222,7 +1231,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeInField($field, $value)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInField',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeInField',
             func_get_args()));
     }
 
@@ -1250,7 +1259,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeInField($field, $value)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInField', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeInField', func_get_args()));
     }
 
 
@@ -1322,7 +1331,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInFormFields($formSelector, $params)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInFormFields',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInFormFields',
             func_get_args()));
     }
 
@@ -1393,7 +1402,7 @@ trait AcceptanceTesterActions
      */
     public function seeInFormFields($formSelector, $params)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInFormFields', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInFormFields', func_get_args()));
     }
 
 
@@ -1445,7 +1454,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeInFormFields($formSelector, $params)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInFormFields',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeInFormFields',
             func_get_args()));
     }
 
@@ -1496,7 +1505,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeInFormFields($formSelector, $params)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInFormFields', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeInFormFields', func_get_args()));
     }
 
 
@@ -1528,7 +1537,7 @@ trait AcceptanceTesterActions
      */
     public function selectOption($select, $option)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('selectOption', func_get_args()));
+        return $this->getScenario()->runStep(new Action('selectOption', func_get_args()));
     }
 
 
@@ -1540,7 +1549,7 @@ trait AcceptanceTesterActions
      */
     public function unselectOption($select, $option)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('unselectOption', func_get_args()));
+        return $this->getScenario()->runStep(new Action('unselectOption', func_get_args()));
     }
 
 
@@ -1561,7 +1570,7 @@ trait AcceptanceTesterActions
      */
     public function checkOption($option)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('checkOption', func_get_args()));
+        return $this->getScenario()->runStep(new Action('checkOption', func_get_args()));
     }
 
 
@@ -1582,7 +1591,7 @@ trait AcceptanceTesterActions
      */
     public function uncheckOption($option)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('uncheckOption', func_get_args()));
+        return $this->getScenario()->runStep(new Action('uncheckOption', func_get_args()));
     }
 
 
@@ -1605,7 +1614,7 @@ trait AcceptanceTesterActions
      */
     public function fillField($field, $value)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('fillField', func_get_args()));
+        return $this->getScenario()->runStep(new Action('fillField', func_get_args()));
     }
 
 
@@ -1628,7 +1637,7 @@ trait AcceptanceTesterActions
      */
     public function attachFile($field, $filename)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('attachFile', func_get_args()));
+        return $this->getScenario()->runStep(new Action('attachFile', func_get_args()));
     }
 
 
@@ -1642,7 +1651,7 @@ trait AcceptanceTesterActions
      */
     public function getVisibleText()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('getVisibleText', func_get_args()));
+        return $this->getScenario()->runStep(new Action('getVisibleText', func_get_args()));
     }
 
 
@@ -1667,7 +1676,7 @@ trait AcceptanceTesterActions
      */
     public function grabTextFrom($cssOrXPathOrRegex)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabTextFrom', func_get_args()));
+        return $this->getScenario()->runStep(new Action('grabTextFrom', func_get_args()));
     }
 
 
@@ -1692,7 +1701,7 @@ trait AcceptanceTesterActions
      */
     public function grabAttributeFrom($cssOrXpath, $attribute)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabAttributeFrom', func_get_args()));
+        return $this->getScenario()->runStep(new Action('grabAttributeFrom', func_get_args()));
     }
 
 
@@ -1718,7 +1727,7 @@ trait AcceptanceTesterActions
      */
     public function grabValueFrom($field)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabValueFrom', func_get_args()));
+        return $this->getScenario()->runStep(new Action('grabValueFrom', func_get_args()));
     }
 
 
@@ -1752,7 +1761,7 @@ trait AcceptanceTesterActions
      */
     public function grabMultiple($cssOrXpath, $attribute = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('grabMultiple', func_get_args()));
+        return $this->getScenario()->runStep(new Action('grabMultiple', func_get_args()));
     }
 
 
@@ -1783,7 +1792,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeElement($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElement', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeElement', func_get_args()));
     }
 
     /**
@@ -1812,7 +1821,7 @@ trait AcceptanceTesterActions
      */
     public function seeElement($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElement', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeElement', func_get_args()));
     }
 
 
@@ -1839,7 +1848,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeElement($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElement',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeElement',
             func_get_args()));
     }
 
@@ -1865,7 +1874,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeElement($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElement', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeElement', func_get_args()));
     }
 
 
@@ -1887,7 +1896,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeElementInDOM($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeElementInDOM',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeElementInDOM',
             func_get_args()));
     }
 
@@ -1908,7 +1917,7 @@ trait AcceptanceTesterActions
      */
     public function seeElementInDOM($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeElementInDOM', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeElementInDOM', func_get_args()));
     }
 
 
@@ -1924,7 +1933,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeElementInDOM($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeElementInDOM',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeElementInDOM',
             func_get_args()));
     }
 
@@ -1939,7 +1948,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeElementInDOM($selector, $attributes = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeElementInDOM', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeElementInDOM', func_get_args()));
     }
 
 
@@ -1965,7 +1974,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeNumberOfElements($selector, $expected)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberOfElements',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeNumberOfElements',
             func_get_args()));
     }
 
@@ -1990,7 +1999,7 @@ trait AcceptanceTesterActions
      */
     public function seeNumberOfElements($selector, $expected)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberOfElements', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeNumberOfElements', func_get_args()));
     }
 
 
@@ -2003,7 +2012,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeNumberOfElementsInDOM($selector, $expected)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeNumberOfElementsInDOM',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeNumberOfElementsInDOM',
             func_get_args()));
     }
 
@@ -2015,7 +2024,7 @@ trait AcceptanceTesterActions
      */
     public function seeNumberOfElementsInDOM($selector, $expected)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeNumberOfElementsInDOM',
+        return $this->getScenario()->runStep(new Assertion('seeNumberOfElementsInDOM',
             func_get_args()));
     }
 
@@ -2040,7 +2049,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeOptionIsSelected($selector, $optionText)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeOptionIsSelected',
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeOptionIsSelected',
             func_get_args()));
     }
 
@@ -2063,7 +2072,7 @@ trait AcceptanceTesterActions
      */
     public function seeOptionIsSelected($selector, $optionText)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeOptionIsSelected', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeOptionIsSelected', func_get_args()));
     }
 
 
@@ -2087,7 +2096,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeOptionIsSelected($selector, $optionText)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeOptionIsSelected',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeOptionIsSelected',
             func_get_args()));
     }
 
@@ -2110,7 +2119,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeOptionIsSelected($selector, $optionText)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeOptionIsSelected',
+        return $this->getScenario()->runStep(new Assertion('dontSeeOptionIsSelected',
             func_get_args()));
     }
 
@@ -2134,7 +2143,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInTitle($title)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInTitle', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInTitle', func_get_args()));
     }
 
     /**
@@ -2155,7 +2164,7 @@ trait AcceptanceTesterActions
      */
     public function seeInTitle($title)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInTitle', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInTitle', func_get_args()));
     }
 
 
@@ -2172,7 +2181,7 @@ trait AcceptanceTesterActions
      */
     public function cantSeeInTitle($title)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('dontSeeInTitle',
+        return $this->getScenario()->runStep(new ConditionalAssertion('dontSeeInTitle',
             func_get_args()));
     }
 
@@ -2188,7 +2197,7 @@ trait AcceptanceTesterActions
      */
     public function dontSeeInTitle($title)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('dontSeeInTitle', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('dontSeeInTitle', func_get_args()));
     }
 
 
@@ -2201,7 +2210,7 @@ trait AcceptanceTesterActions
      */
     public function acceptPopup()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('acceptPopup', func_get_args()));
+        return $this->getScenario()->runStep(new Action('acceptPopup', func_get_args()));
     }
 
 
@@ -2213,7 +2222,7 @@ trait AcceptanceTesterActions
      */
     public function cancelPopup()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('cancelPopup', func_get_args()));
+        return $this->getScenario()->runStep(new Action('cancelPopup', func_get_args()));
     }
 
 
@@ -2229,7 +2238,7 @@ trait AcceptanceTesterActions
      */
     public function canSeeInPopup($text)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\ConditionalAssertion('seeInPopup', func_get_args()));
+        return $this->getScenario()->runStep(new ConditionalAssertion('seeInPopup', func_get_args()));
     }
 
     /**
@@ -2243,7 +2252,7 @@ trait AcceptanceTesterActions
      */
     public function seeInPopup($text)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Assertion('seeInPopup', func_get_args()));
+        return $this->getScenario()->runStep(new Assertion('seeInPopup', func_get_args()));
     }
 
 
@@ -2258,7 +2267,7 @@ trait AcceptanceTesterActions
      */
     public function typeInPopup($keys)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('typeInPopup', func_get_args()));
+        return $this->getScenario()->runStep(new Action('typeInPopup', func_get_args()));
     }
 
 
@@ -2270,7 +2279,7 @@ trait AcceptanceTesterActions
      */
     public function reloadPage()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('reloadPage', func_get_args()));
+        return $this->getScenario()->runStep(new Action('reloadPage', func_get_args()));
     }
 
 
@@ -2282,7 +2291,7 @@ trait AcceptanceTesterActions
      */
     public function moveBack()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('moveBack', func_get_args()));
+        return $this->getScenario()->runStep(new Action('moveBack', func_get_args()));
     }
 
 
@@ -2294,7 +2303,7 @@ trait AcceptanceTesterActions
      */
     public function moveForward()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('moveForward', func_get_args()));
+        return $this->getScenario()->runStep(new Action('moveForward', func_get_args()));
     }
 
 
@@ -2446,7 +2455,7 @@ trait AcceptanceTesterActions
      */
     public function submitForm($selector, $params, $button = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('submitForm', func_get_args()));
+        return $this->getScenario()->runStep(new Action('submitForm', func_get_args()));
     }
 
 
@@ -2466,15 +2475,15 @@ trait AcceptanceTesterActions
      * ```
      *
      * @param $element
-     * @param \Closure $callback
+     * @param Closure $callback
      * @param int $timeout seconds
      *
-     * @throws \Codeception\Exception\ElementNotFound
+     * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::waitForElementChange()
      */
     public function waitForElementChange($element, $callback, $timeout = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementChange', func_get_args()));
+        return $this->getScenario()->runStep(new Action('waitForElementChange', func_get_args()));
     }
 
 
@@ -2494,12 +2503,12 @@ trait AcceptanceTesterActions
      * @param $element
      * @param int $timeout seconds
      *
-     * @throws \Exception
+     * @throws Exception
      * @see \Codeception\Module\WebDriver::waitForElement()
      */
     public function waitForElement($element, $timeout = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElement', func_get_args()));
+        return $this->getScenario()->runStep(new Action('waitForElement', func_get_args()));
     }
 
 
@@ -2519,12 +2528,12 @@ trait AcceptanceTesterActions
      * @param $element
      * @param int $timeout seconds
      *
-     * @throws \Exception
+     * @throws Exception
      * @see \Codeception\Module\WebDriver::waitForElementVisible()
      */
     public function waitForElementVisible($element, $timeout = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementVisible', func_get_args()));
+        return $this->getScenario()->runStep(new Action('waitForElementVisible', func_get_args()));
     }
 
 
@@ -2543,12 +2552,12 @@ trait AcceptanceTesterActions
      * @param $element
      * @param int $timeout seconds
      *
-     * @throws \Exception
+     * @throws Exception
      * @see \Codeception\Module\WebDriver::waitForElementNotVisible()
      */
     public function waitForElementNotVisible($element, $timeout = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForElementNotVisible', func_get_args()));
+        return $this->getScenario()->runStep(new Action('waitForElementNotVisible', func_get_args()));
     }
 
 
@@ -2570,12 +2579,12 @@ trait AcceptanceTesterActions
      * @param int $timeout seconds
      * @param null $selector
      *
-     * @throws \Exception
+     * @throws Exception
      * @see \Codeception\Module\WebDriver::waitForText()
      */
     public function waitForText($text, $timeout = null, $selector = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForText', func_get_args()));
+        return $this->getScenario()->runStep(new Action('waitForText', func_get_args()));
     }
 
 
@@ -2586,12 +2595,12 @@ trait AcceptanceTesterActions
      *
      * @param int $timeout secs
      *
-     * @throws \Codeception\Exception\TestRuntimeException
+     * @throws TestRuntimeException
      * @see \Codeception\Module\WebDriver::wait()
      */
     public function wait($timeout)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('wait', func_get_args()));
+        return $this->getScenario()->runStep(new Action('wait', func_get_args()));
     }
 
 
@@ -2617,7 +2626,7 @@ trait AcceptanceTesterActions
      */
     public function executeInSelenium($function)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('executeInSelenium', func_get_args()));
+        return $this->getScenario()->runStep(new Action('executeInSelenium', func_get_args()));
     }
 
 
@@ -2661,7 +2670,7 @@ trait AcceptanceTesterActions
      */
     public function switchToWindow($name = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToWindow', func_get_args()));
+        return $this->getScenario()->runStep(new Action('switchToWindow', func_get_args()));
     }
 
 
@@ -2691,7 +2700,7 @@ trait AcceptanceTesterActions
      */
     public function switchToIFrame($name = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('switchToIFrame', func_get_args()));
+        return $this->getScenario()->runStep(new Action('switchToIFrame', func_get_args()));
     }
 
 
@@ -2715,7 +2724,7 @@ trait AcceptanceTesterActions
      */
     public function waitForJS($script, $timeout = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('waitForJS', func_get_args()));
+        return $this->getScenario()->runStep(new Action('waitForJS', func_get_args()));
     }
 
 
@@ -2739,7 +2748,7 @@ trait AcceptanceTesterActions
      */
     public function executeJS($script)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('executeJS', func_get_args()));
+        return $this->getScenario()->runStep(new Action('executeJS', func_get_args()));
     }
 
 
@@ -2751,7 +2760,7 @@ trait AcceptanceTesterActions
      */
     public function maximizeWindow()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('maximizeWindow', func_get_args()));
+        return $this->getScenario()->runStep(new Action('maximizeWindow', func_get_args()));
     }
 
 
@@ -2773,7 +2782,7 @@ trait AcceptanceTesterActions
      */
     public function dragAndDrop($source, $target)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('dragAndDrop', func_get_args()));
+        return $this->getScenario()->runStep(new Action('dragAndDrop', func_get_args()));
     }
 
 
@@ -2794,12 +2803,12 @@ trait AcceptanceTesterActions
      * @param int $offsetX
      * @param int $offsetY
      *
-     * @throws \Codeception\Exception\ElementNotFound
+     * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::moveMouseOver()
      */
     public function moveMouseOver($cssOrXPath, $offsetX = null, $offsetY = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('moveMouseOver', func_get_args()));
+        return $this->getScenario()->runStep(new Action('moveMouseOver', func_get_args()));
     }
 
 
@@ -2810,12 +2819,12 @@ trait AcceptanceTesterActions
      *
      * @param $cssOrXPath
      *
-     * @throws \Codeception\Exception\ElementNotFound
+     * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::clickWithRightButton()
      */
     public function clickWithRightButton($cssOrXPath)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('clickWithRightButton', func_get_args()));
+        return $this->getScenario()->runStep(new Action('clickWithRightButton', func_get_args()));
     }
 
 
@@ -2830,7 +2839,7 @@ trait AcceptanceTesterActions
      */
     public function pauseExecution()
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('pauseExecution', func_get_args()));
+        return $this->getScenario()->runStep(new Action('pauseExecution', func_get_args()));
     }
 
 
@@ -2841,12 +2850,12 @@ trait AcceptanceTesterActions
      *
      * @param $cssOrXPath
      *
-     * @throws \Codeception\Exception\ElementNotFound
+     * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::doubleClick()
      */
     public function doubleClick($cssOrXPath)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('doubleClick', func_get_args()));
+        return $this->getScenario()->runStep(new Action('doubleClick', func_get_args()));
     }
 
 
@@ -2872,12 +2881,12 @@ trait AcceptanceTesterActions
      * @param $element
      * @param $char Can be char or array with modifier. You can provide several chars.
      *
-     * @throws \Codeception\Exception\ElementNotFound
+     * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::pressKey()
      */
     public function pressKey($element, $char)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('pressKey', func_get_args()));
+        return $this->getScenario()->runStep(new Action('pressKey', func_get_args()));
     }
 
 
@@ -2897,12 +2906,12 @@ trait AcceptanceTesterActions
      * @param string $field
      * @param string $value
      *
-     * @throws \Codeception\Exception\ElementNotFound
+     * @throws ElementNotFound
      * @see \Codeception\Module\WebDriver::appendField()
      */
     public function appendField($field, $value)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('appendField', func_get_args()));
+        return $this->getScenario()->runStep(new Action('appendField', func_get_args()));
     }
 
 
@@ -2915,7 +2924,7 @@ trait AcceptanceTesterActions
      */
     public function saveSessionSnapshot($name)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('saveSessionSnapshot', func_get_args()));
+        return $this->getScenario()->runStep(new Action('saveSessionSnapshot', func_get_args()));
     }
 
 
@@ -2929,7 +2938,7 @@ trait AcceptanceTesterActions
      */
     public function loadSessionSnapshot($name)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('loadSessionSnapshot', func_get_args()));
+        return $this->getScenario()->runStep(new Action('loadSessionSnapshot', func_get_args()));
     }
 
 
@@ -2953,6 +2962,6 @@ trait AcceptanceTesterActions
      */
     public function scrollTo($selector, $offsetX = null, $offsetY = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('scrollTo', func_get_args()));
+        return $this->getScenario()->runStep(new Action('scrollTo', func_get_args()));
     }
 }

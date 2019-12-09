@@ -1,6 +1,7 @@
 <?php
 
 use dmstr\bootstrap\Tabs;
+use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -10,24 +11,24 @@ use yii\widgets\DetailView;
  */
 $copyParams = $model->attributes;
 
-$this->title = $model->getAliasModel().$model->id;
-$this->params['breadcrumbs'][] = ['label' => $model->getAliasModel(true), 'url' => ['index']];
+$this->title = Yii::t('prototype', 'Twig') . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('prototype', 'Twigs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
 ?>
 <div class="giiant-crud twig-view">
 
     <!-- flash message -->
-    <?php if (\Yii::$app->session->getFlash('deleteError') !== null) : ?>
+    <?php if (Yii::$app->session->getFlash('deleteError') !== null) : ?>
         <span class="alert alert-info alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-            <?= \Yii::$app->session->getFlash('deleteError') ?>
+            <?= Yii::$app->session->getFlash('deleteError') ?>
         </span>
     <?php endif; ?>
 
     <h1>
-        <?= $model->getAliasModel() ?>
+        <?= Yii::t('prototype', 'Twig') ?>
         <small>
             <?= $model->id ?>        </small>
     </h1>
@@ -36,18 +37,23 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
     <div class="clearfix crud-navigation">
         <!-- menu buttons -->
         <div class='pull-left'>
-            <?= Html::a('<span class="glyphicon glyphicon-pencil"></span> '.Yii::t('prototype', 'Edit'),
+            <?= Html::a(FA::icon(FA::_PENCIL) . ' ' . Yii::t('prototype', 'Edit'),
                 ['update', 'id' => $model->id],
                 ['class' => 'btn btn-info']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-copy"></span> '.Yii::t('prototype', 'Copy'),
+            <?= Html::a(FA::icon(FA::_COPY) . ' ' . Yii::t('prototype', 'Copy'),
                 ['create', 'id' => $model->id, 'Twig' => $copyParams],
                 ['class' => 'btn btn-success']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'),
+            <?= Html::a(FA::icon(FA::_PLUS) . ' ' . Yii::t('prototype', 'New'),
                 ['create'],
                 ['class' => 'btn btn-success']) ?>
+            <?= Html::a(
+                FA::icon(FA::_EDIT) . ' ' . Yii::t('prototype', 'Editor'),
+                ['editor','#' => 'tab-' . $model->id],
+                ['class' => 'btn btn-success']
+            ) ?>
         </div>
         <div class="pull-right">
-            <?= Html::a('<span class="glyphicon glyphicon-list"></span> '.Yii::t('prototype', 'Full list'),
+            <?= Html::a(FA::icon(FA::_LIST) . ' ' . Yii::t('prototype', 'Full list'),
                 ['index'],
                 ['class' => 'btn btn-default']) ?>
         </div>
@@ -67,7 +73,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
             [
                 'attribute' => 'value',
                 'format' => 'raw',
-                'value' => "<pre>".htmlspecialchars($model->value)."</pre>",
+                'value' => "<pre>" . htmlspecialchars($model->value) . "</pre>",
             ],
         ],
     ]); ?>
@@ -75,11 +81,11 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
 
     <hr/>
 
-    <?= Html::a('<span class="glyphicon glyphicon-trash"></span> '.Yii::t('prototype', 'Delete'),
+    <?= Html::a(FA::icon(FA::_TRASH) . ' ' . Yii::t('prototype', 'Delete'),
         ['delete', 'id' => $model->id],
         [
             'class' => 'btn btn-danger',
-            'data-confirm' => ''.Yii::t('prototype', 'Are you sure to delete this item?').'',
+            'data-confirm' => '' . Yii::t('prototype', 'Are you sure to delete this item?') . '',
             'data-method' => 'post',
         ]); ?>
     <?php $this->endBlock(); ?>
@@ -92,7 +98,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
             'encodeLabels' => false,
             'items' => [
                 [
-                    'label' => '<b class=""># '.$model->id.'</b>',
+                    'label' => '<b class=""># ' . $model->id . '</b>',
                     'content' => $this->blocks['dmstr\modules\prototype\models\Twig'],
                     'active' => true,
                 ],

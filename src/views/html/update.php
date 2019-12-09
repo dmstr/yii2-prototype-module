@@ -1,5 +1,6 @@
 <?php
 
+use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 
 /**
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'Edit');
 
     <div class="crud-navigation">
         <?= Html::a(
-            '<span class="glyphicon glyphicon-eye-open"></span> '.Yii::t('prototype', 'View'),
+            FA::icon(FA::_EYE) . ' '.Yii::t('prototype', 'View'),
             ['view', 'id' => $model->id],
             ['class' => 'btn btn-default']
         ) ?>

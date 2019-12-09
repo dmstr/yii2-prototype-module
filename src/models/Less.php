@@ -3,16 +3,28 @@
 namespace dmstr\modules\prototype\models;
 
 use bedezign\yii2\audit\AuditTrailBehavior;
-use dmstr\modules\prototype\models\base\Less as BaseLess;
 use dmstr\modules\prototype\traits\EditorEntry;
+use Yii;
 
 /**
  * This is the model class for table "app_less".
  */
-class Less extends BaseLess
+class Less extends BaseModel
 {
     use EditorEntry;
 
+
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%less}}';
+    }
+
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -20,9 +32,13 @@ class Less extends BaseLess
         return $behaviors;
     }
 
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
-        \Yii::$app->cache->set('prototype.less.changed_at', time());
+        Yii::$app->cache->set('prototype.less.changed_at', time());
     }
 }

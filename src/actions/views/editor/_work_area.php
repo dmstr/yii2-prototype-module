@@ -8,6 +8,7 @@
  *
  * --- VARIABLES ---
  *
+ * @var string $mode
  * @var array $activeEntries
  * @var array $pendingEntries
  * @var \dmstr\modules\prototype\models\Search $searchModel
@@ -26,7 +27,7 @@ use eluhr\aceeditor\widgets\AceEditor;
 
     echo $form->field($currentEntries, 'values[' . $id . ']')->widget(AceEditor::class, [
         'id' => 'editor' . $id,
-        'mode' => 'less',
+        'mode' => $mode,
         'container_options' => ['style' => 'height: 80vh']
     ])->label(false);
     ?>
