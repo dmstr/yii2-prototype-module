@@ -48,7 +48,7 @@ $items = array_map(function ($entry) {
             ?>
             <li>
                 <?= ButtonDropdown::widget([
-                    'label' => FA::icon(FA::_FILE_O),
+                    'label' => FA::icon(FA::_PLUS),
                     'dropdown' => [
                         'items' => $items
                     ],

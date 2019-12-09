@@ -52,5 +52,6 @@ use yii\widgets\ActiveForm;
                 ['class' => 'list-group-item' . ($entry['opened'] ? ' list-group-item-info' : '')]);
         }
         ?>
+        <a href="#" class="list-group-item btn-success text-center"><?=Yii::t('prototype', 'New')?></a>
     </div>
 </aside>
