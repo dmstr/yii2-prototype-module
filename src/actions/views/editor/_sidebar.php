@@ -53,11 +53,9 @@ use yii\widgets\ActiveForm;
         }
         ?>
     </div>
-    <div class="list-group">
-        <?=
-        Html::a(Yii::t('prototype', 'New'), ['new'], [
-            'class' => 'list-group-item btn-success text-center'
-        ])
-        ?>
-    </div>
+    <?=
+    Html::a(Yii::t('prototype', 'New'), ['new'], [
+        'class' => 'btn btn-success btn-block'
+    ])
+    ?>
 </aside>
