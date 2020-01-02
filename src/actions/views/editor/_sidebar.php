@@ -47,10 +47,16 @@ use yii\widgets\ActiveForm;
     ?>
     <div class="list-group">
         <?php
-        foreach ($allEntries as $entry) {
-            echo Html::a($entry['name'], ['open-entry', 'entryId' => $entry['id'], 'term' => $searchModel->term],
-                ['class' => 'list-group-item' . ($entry['opened'] ? ' list-group-item-info' : '')]);
-        }
+        foreach ($allEntries as $entry):
+            ?>
+        <div class="list-group-item">
+            <?php
+            echo Html::a($entry['name'], ['open-entry', 'entryId' => $entry['id'], 'term' => $searchModel->term]);
+            echo Html::a(FA::icon(FA::_TRASH), ['delete', 'id' => $entry['id']], ['class' => 'btn-danger', 'data-confirm' => Yii::t('prototype', 'Are you sure that you want to delete this record?')]);
+            ?>
+        </div>
+        <?php
+        endforeach;
         ?>
     </div>
     <?=

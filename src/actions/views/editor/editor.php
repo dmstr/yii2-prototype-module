@@ -31,6 +31,15 @@ $this->registerCss(<<<CSS
     max-height: 350px;
     overflow-y: scroll;
 }
+.editor-sidebar .list-group-item {
+    padding: 0;
+}
+.editor-sidebar .list-group-item  a{
+    position: absolute;
+}
+.editor-sidebar .list-group-item  a:last-of-type{
+    right: 0;
+}
 .editor-top-navigation {
     list-style-type: none;
     padding-left: 0;
