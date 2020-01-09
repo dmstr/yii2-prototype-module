@@ -31,12 +31,7 @@ $this->registerCss(<<<CSS
     max-height: 350px;
     overflow-y: scroll;
 }
-.editor-sidebar .list-group-item {
-    padding: 0;
-}
-.editor-sidebar .list-group-item  a{
-    position: absolute;
-}
+
 .editor-sidebar .list-group-item  a:last-of-type{
     right: 0;
 }
@@ -88,13 +83,6 @@ JS
 );
 
 ?>
-
-<!--Ah cool! Weiß nicht ob da geht, aber evtl. einen kleinen Hinweis einblenden wenn ne Klammer oder ein Semikolon fehlt?-->
-<!--Suche geht ja eig auch gut über die cmd+f.-->
-<!--Oder wär das übergreifend über alle Less-Dateien?-->
-<!--Das wär natürlich mega. -->
-<!--Und zu ner bestimmten Zeilennummer springen fänd ich persönlich auch manchmal ganz praktisch.-->
-
 <main class="editor-main">
     <?php
     echo $this->render('_sidebar', [
