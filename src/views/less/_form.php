@@ -77,7 +77,7 @@ use yii\helpers\Html;
 
         <?php if (!$model->isNewRecord): ?>
             <?= Html::submitButton(
-                FA::icon(FA::_SAVED) . ' '.
+                FA::icon(FA::_SAVE) . ' '.
                 Yii::t('prototype', 'Apply'),
                 [
                     'id' => 'apply-'.$model->formName(),
