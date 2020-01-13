@@ -1,0 +1,31 @@
+.editor-main {
+  display: flex;
+}
+
+.editor-sidebar {
+  width: 25%;
+  padding-right: 1rem;
+
+  .list-group {
+    max-height: 75vh;
+    overflow-y: scroll;
+
+    .list-group-item a:last-of-type {
+      right: 0;
+    }
+  }
+}
+
+.editor-top-navigation {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+
+  & > li {
+    display: inline-block;
+  }
+}
+
+.editor-canvas {
+  width: 75%;
+}

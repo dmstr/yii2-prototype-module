@@ -48,6 +48,17 @@ trait EditorEntry
     {
         $allEntries = Yii::$app->session->get(md5(self::$cacheKey), []);
 
+        foreach ($allEntries as $key => $entries) {
+            foreach ($entries as $entryId => $data) {
+                $model = $key::find()->andWhere(['id' => $entryId])->asArray()->one();
+                if ($model === null) {
+                    self::removeEntry($entryId);
+                } else {
+                    $allEntries[$key][$entryId]['name'] = $model['key'];
+                }
+            }
+        }
+
         if (isset($allEntries[self::class])) {
             return $allEntries[self::class];
         }

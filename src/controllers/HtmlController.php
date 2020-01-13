@@ -39,6 +39,11 @@ class HtmlController extends base\HtmlController
             'class' => CloseEntryAction::class,
             'modelClass' => $this->modelClass
         ];
+        $actions['delete-entry'] = [
+            'class' => CloseEntryAction::class,
+            'modelClass' => $this->modelClass,
+            'delete' => true
+        ];
         return $actions;
     }
 }

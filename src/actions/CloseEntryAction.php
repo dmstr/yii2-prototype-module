@@ -24,11 +24,16 @@ use yii\web\Response;
  *  --- PROPERTIES --
  *
  * @property EditorEntry|ActiveRecord $modelClass;
+ * @property string $returnAction
+ * @property bool $delete
+ * @property bool $deleteAction
  */
 class CloseEntryAction extends Action
 {
     public $modelClass;
     public $returnAction = 'editor';
+    public $delete = false;
+    public $deleteAction = 'delete';
 
 
     /**
@@ -41,10 +46,17 @@ class CloseEntryAction extends Action
     public function run($entryId)
     {
         $modelClass = $this->modelClass;
-        if ($modelClass::removeEntry($entryId) === false) {
+        $entryRemoved =  $modelClass::removeEntry($entryId);
+        if (($this->delete === false) && $entryRemoved === false) {
             throw new NotFoundHttpException(Yii::t('prototype', 'Entry not found'));
         }
 
-        return $this->controller->redirect([$this->returnAction]);
+
+        if ($this->delete) {
+            $url = [$this->deleteAction, 'id' => $entryId];
+        } else {
+            $url = [$this->returnAction];
+        }
+        return $this->controller->redirect($url);
     }
 }

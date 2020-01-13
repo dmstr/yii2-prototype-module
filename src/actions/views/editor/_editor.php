@@ -38,6 +38,8 @@ $models = $currentEntries->models();
                 <?php
                 if ($activeEntry['id'] !== Edit::NEW_MODEL_ID) {
                     echo Html::a(FA::icon(FA::_TIMES), ['close-entry', 'entryId' => $activeEntry['id']]);
+                } else {
+                    echo Html::a(FA::icon(FA::_TIMES), ['editor']);
                 }
                 ?>
             </li>

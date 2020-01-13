@@ -10,6 +10,7 @@
 namespace dmstr\modules\prototype\actions;
 
 
+use dmstr\modules\prototype\assets\EditorAsset;
 use dmstr\modules\prototype\models\Edit;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\Search;
@@ -18,6 +19,7 @@ use Yii;
 use yii\base\Action;
 use yii\db\ActiveRecord;
 use yii\db\Exception;
+use yii\helpers\Url;
 use yii\web\Response;
 
 /**
@@ -38,12 +40,20 @@ class EditorAction extends Action
     public $openEntryUrl = 'open-entry';
     public $mode;
 
+    public function init()
+    {
+        parent::init();
+        EditorAsset::register($this->controller->view);
+    }
+
     /**
      * @return string|Response
      * @throws Exception
      */
     public function run()
     {
+        Yii::$app->session['__crudReturnUrl'] = [$this->id];
+
         $modelClass = $this->modelClass;
         $activeEntries = $modelClass::activeEntries();
 
@@ -74,7 +84,7 @@ class EditorAction extends Action
 
         return $this->controller->render('@vendor/dmstr/yii2-prototype-module/src/actions/views/editor/editor',
             [
-                'activeEntries' => $modelClass::activeEntries(),
+                'activeEntries' => $activeEntries,
                 'allEntries' => $allEntries,
                 'currentEntries' => $currentEntries,
                 'searchModel' => $searchModel,
