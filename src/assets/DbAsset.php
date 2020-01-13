@@ -11,6 +11,7 @@ namespace dmstr\modules\prototype\assets;
  */
 
 use dmstr\modules\prototype\models\Less;
+use Yii;
 use yii\caching\FileDependency;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
@@ -36,7 +37,7 @@ class DbAsset extends AssetBundle
 
     public function init()
     {
-        $this->css[] = \Yii::$app->settings->get($this->settingsKey, self::SETTINGS_SECTION).'-'.self::MAIN_LESS_FILE;
+        $this->css[] = Yii::$app->settings->get($this->settingsKey, self::SETTINGS_SECTION).'-'.self::MAIN_LESS_FILE;
 
         parent::init();
 
@@ -44,11 +45,11 @@ class DbAsset extends AssetBundle
             // TODO: this is workaround for empty source path when using bundled assets
             return;
         } else {
-            $sourcePath = \Yii::getAlias($this->sourcePath);
+            $sourcePath = Yii::getAlias($this->sourcePath);
 
             $models = Less::find()->all();
             $hash = sha1(Json::encode($models));
-            if (!is_dir($sourcePath) || ($hash !== \Yii::$app->cache->get(self::CACHE_ID))) {
+            if (!is_dir($sourcePath) || ($hash !== Yii::$app->cache->get(self::CACHE_ID))) {
                 $tmpPath = uniqid($sourcePath.'-');
                 FileHelper::createDirectory($tmpPath);
 
@@ -58,7 +59,7 @@ class DbAsset extends AssetBundle
 
                 $dependency = new FileDependency();
                 $dependency->fileName = __FILE__;
-                \Yii::$app->cache->set(self::CACHE_ID, $hash, 0, $dependency);
+                Yii::$app->cache->set(self::CACHE_ID, $hash, 0, $dependency);
 
                 // force republishing of asset files by Yii Framework
                 FileHelper::removeDirectory($sourcePath);

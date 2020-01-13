@@ -1,0 +1,42 @@
+.editor-main {
+  display: flex;
+}
+
+.editor-sidebar {
+  width: 25%;
+  padding-right: 1rem;
+
+  .list-group {
+    max-height: 75vh;
+    overflow-y: scroll;
+
+    .list-group-item a {
+      &:first-of-type {
+        word-break: break-all;
+      }
+      &:last-of-type {
+        right: 0;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        width: 2rem;
+        text-align: center;
+        line-height: 42px;
+      }
+    }
+  }
+}
+
+.editor-top-navigation {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+
+  & > li {
+    display: inline-block;
+  }
+}
+
+.editor-canvas {
+  width: 75%;
+}

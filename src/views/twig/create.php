@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * @var yii\web\View $this
@@ -8,13 +9,13 @@ use yii\helpers\Html;
  */
 
 $this->title = Yii::t('prototype', 'Create');
-$this->params['breadcrumbs'][] = ['label' => $model->getAliasModel(true), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('prototype', 'Twigs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud twig-create">
 
     <h1>
-        <?= $model->getAliasModel() ?>
+        <?= Yii::t('prototype', 'Twig') ?>
         <small>
             <?= $model->id ?>        </small>
     </h1>
@@ -23,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="pull-left">
             <?= Html::a(
                 Yii::t('prototype', 'Cancel'),
-                \yii\helpers\Url::previous(),
+                Url::previous(),
                 ['class' => 'btn btn-default']) ?>
         </div>
     </div>

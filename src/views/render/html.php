@@ -1,3 +1,8 @@
-<?= \dmstr\modules\prototype\widgets\HtmlWidget::widget([
+<?php
+
+use dmstr\modules\prototype\widgets\HtmlWidget;
+
+?>
+<?= HtmlWidget::widget([
     'id' => 'base',
 ]) ?>

@@ -6,12 +6,14 @@ namespace _generated;
 // @codingStandardsIgnoreFile
 
 use Codeception\Module\Asserts;
+use Codeception\Scenario;
+use Codeception\Step\Action;
 use Helper\Unit;
 
 trait UnitTesterActions
 {
     /**
-     * @return \Codeception\Scenario
+     * @return Scenario
      */
     abstract protected function getScenario();
 
@@ -29,7 +31,7 @@ trait UnitTesterActions
      */
     public function assertEquals($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEquals', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertEquals', func_get_args()));
     }
 
 
@@ -46,7 +48,7 @@ trait UnitTesterActions
      */
     public function assertNotEquals($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEquals', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNotEquals', func_get_args()));
     }
 
 
@@ -63,7 +65,7 @@ trait UnitTesterActions
      */
     public function assertSame($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertSame', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertSame', func_get_args()));
     }
 
 
@@ -80,7 +82,7 @@ trait UnitTesterActions
      */
     public function assertNotSame($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotSame', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNotSame', func_get_args()));
     }
 
 
@@ -97,7 +99,7 @@ trait UnitTesterActions
      */
     public function assertGreaterThan($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThan', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertGreaterThan', func_get_args()));
     }
 
 
@@ -109,7 +111,7 @@ trait UnitTesterActions
      */
     public function assertGreaterThen($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThen', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertGreaterThen', func_get_args()));
     }
 
 
@@ -126,7 +128,7 @@ trait UnitTesterActions
      */
     public function assertGreaterThanOrEqual($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThanOrEqual', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertGreaterThanOrEqual', func_get_args()));
     }
 
 
@@ -138,7 +140,7 @@ trait UnitTesterActions
      */
     public function assertGreaterThenOrEqual($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertGreaterThenOrEqual', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertGreaterThenOrEqual', func_get_args()));
     }
 
 
@@ -155,7 +157,7 @@ trait UnitTesterActions
      */
     public function assertLessThan($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThan', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertLessThan', func_get_args()));
     }
 
 
@@ -172,7 +174,7 @@ trait UnitTesterActions
      */
     public function assertLessThanOrEqual($expected, $actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertLessThanOrEqual', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertLessThanOrEqual', func_get_args()));
     }
 
 
@@ -189,7 +191,7 @@ trait UnitTesterActions
      */
     public function assertContains($needle, $haystack, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertContains', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertContains', func_get_args()));
     }
 
 
@@ -206,7 +208,7 @@ trait UnitTesterActions
      */
     public function assertNotContains($needle, $haystack, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotContains', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNotContains', func_get_args()));
     }
 
 
@@ -223,7 +225,7 @@ trait UnitTesterActions
      */
     public function assertRegExp($pattern, $string, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertRegExp', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertRegExp', func_get_args()));
     }
 
 
@@ -240,7 +242,7 @@ trait UnitTesterActions
      */
     public function assertNotRegExp($pattern, $string, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotRegExp', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNotRegExp', func_get_args()));
     }
 
 
@@ -256,7 +258,7 @@ trait UnitTesterActions
      */
     public function assertEmpty($actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertEmpty', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertEmpty', func_get_args()));
     }
 
 
@@ -272,7 +274,7 @@ trait UnitTesterActions
      */
     public function assertNotEmpty($actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotEmpty', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNotEmpty', func_get_args()));
     }
 
 
@@ -288,7 +290,7 @@ trait UnitTesterActions
      */
     public function assertNull($actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNull', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNull', func_get_args()));
     }
 
 
@@ -304,7 +306,7 @@ trait UnitTesterActions
      */
     public function assertNotNull($actual, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertNotNull', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertNotNull', func_get_args()));
     }
 
 
@@ -320,7 +322,7 @@ trait UnitTesterActions
      */
     public function assertTrue($condition, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertTrue', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertTrue', func_get_args()));
     }
 
 
@@ -336,7 +338,7 @@ trait UnitTesterActions
      */
     public function assertFalse($condition, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFalse', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertFalse', func_get_args()));
     }
 
 
@@ -352,7 +354,7 @@ trait UnitTesterActions
      */
     public function assertFileExists($filename, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileExists', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertFileExists', func_get_args()));
     }
 
 
@@ -368,7 +370,7 @@ trait UnitTesterActions
      */
     public function assertFileNotExists($filename, $message = null)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('assertFileNotExists', func_get_args()));
+        return $this->getScenario()->runStep(new Action('assertFileNotExists', func_get_args()));
     }
 
 
@@ -383,6 +385,6 @@ trait UnitTesterActions
      */
     public function fail($message)
     {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('fail', func_get_args()));
+        return $this->getScenario()->runStep(new Action('fail', func_get_args()));
     }
 }

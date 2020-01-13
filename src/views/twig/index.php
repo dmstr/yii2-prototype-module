@@ -1,8 +1,10 @@
 <?php
 
+use rmrevin\yii\fontawesome\FA;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /**
  * @var yii\web\View $this
@@ -10,17 +12,14 @@ use yii\helpers\Url;
  * @var dmstr\modules\prototype\models\query\Twig $searchModel
  */
 
-$this->title = $searchModel->getAliasModel(true);
+$this->title = Yii::t('prototype', 'Twigs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="giiant-crud twig-index">
 
-    <?php //             echo $this->render('_search', ['model' =>$searchModel]);
-    ?>
 
-
-    <?php \yii\widgets\Pjax::begin([
+    <?php Pjax::begin([
         'id' => 'pjax-main',
         'enableReplaceState' => false,
         'linkSelector' => '#pjax-main ul.pagination a, th a',
@@ -28,16 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <h1>
-        <?= $searchModel->getAliasModel(true) ?>
+        <?= Yii::t('prototype', 'Twigs') ?>
         <small>
             List
         </small>
     </h1>
     <div class="clearfix crud-navigation">
         <div class="pull-left">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('prototype', 'New'),
+            <?= Html::a(FA::icon(FA::_PLUS) . ' '.Yii::t('prototype', 'New'),
                 ['create'],
                 ['class' => 'btn btn-success']) ?>
+            <?= Html::a(
+                FA::icon(FA::_EDIT) . ' ' . Yii::t('prototype', 'Editor'),
+                ['editor'],
+                ['class' => 'btn btn-success']
+            ) ?>
         </div>
     </div>
 
@@ -62,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'urlCreator' => function ($action, $model, $key, $index) {
                         // using the column name as key, not mapping to 'id' like the standard generator
                         $params = is_array($key) ? $key : [$model->primaryKey()[0] => (string)$key];
-                        $params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id.'/'.$action : $action;
+                        $params[0] = Yii::$app->controller->id ? Yii::$app->controller->id.'/'.$action : $action;
                         return Url::toRoute($params);
                     },
                     'contentOptions' => ['nowrap' => 'nowrap'],
@@ -75,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
-<?php \yii\widgets\Pjax::end() ?>
+<?php Pjax::end() ?>
 
 
 

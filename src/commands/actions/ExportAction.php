@@ -13,6 +13,8 @@ use dmstr\modules\prototype\commands\PrototypeController;
 use dmstr\modules\prototype\models\Html;
 use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\Twig;
+use Exception;
+use function in_array;
 use const PHP_EOL;
 use yii\base\Action;
 use yii\base\ErrorException;
@@ -57,7 +59,7 @@ class ExportAction extends Action
             return ExitCode::IOERR;
         }
 
-        if (!\in_array($this->modelClass, self::$availableModelTypes, true)) {
+        if (!in_array($this->modelClass, self::$availableModelTypes, true)) {
             $this->controller->stderr("Model class '{$this->modelClass}' is not allowed", Console::FG_RED);
             return ExitCode::IOERR;
         }
@@ -68,7 +70,7 @@ class ExportAction extends Action
             if (!FileHelper::createDirectory($exportPath)) {
                 throw new ErrorException("Error while creating directory '{$exportPath}'");
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->controller->stderr($exception->getMessage() . PHP_EOL, Console::FG_RED);
             return ExitCode::IOERR;
         }
@@ -85,7 +87,7 @@ class ExportAction extends Action
                     throw new ErrorException("Error while writing file for key '{$entry->key}'");
                 }
                 $this->controller->stdout('.');
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 $this->controller->stderr($exception->getMessage(), Console::FG_RED);
                 return ExitCode::IOERR;
             }

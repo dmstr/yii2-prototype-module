@@ -1,6 +1,8 @@
 <?php
 
 use dmstr\bootstrap\Tabs;
+use eluhr\aceeditor\widgets\AceEditor;
+use rmrevin\yii\fontawesome\FA;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
@@ -38,7 +40,7 @@ use yii\helpers\Html;
         <p>
 
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'value')->widget(\eluhr\aceeditor\widgets\AceEditor::class,
+            <?= $form->field($model, 'value')->widget(AceEditor::class,
                     ['mode' => 'twig', 'container_options' => ['style' => 'height: 50vh']]) ?>
         </p>
         <?php $this->endBlock(); ?>
@@ -49,7 +51,7 @@ use yii\helpers\Html;
                 'encodeLabels' => false,
                 'items' => [
                     [
-                        'label' => $model->getAliasModel(),
+                        'label' => Yii::t('prototype', 'Twig'),
                         'content' => $this->blocks['main'],
                         'active' => true,
                     ],
@@ -62,7 +64,7 @@ use yii\helpers\Html;
         <?php echo $form->errorSummary($model); ?>
 
         <?= Html::submitButton(
-            '<span class="glyphicon glyphicon-check"></span> '.
+            FA::icon(FA::_SAVE) . ' '.
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),
