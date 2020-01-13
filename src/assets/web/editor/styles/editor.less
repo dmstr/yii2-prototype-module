@@ -10,8 +10,19 @@
     max-height: 75vh;
     overflow-y: scroll;
 
-    .list-group-item a:last-of-type {
-      right: 0;
+    .list-group-item a {
+      &:first-of-type {
+        word-break: break-all;
+      }
+      &:last-of-type {
+        right: 0;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        width: 2rem;
+        text-align: center;
+        line-height: 42px;
+      }
     }
   }
 }
