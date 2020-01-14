@@ -19,7 +19,6 @@ $(function(){
   }
 
   if (window.location.pathname.indexOf('new') > -1) {
-    console.log('YES');
     tabEl = $('.editor-top-navigation a[data-target="#tab-9999999"]');
   }
 
@@ -31,5 +30,10 @@ $(function(){
     var newActiveHash = $(e.target).data('target');
     window.location.hash = newActiveHash;
     localStorage.setItem(localStorageKey, newActiveHash);
-  })
+  });
+
+  // remember user to save stuff
+  window.onbeforeunload = function() {
+    return true;
+  };
 });

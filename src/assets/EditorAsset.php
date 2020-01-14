@@ -12,6 +12,7 @@ namespace dmstr\modules\prototype\assets;
 
 use yii\bootstrap\BootstrapAsset;
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 /**
  * @package dmstr\modules\prototype\assets
@@ -29,6 +30,7 @@ class EditorAsset extends AssetBundle
     ];
 
     public $depends = [
-        BootstrapAsset::class
+        BootstrapAsset::class,
+        JqueryAsset::class
     ];
 }
