@@ -47,7 +47,7 @@ $models = $currentEntries->models();
         endforeach;
         ?>
         <li class="pull-right">
-            <button class="btn btn-block btn-primary"><?= Yii::t('prototype', 'Save changes') ?></button>
+            <button type="submit" id="save-changes" class="btn btn-block btn-primary"><?= Yii::t('prototype', 'Save changes') ?></button>
         </li>
     </ul>
     <div class="tab-content">

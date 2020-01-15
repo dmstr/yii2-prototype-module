@@ -32,8 +32,12 @@ $(function(){
     localStorage.setItem(localStorageKey, newActiveHash);
   });
 
+  $('#save-changes').on('click', function () {
+    window.onbeforeunload = null
+  });
+
   // remember user to save stuff
-  window.onbeforeunload = function() {
+  window.onbeforeunload = function (e) {
     return true;
-  };
+  }
 });
