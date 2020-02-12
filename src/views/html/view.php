@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
         <!-- menu buttons -->
         <div class='pull-left'>
             <?= Html::a(
-                FA::icon(FA::_pencil) . ' '.Yii::t('prototype', 'Edit'),
+                FA::icon(FA::_PENCIL) . ' '.Yii::t('prototype', 'Edit'),
                 ['update', 'id' => $model->id],
                 ['class' => 'btn btn-info']
             ) ?>
