@@ -9,6 +9,7 @@
  */
 namespace dmstr\modules\prototype\widgets;
 
+use dmstr\db\traits\ActiveRecordAccessTrait;
 use dmstr\modules\backend\interfaces\ContextMenuItemsInterface;
 use rmrevin\yii\fontawesome\FA;
 use Yii;
@@ -37,6 +38,10 @@ class HtmlWidget extends Widget implements ContextMenuItemsInterface
     public $moduleId = 'prototype';
     public $registerMenuItems = true;
     public $renderEmpty = true;
+    public $queryParam = 'pageId';
+    public $localized = true;
+    public $position;
+
 
     private $_model;
 
@@ -97,12 +102,18 @@ class HtmlWidget extends Widget implements ContextMenuItemsInterface
      */
     private function generateKey()
     {
+        $key = null;
         if ($this->key) {
             return $this->key;
         }
 
-        $key = Yii::$app->request->getQueryParam('id');
-        return Yii::$app->language.'/'. Yii::$app->controller->route.($key ? '/'.$key : '');
+        if (isset(Yii::$app->controller->actionParams[$this->queryParam])) {
+            $key = Yii::$app->controller->actionParams[$this->queryParam];
+        }
+        $language = $this->localized ? Yii::$app->language : ActiveRecordAccessTrait::$_all;
+
+        return $language . '/' . Yii::$app->controller->route . ($key ? '/' . $key : '') .
+            ($this->position ? '#' . $this->position : '');
     }
 
     /**
