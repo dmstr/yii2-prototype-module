@@ -82,6 +82,7 @@ class EditorAction extends Action
 
         $allEntries = $searchModel->allEntries();
 
+        $this->controller->view->title = Yii::t('prototype','Editor');
         return $this->controller->render('@vendor/dmstr/yii2-prototype-module/src/actions/views/editor/editor',
             [
                 'activeEntries' => $activeEntries,
