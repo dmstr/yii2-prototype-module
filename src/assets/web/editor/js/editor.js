@@ -38,6 +38,8 @@ $(function(){
 
   // remember user to save stuff
   window.onbeforeunload = function (e) {
-    return true;
+    if (document.querySelectorAll('.editor-top-navigation > .btn').length > 0) {
+      return true;
+    }
   }
 });
