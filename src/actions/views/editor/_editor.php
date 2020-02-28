@@ -12,7 +12,7 @@
  * @var array $activeEntries
  * @var string $mode
  * @var \dmstr\modules\prototype\models\Search $searchModel
- * @var Less[] $currentEntries
+ * @var Edit $currentEntries
  */
 
 use dmstr\modules\prototype\models\Edit;
@@ -25,27 +25,27 @@ use yii\widgets\ActiveForm;
 $models = $currentEntries->models();
 ?>
 <section class="editor-canvas">
-    <?php
-    $form = ActiveForm::begin();
-    ?>
+	<?php
+	$form = ActiveForm::begin();
+	?>
     <ul class="editor-top-navigation">
-        <?php
-        foreach ($models as $activeEntry):
-            ?>
+		<?php
+		foreach ($models as $activeEntry):
+			?>
             <li class="btn">
                 <a href="javascript:void(0)" data-target="#<?= 'tab-' . $activeEntry['id'] ?>" data-toggle="tab"
                    role="tab"><?= $activeEntry['name'] ?></a>
-                <?php
-                if ($activeEntry['id'] !== Edit::NEW_MODEL_ID) {
-                    echo Html::a(FA::icon(FA::_TIMES), ['close-entry', 'entryId' => $activeEntry['id']]);
-                } else {
-                    echo Html::a(FA::icon(FA::_TIMES), ['editor']);
-                }
-                ?>
+				<?php
+				if ($activeEntry['id'] !== Edit::NEW_MODEL_ID) {
+					echo Html::a(FA::icon(FA::_TIMES), ['close-entry', 'entryId' => $activeEntry['id']]);
+				} else {
+					echo Html::a(FA::icon(FA::_TIMES), ['editor']);
+				}
+				?>
             </li>
-        <?php
-        endforeach;
-        ?>
+		<?php
+		endforeach;
+		?>
         <li class="pull-right">
             <button type="submit" id="save-changes" class="btn btn-block btn-primary"><?= Yii::t('prototype', 'Save changes') ?></button>
         </li>
@@ -61,19 +61,19 @@ $models = $currentEntries->models();
         }
         ?>
     </div>
-    <?php
-    ActiveForm::end();
-    ?>
+	<?php
+	ActiveForm::end();
+	?>
 </section>
 <?php
 if (!empty($searchModel->term)) {
-    foreach ($models as $model) {
-        $this->registerJs(<<<JS
+	foreach ($models as $model) {
+		$this->registerJs(<<<JS
 setTimeout(function() {
   ace.edit('editor{$model['id']}').findAll("{$searchModel->term}");
 }, 0)
 JS
-        );
-    }
+		);
+	}
 }
 ?>

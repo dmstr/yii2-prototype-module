@@ -29,113 +29,112 @@ use yii\db\Exception;
  */
 class Edit extends Model
 {
-    public $_models = [];
-    public $modelClass;
+	protected $_models = [];
+	public $modelClass;
 
-    const NEW_MODEL_ID = 9999999;
+	const NEW_MODEL_ID = 9999999;
 
-    public $keys = [];
-    public $values = [];
-    public $initNew = false;
+	public $keys = [];
+	public $values = [];
+	public $initNew = false;
 
-    /**
-     * @return array
-     */
-    public function rules()
-    {
-        $rules = parent::rules();
-        $rules['required'] = [
-            [
-                'keys',
-                'values'
-            ],
-            'required'
-        ];
-        return $rules;
-    }
+	/**
+	 * @return array
+	 */
+	public function rules()
+	{
+		$rules = parent::rules();
+		$rules['required'] = [
+			[
+				'keys',
+				'values'
+			],
+			'required'
+		];
+		return $rules;
+	}
 
-    /**
-     * @param array $models
-     */
-    public function setModels($models)
-    {
-        $this->_models = $models;
-    }
+	/**
+	 * @param array $models
+	 */
+	public function setModels($models)
+	{
+		$this->_models = $models;
+	}
 
-    public function init()
-    {
-        parent::init();
+	public function init()
+	{
+		parent::init();
 
-        /** @var ActiveRecord $modelClass */
-        $modelClass = $this->modelClass;
-        $models = $this->models();
-        foreach ($models as $model) {
-            /** @var Less $model */
-            $model = $modelClass::findOne($model['id']);
-            if ($model) {
-                $this->keys[$model->id] = $model->key;
-                $this->values[$model->id] = $model->value;
-            }
-        }
-        if ($this->initNew && isset($models[self::NEW_MODEL_ID])) {
-            $this->keys[self::NEW_MODEL_ID] = '';
-            $this->values[self::NEW_MODEL_ID] = '';
-        }
+		/** @var ActiveRecord $modelClass */
+		$modelClass = $this->modelClass;
+		$models = $this->models();
+		foreach ($models as $model) {
+			/** @var Less $model */
+			$model = $modelClass::findOne($model['id']);
+			if ($model) {
+				$this->keys[$model->id] = $model->key;
+				$this->values[$model->id] = $model->value;
+			}
+		}
+		if ($this->initNew && isset($models[self::NEW_MODEL_ID])) {
+			$this->keys[self::NEW_MODEL_ID] = '';
+			$this->values[self::NEW_MODEL_ID] = '';
+		}
 
-    }
+	}
 
-    /**
-     * @return array
-     */
-    public function models()
-    {
-        $models = $this->_models;
-        if ($this->initNew) {
-            $models[self::NEW_MODEL_ID] = [
-                'id' => self::NEW_MODEL_ID,
-                'name' => Yii::t('prototype','New')
-            ];
-        }
-        return $models;
-    }
+	/**
+	 * @return array
+	 */
+	public function models()
+	{
+		$models = $this->_models;
+		if ($this->initNew) {
+			$models[self::NEW_MODEL_ID] = [
+				'id' => self::NEW_MODEL_ID,
+				'name' => Yii::t('prototype', 'New')
+			];
+		}
+		return $models;
+	}
 
-    /**
-     * @return bool
-     * @throws Exception
-     */
-    public function save()
-    {
-        if ($this->validate()) {
-            /** @var ActiveRecord $modelClass */
-            $modelClass = $this->modelClass;
-            $transaction = Yii::$app->db->beginTransaction();
-            foreach ($this->models() as $model) {
-                $modelId = $model['id'];
+	/**
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function save()
+	{
+		if ($this->validate()) {
+			/** @var ActiveRecord $modelClass */
+			$modelClass = $this->modelClass;
+			$transaction = Yii::$app->db->beginTransaction();
+			foreach ($this->models() as $model) {
+				$modelId = $model['id'];
 
-                $config = [
-                    'id' => $modelId,
-                ];
-                /** @var Less|null $model */
-                $model = $modelClass::findOne($config);
+				$config = [
+					'id' => $modelId,
+				];
+				/** @var Less|null $model */
+				$model = $modelClass::findOne($config);
 
-                if ($model === null) {
-                    $model = new $modelClass($config);
-                    $model->id = null;
-                }
+				if ($model === null) {
+					$model = new $modelClass($config);
+					$model->id = null;
+				}
 
-                $model->key = $this->keys[$modelId];
-                $model->value = $this->values[$modelId];
+				$model->key = $this->keys[$modelId];
+				$model->value = $this->values[$modelId];
 
-                if ($model->save() === false) {
-                    $transaction->rollBack();
-                    return false;
-                }
-            }
-            $transaction->commit();
-            return true;
-        }
-        return false;
-    }
-
+				if ($model->save() === false) {
+					$transaction->rollBack();
+					return false;
+				}
+			}
+			$transaction->commit();
+			return true;
+		}
+		return false;
+	}
 
 }
