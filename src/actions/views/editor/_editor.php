@@ -18,6 +18,7 @@
 use dmstr\modules\prototype\models\Edit;
 use dmstr\modules\prototype\models\Less;
 use rmrevin\yii\fontawesome\FA;
+use yii\bootstrap\Alert;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
@@ -47,11 +48,25 @@ $models = $currentEntries->models();
         endforeach;
         ?>
         <li class="pull-right">
-            <button type="submit" id="save-changes" class="btn btn-block btn-primary"><?= Yii::t('prototype', 'Save changes') ?></button>
+            <button type="submit" id="save-changes"
+                    class="btn btn-block btn-primary"><?= Yii::t('prototype', 'Save changes') ?></button>
         </li>
     </ul>
     <div class="tab-content">
         <?php
+//		foreach ($currentEntries->modelErrors as $name => $modelData) {
+//		    $errors = $modelData['errors']['value'] ?? [];
+//
+//		    if (!empty($errors)) {
+//				echo Alert::widget([
+//					'options' => [
+//						'class' => 'alert-danger',
+//					],
+//					'body' => implode('<br>', $errors),
+//				]);
+//            }
+//
+//		}
         foreach ($models as $model) {
             echo $this->render('_work_area',
                 ['currentEntries' => $currentEntries, 'form' => $form, 'id' => $model['id'],'mode' => $mode]);

@@ -32,6 +32,28 @@ class Less extends BaseModel
         return $behaviors;
     }
 
+    // TODO Error when using less variables from external resources
+//    public function rules()
+//	{
+//		$rules = parent::rules();
+//		$rules[] = [
+//			'value',
+//			'validateLess'
+//		];
+//		return $rules;
+//	}
+//
+//	public function validateLess($attribute)
+//	{
+//		$less = new \lessc();
+//		try {
+//			$less->compile($this->$attribute);
+//		}
+//		catch (\Exception $e) {
+//			$this->addError($attribute, $e->getMessage());
+//		}
+//	}
+
     /**
      * @param bool $insert
      * @param array $changedAttributes

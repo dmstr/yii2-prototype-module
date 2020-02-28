@@ -25,11 +25,13 @@ use yii\db\Exception;
  * @property array $keys
  * @property array $values
  * @property string $modelClass
+ * @property array $modelErrors
  * @property Less[] $_models
  */
 class Edit extends Model
 {
-    public $_models = [];
+	protected $_models = [];
+	protected $_modelErrors = [];
     public $modelClass;
 
     const NEW_MODEL_ID = 9999999;
@@ -127,6 +129,7 @@ class Edit extends Model
                 $model->value = $this->values[$modelId];
 
                 if ($model->save() === false) {
+					$this->addModelErrors($modelId, $model->key, $model->errors);
                     $transaction->rollBack();
                     return false;
                 }
@@ -137,5 +140,22 @@ class Edit extends Model
         return false;
     }
 
+	/**
+	 * @param int $modelId
+	 * @param string $key
+	 * @param array $errors
+	 */
+	private function addModelErrors($modelId, $key, $errors)
+	{
+		$this->_modelErrors[$key] = [
+			'modelId' => $modelId,
+			'key' => $key,
+			'errors' => $errors
+		];
+	}
 
+	public function getModelErrors()
+	{
+		return $this->_modelErrors;
+	}
 }
