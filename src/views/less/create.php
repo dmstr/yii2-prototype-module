@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="pull-left">
             <?= Html::a(
                 Yii::t('prototype', 'Cancel'),
-                Url::previous(),
+                'index',
                 ['class' => 'btn btn-default']
             ) ?>
         </div>

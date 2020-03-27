@@ -9,9 +9,7 @@ use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\search\Less as LessSearch;
 use Exception;
 use Yii;
-use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\HttpException;
 
@@ -37,8 +35,6 @@ class LessController extends Controller
         $dataProvider = $searchModel->search($_GET);
 
         Tabs::clearLocalStorage();
-
-        Url::remember();
         Yii::$app->session['__crudReturnUrl'] = null;
 
         return $this->render(
@@ -59,11 +55,6 @@ class LessController extends Controller
      */
     public function actionView($id)
     {
-        Yii::$app->session['__crudReturnUrl'] = Url::previous();
-
-        #Url::remember();
-        #Tabs::rememberActiveState();
-
         return $this->render(
             'view',
             [
@@ -83,7 +74,7 @@ class LessController extends Controller
 
         try {
             if ($model->load($_POST) && $model->save()) {
-                return $this->redirect(Url::previous());
+                return $this->redirect(['view', 'id' => $model->id]);
             } elseif (!Yii::$app->request->isPost) {
                 $model->load($_GET);
             }
@@ -108,7 +99,7 @@ class LessController extends Controller
         if ($model->load($_POST) && $model->save()) {
             Yii::$app->session->addFlash('success', 'Record has been updated');
             if (ArrayHelper::getValue($_POST, 'subaction') != 'apply') {
-                return $this->redirect(Url::previous());
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
         return $this->render(
@@ -130,26 +121,15 @@ class LessController extends Controller
     public function actionDelete($id)
     {
         try {
-            $this->findModel($id)->delete();
+            if ($this->findModel($id)->delete()) {
+                Yii::$app->getSession()->addFlash('info', "Record #$id deleted");
+            }
         } catch (Exception $e) {
             $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
             Yii::$app->getSession()->addFlash('error', $msg);
-            return $this->redirect(Url::previous());
         }
 
-        // TODO: improve detection
-        $isPivot = strstr('$id', ',');
-        if ($isPivot == true) {
-            return $this->redirect(Url::previous());
-        } elseif (isset(Yii::$app->session['__crudReturnUrl']) && Yii::$app->session['__crudReturnUrl'] != '/') {
-            Url::remember(null);
-            $url = Yii::$app->session['__crudReturnUrl'];
-            Yii::$app->session['__crudReturnUrl'] = null;
-
-            return $this->redirect($url);
-        } else {
-            return $this->redirect(['index']);
-        }
+        return $this->redirect('index');
     }
 
     /**
