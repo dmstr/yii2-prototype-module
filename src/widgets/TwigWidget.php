@@ -86,8 +86,6 @@ class TwigWidget extends Widget implements ContextMenuItemsInterface
      */
     public function run()
     {
-        Url::remember('', $this->generateKey());
-
         // create temporary file
         $model = $this->_model;
         $twigCode = ($model ? $model->value : null);
