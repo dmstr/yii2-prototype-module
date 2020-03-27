@@ -9,9 +9,7 @@ use dmstr\modules\prototype\models\Less;
 use dmstr\modules\prototype\models\search\Less as LessSearch;
 use Exception;
 use Yii;
-use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\HttpException;
 
@@ -76,7 +74,7 @@ class LessController extends Controller
 
         try {
             if ($model->load($_POST) && $model->save()) {
-                return $this->redirect(['view', 'id'=>$model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             } elseif (!Yii::$app->request->isPost) {
                 $model->load($_GET);
             }
@@ -101,7 +99,7 @@ class LessController extends Controller
         if ($model->load($_POST) && $model->save()) {
             Yii::$app->session->addFlash('success', 'Record has been updated');
             if (ArrayHelper::getValue($_POST, 'subaction') != 'apply') {
-                return $this->redirect(['view', 'id'=>$model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         }
         return $this->render(
@@ -123,8 +121,9 @@ class LessController extends Controller
     public function actionDelete($id)
     {
         try {
-            $this->findModel($id)->delete();
-            Yii::$app->getSession()->addFlash('info', "Record #$id deleted");
+            if ($this->findModel($id)->delete()) {
+                Yii::$app->getSession()->addFlash('info', "Record #$id deleted");
+            }
         } catch (Exception $e) {
             $msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
             Yii::$app->getSession()->addFlash('error', $msg);
