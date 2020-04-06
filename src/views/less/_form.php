@@ -43,7 +43,7 @@ use yii\helpers\Html;
             <?= $form->field($model, 'key')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'value')
                 ->widget(AceEditor::class,
-                    ['mode' => 'less', 'container_options' => ['style' => 'height: 50vh']]) ?>
+                    ['mode' => 'less', 'plugin_options' => ['tabSize' => 2], 'container_options' => ['style' => 'height: 50vh']]) ?>
         </p>
         <?php $this->endBlock(); ?>
 
@@ -70,6 +70,8 @@ use yii\helpers\Html;
             ($model->isNewRecord ? Yii::t('prototype', 'Create') : Yii::t('prototype', 'Save')),
             [
                 'id' => 'save-'.$model->formName(),
+                'name' => 'subaction',
+                'value' => 'save',
                 'class' => 'btn btn-success',
             ]
         );
@@ -87,9 +89,39 @@ use yii\helpers\Html;
                 ]
             );
             ?>
+
+            <?= Html::submitButton(
+                FA::icon(FA::_SAVE) . ' '.
+                Yii::t('prototype', 'Lint'),
+                [
+                    'id' => 'apply-'.$model->formName(),
+                    'name' => 'subaction',
+                    'value' => 'lint',
+                    'class' => 'btn btn-success',
+                ]
+            );
+            ?>
+
+            <?= Html::submitButton(
+                FA::icon(FA::_SAVE) . ' '.
+                Yii::t('prototype', 'Fix'),
+                [
+                    'id' => 'apply-'.$model->formName(),
+                    'name' => 'subaction',
+                    'value' => 'fix',
+                    'class' => 'btn btn-success',
+                ]
+            );
+            ?>
+
         <?php endif ?>
 
         <?php ActiveForm::end(); ?>
+
+        <?php if (!empty($model->lintErrors)): ?>
+            <h2><?= Yii::t('prototype', 'Lint errors')?></h2>
+            <pre><?= $model->lintErrors; ?></pre>
+        <?php endif ?>
 
     </div>
 
