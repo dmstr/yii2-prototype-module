@@ -18,6 +18,11 @@ class Module extends \yii\base\Module
     private $_view;
 
     /**
+     * @var bool enable/disable stylelint lint and fix
+     */
+    public $enableLessLinting = false;
+
+    /**
      * @param Action $action
      *
      * @return bool

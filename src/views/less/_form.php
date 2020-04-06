@@ -90,35 +90,37 @@ use yii\helpers\Html;
             );
             ?>
 
-            <?= Html::submitButton(
-                FA::icon(FA::_SAVE) . ' '.
-                Yii::t('prototype', 'Lint'),
-                [
-                    'id' => 'apply-'.$model->formName(),
-                    'name' => 'subaction',
-                    'value' => 'lint',
-                    'class' => 'btn btn-success',
-                ]
-            );
-            ?>
+            <?php if ($this->context->module->enableLessLinting): ?>
+                <?= Html::submitButton(
+                    FA::icon(FA::_SAVE) . ' '.
+                    Yii::t('prototype', 'Lint'),
+                    [
+                        'id' => 'apply-'.$model->formName(),
+                        'name' => 'subaction',
+                        'value' => 'lint',
+                        'class' => 'btn btn-success',
+                    ]
+                );
+                ?>
 
-            <?= Html::submitButton(
-                FA::icon(FA::_SAVE) . ' '.
-                Yii::t('prototype', 'Fix'),
-                [
-                    'id' => 'apply-'.$model->formName(),
-                    'name' => 'subaction',
-                    'value' => 'fix',
-                    'class' => 'btn btn-success',
-                ]
-            );
-            ?>
+                <?= Html::submitButton(
+                    FA::icon(FA::_SAVE) . ' '.
+                    Yii::t('prototype', 'Fix'),
+                    [
+                        'id' => 'apply-'.$model->formName(),
+                        'name' => 'subaction',
+                        'value' => 'fix',
+                        'class' => 'btn btn-success',
+                    ]
+                );
+                ?>
+            <?php endif ?>
 
         <?php endif ?>
 
         <?php ActiveForm::end(); ?>
 
-        <?php if (!empty($model->lintErrors)): ?>
+        <?php if (!empty($model->lintErrors) && $this->context->module->enableLessLinting): ?>
             <h2><?= Yii::t('prototype', 'Lint errors')?></h2>
             <pre><?= $model->lintErrors; ?></pre>
         <?php endif ?>
