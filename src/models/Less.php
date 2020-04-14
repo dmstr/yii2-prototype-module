@@ -6,6 +6,7 @@ use bedezign\yii2\audit\AuditTrailBehavior;
 use dmstr\modules\prototype\traits\EditorEntry;
 use Yii;
 use yii\helpers\FileHelper;
+use mikehaertl\shellcommand\Command;
 
 /**
  * This is the model class for table "app_less".
@@ -15,6 +16,8 @@ class Less extends BaseModel
     use EditorEntry;
 
     public $exportPath = '@runtime/less/';
+    public $fixedValue;
+    public $lintErrors;
 
 
     /**
@@ -63,6 +66,73 @@ class Less extends BaseModel
         return parent::beforeDelete();
     }
 
+    /**
+     * Runs stylelint on .less files exported after running $this->validateLess().
+     * It generates a .stylelintrc.json config file at runtime (mandatory).
+     * If there is no 'style.config' in settings module, this will be created.
+     * If 'style.config' is present in settings, it will be used as content for
+     * the .stylelintrc.json file, else a default config will be used.
+     * If $fix is set the fixed code will be stored in the $fixedValue property.
+     * Lint errors will be stored in $lintErrors property.
+     * @param bool $fix if stylelint should fix the less source code
+     */
+    public function lintLess($fix = false)
+    {
+        $fileName = $this->key . '.less';
+        $exportPath = Yii::getAlias($this->exportPath);
+        $file = $exportPath . '.stylelintrc.json';
+        $defaultConfig = '
+        {
+            "extends": "stylelint-config-standard",
+            "rules": {
+                "no-eol-whitespace": null,
+                "block-no-empty": null,
+                "no-descending-specificity": null,
+                "declaration-empty-line-before": null,
+                "at-rule-empty-line-before": null
+            }
+        }';
+
+        if (Yii::$app->settings->has('stylelint.config', 'app.assets') === false) {
+            Yii::$app->settings->set('stylelint.config', $defaultConfig, 'app.assets', 'object');
+        }
+
+        $config = Yii::$app->settings->get('stylelint.config', 'app.assets', $defaultConfig)->scalar;
+
+        if (file_put_contents($file, $config) === false) {
+            $errorMessage = Yii::t('prototype', 'Error while checking file {file}', ['file' => $file]);
+            Yii::$app->session->addFlash('warning', $errorMessage);
+            $output = $errorMessage;
+        } else {
+            $command = new Command();
+            $command->setCommand('ls `npm root -g`');
+            $command->execute();
+            $npmGlobalPackages = $command->getOutput();
+            $stylelint = strpos($npmGlobalPackages, 'stylelint') !== false ? true : false;
+            $standard = strpos($npmGlobalPackages, 'stylelint-config-standard') !== false ? true : false;
+
+            if ($stylelint === false) {
+                Yii::$app->session->addFlash('warning', Yii::t('prototype', '"stylelint" is not installed'));
+            }
+
+            if ($standard === false) {
+                Yii::$app->session->addFlash('warning', Yii::t('prototype', '"stylelint-config-standard" is not installed'));
+            }
+
+            if ($fix === true) {
+                $command = new Command();
+                $command->setCommand('cd ' . $exportPath . ' && npx stylelint --fix --syntax less "' . $fileName . '"');
+                $command->execute();
+                $this->fixedValue = file_get_contents($exportPath . $fileName);
+            }
+
+            $command = new Command();
+            $command->setCommand('cd ' . $exportPath . ' && npx stylelint --syntax less "' . $fileName . '"');
+            $command->execute();
+            $this->lintErrors = $command->getOutput();
+        }
+    }
+
     private function validateLess()
     {
         $entryFile = Yii::$app->settings->get('registerPrototypeAssetKey', 'app.assets', 'default') . '-main.less';
@@ -90,7 +160,7 @@ class Less extends BaseModel
             $content = $value;
             if (file_put_contents($file, $content) === false) {
                 Yii::$app->session->addFlash('warning', Yii::t('prototype', 'Error while checking file {file}',
-                                                               ['file' => $file]));
+                    ['file' => $file]));
                 return false;
             }
         }

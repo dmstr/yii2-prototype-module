@@ -96,10 +96,27 @@ class LessController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        if ($model->load($_POST) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->addFlash('success', 'Record has been updated');
-            if (ArrayHelper::getValue($_POST, 'subaction') != 'apply') {
-                return $this->redirect(['view', 'id' => $model->id]);
+
+            if ($this->module->enableLessLinting) {
+                if (Yii::$app->request->post('subaction') === 'lint') {
+                    $model->lintLess();
+                    if (empty($model->lintErrors)) {
+                        return $this->refresh();
+                    }
+                }
+                if (Yii::$app->request->post('subaction') === 'fix') {
+                    $model->lintLess(true);
+                    $model->value = $model->fixedValue;
+                    if ($model->save()) {
+                        return $this->refresh();
+                    }
+                }
+            }
+
+            if (Yii::$app->request->post('subaction') === 'save') {
+                return $this->redirect(['index']);
             }
         }
         return $this->render(
