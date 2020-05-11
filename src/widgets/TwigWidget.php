@@ -10,7 +10,7 @@
 
 namespace dmstr\modules\prototype\widgets;
 
-use dmstr\db\traits\ActiveRecordAccessTrait;
+use dmstr\activeRecordPermissions\ActiveRecordAccessTrait;
 use dmstr\modules\backend\interfaces\ContextMenuItemsInterface;
 use dmstr\modules\prototype\models\Twig;
 use rmrevin\yii\fontawesome\FA;
