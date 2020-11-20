@@ -126,6 +126,13 @@ class Edit extends Model
 				$model->key = $this->keys[$modelId];
 				$model->value = $this->values[$modelId];
 
+                // save only if anything changed to prevent unnecessary validation and saving which can be expensive
+                // (eg. each less will be compiled while validate)
+                if (!$model->getIsNewRecord() && empty($model->getDirtyAttributes())) {
+                    Yii::debug('Nothing changed in model id: ' . $model->id . ' -> continue', __METHOD__);
+                    continue;
+                }
+
 				if ($model->save() === false) {
 					$transaction->rollBack();
 					return false;
