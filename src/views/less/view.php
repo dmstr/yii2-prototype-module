@@ -1,6 +1,7 @@
 <?php
 
 use dmstr\bootstrap\Tabs;
+use dmstr\modules\prototype\models\BaseModel;
 use rmrevin\yii\fontawesome\FA;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -83,6 +84,8 @@ $this->params['breadcrumbs'][] = Yii::t('prototype', 'View');
                     'format'    => 'html',
                     'value'     => '<pre>' . Html::encode($model->value) . '</pre>'
                 ],
+                BaseModel::ATTR_UPDATED_AT,
+                BaseModel::ATTR_CREATED_AT,
             ],
         ]
     ); ?>

@@ -1,5 +1,6 @@
 <?php
 
+use dmstr\modules\prototype\models\BaseModel;
 use rmrevin\yii\fontawesome\FA;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -72,6 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'contentOptions' => ['nowrap' => 'nowrap'],
                 ],
                 'key',
+                BaseModel::ATTR_UPDATED_AT,
+                BaseModel::ATTR_CREATED_AT,
             ],
         ]); ?>
     </div>
