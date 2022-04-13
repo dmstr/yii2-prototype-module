@@ -31,13 +31,13 @@ use yii\helpers\FileHelper;
  * @author Elias Luhr <e.luhr@herzogkommunikation.de>
  *
  * @property ActiveRecord modelClass
- * @property  string extention
+ * @property  string extension
  * @property  PrototypeController controller
  */
 class ExportAction extends Action
 {
     public $modelClass;
-    public $extention;
+    public $extension;
 
     private static $availableModelTypes = [
         Html::class,
@@ -53,7 +53,7 @@ class ExportAction extends Action
     protected function run()
     {
 
-        $this->controller->stdout("Exporting {$this->extention} files" . PHP_EOL, Console::FG_BLUE);
+        $this->controller->stdout("Exporting {$this->extension} files" . PHP_EOL, Console::FG_BLUE);
         if (!class_exists($this->modelClass)) {
             $this->controller->stderr("Model class '{$this->modelClass}' does not exist", Console::FG_RED);
             return ExitCode::IOERR;
@@ -83,7 +83,15 @@ class ExportAction extends Action
                 $fileName = Inflector::slug(str_replace('/','-',$entry->key));
             }
             try {
-                if (file_put_contents($exportPath . DIRECTORY_SEPARATOR . $fileName . '.' . $this->extention, $entry->value) === false) {
+                // check if filename "looks" like a path, if yes, we must create subdirs
+                if ($fileName !== basename($fileName)) {
+                    $subDir = $exportPath . DIRECTORY_SEPARATOR . trim(dirname($fileName), DIRECTORY_SEPARATOR);
+                    if (!FileHelper::createDirectory($subDir)) {
+                        throw new ErrorException("Error while creating sub directory '{$subDir}' for file '{$fileName}'");
+                    }
+                }
+
+                if (file_put_contents($exportPath . DIRECTORY_SEPARATOR . $fileName . '.' . $this->extension, $entry->value) === false) {
                     throw new ErrorException("Error while writing file for key '{$entry->key}'");
                 }
                 $this->controller->stdout('.');
