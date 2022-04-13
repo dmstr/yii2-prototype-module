@@ -33,7 +33,7 @@ use yii\helpers\FileHelper;
 class PrototypeController extends Controller
 {
 
-    public $escapeFileNames = false;
+    public $escapeFileNames = true;
     public $exportPath = '@runtime/export';
 
     /**
@@ -57,17 +57,17 @@ class PrototypeController extends Controller
         $actions['export-html'] = [
             'class' => ExportAction::class,
             'modelClass' => Html::class,
-            'extention' => 'html',
+            'extension' => 'html',
         ];
         $actions['export-less'] = [
             'class' => ExportAction::class,
             'modelClass' => Less::class,
-            'extention' => 'less',
+            'extension' => 'less',
         ];
         $actions['export-twig'] = [
             'class' => ExportAction::class,
             'modelClass' => Twig::class,
-            'extention' => 'twig',
+            'extension' => 'twig',
         ];
         return $actions;
     }
@@ -77,7 +77,6 @@ class PrototypeController extends Controller
      *
      * Returns path alias if alias defined otherwise return plain path
      * Removes slash from end
-     * Add sub dir with name of extention
      */
     public function getExportPath()
     {
