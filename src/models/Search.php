@@ -63,7 +63,7 @@ class Search extends Model
             $allEntries[$entryId] = [
                 'id' => $entryId,
                 'name' => $model['key'],
-                'opened' => isset(Yii::$app->session->get(md5(EditorEntry::$cacheKey), [])[self::class][$entryId])
+                'opened' => isset(Yii::$app->session->get(md5(BaseModel::$cacheKey), [])[self::class][$entryId])
             ];
         }
         return $allEntries;

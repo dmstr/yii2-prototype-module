@@ -11,6 +11,7 @@ namespace dmstr\modules\prototype\models;
 
 
 use bedezign\yii2\audit\AuditTrailBehavior;
+use dmstr\modules\prototype\traits\EditorEntry;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -23,6 +24,7 @@ use yii\db\Expression;
  */
 class BaseModel extends ActiveRecord
 {
+    use EditorEntry;
 
     /**
      * Column attribute 'created_at'

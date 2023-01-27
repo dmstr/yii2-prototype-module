@@ -75,7 +75,7 @@ class TwigWidget extends Widget implements ContextMenuItemsInterface
         if (isset(Yii::$app->controller->actionParams[$this->queryParam])) {
             $key = Yii::$app->controller->actionParams[$this->queryParam];
         }
-        $language = $this->localized ? Yii::$app->language : ActiveRecordAccessTrait::$_all;
+        $language = $this->localized ? Yii::$app->language : Twig::$_all;
 
         return $language . '/' . Yii::$app->controller->route . ($key ? '/' . $key : '') .
             ($this->position ? '#' . $this->position : '');
