@@ -10,9 +10,12 @@
 namespace dmstr\modules\prototype\models;
 
 
+use bedezign\yii2\audit\AuditTrailBehavior;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * @package dmstr\modules\prototype\models
@@ -20,6 +23,38 @@ use yii\db\ActiveRecord;
  */
 class BaseModel extends ActiveRecord
 {
+
+    /**
+     * Column attribute 'created_at'
+     */
+    const ATTR_CREATED_AT = 'created_at';
+
+    /**
+     * Column attribute 'updated_at'
+     */
+    const ATTR_UPDATED_AT = 'updated_at';
+
+    /**
+     * @inheritdoc
+     *
+     * Use yii\behaviors\TimestampBehavior for created_at and updated_at attribute
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+
+        $behaviors = parent::behaviors();
+
+        $behaviors['timestamp'] = [
+            'class'              => TimestampBehavior::class,
+            'createdAtAttribute' => static::ATTR_CREATED_AT,
+            'updatedAtAttribute' => static::ATTR_UPDATED_AT,
+            'value'              => new Expression('NOW()'),
+        ];
+        return $behaviors;
+    }
+
     /**
      * @inheritdoc
      */
