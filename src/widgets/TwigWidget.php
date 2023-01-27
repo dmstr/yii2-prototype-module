@@ -88,7 +88,7 @@ class TwigWidget extends Widget implements ContextMenuItemsInterface
     {
         // create temporary file
         $model = $this->_model;
-        $twigCode = ($model ? $model->value : null);
+        $twigCode = ($model ? $model->value : '');
         $tmpFilePath = Yii::getAlias(self::TEMP_ALIAS . '/');
         $tmpFileName = md5($twigCode) . '.twig';
         if (!file_exists($tmpFilePath . $tmpFileName)) {
