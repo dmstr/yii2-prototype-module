@@ -14,7 +14,7 @@ use dmstr\activeRecordPermissions\ActiveRecordAccessTrait;
 use dmstr\modules\backend\interfaces\ContextMenuItemsInterface;
 use dmstr\modules\prototype\models\Twig;
 use rmrevin\yii\fontawesome\FA;
-use Twig_Error;
+use Twig\Error\SyntaxError;
 use Yii;
 use yii\base\Event;
 use yii\base\Widget;
@@ -97,9 +97,10 @@ class TwigWidget extends Widget implements ContextMenuItemsInterface
 
         $html = '';
         try {
-            $html = Yii::$app->getModule($this->moduleId)->view->renderFile($tmpFilePath . $tmpFileName,
+            $view = clone Yii::$app->getModule($this->moduleId)->view;
+            $html = $view->renderFile($tmpFilePath . $tmpFileName,
                 $this->params);
-        } catch (Twig_Error $e) {
+        } catch (SyntaxError $e) {
             $msg = "Twig #{$this->_model->id} {$e->getMessage()} Line {$e->getLine()}";
             Yii::$app->session->addFlash('error', $msg);
             Yii::error($msg, __METHOD__);
