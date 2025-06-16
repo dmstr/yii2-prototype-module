@@ -44,39 +44,6 @@ class Twig extends BaseModel
             'value',
             'string'
         ];
-        $rules[] = [
-            'value',
-            'validateTwigTemplate'
-        ];
         return $rules;
-    }
-
-    /**
-     * @param $attribute
-     *
-     * @throws \yii\base\InvalidConfigException
-     * @return void
-     */
-    public function validateTwigTemplate($attribute)
-    {
-        /** @var \yii\twig\ViewRenderer|null $twigRenderer */
-        $twigRendererConfig = Yii::$app->view->renderers['twig'] ?? null;
-
-
-        if (is_null($twigRendererConfig)) {
-            throw new InvalidConfigException('TWIG renderer must be defined');
-        }
-
-        $twigRenderer = Yii::createObject($twigRendererConfig);
-        $environment = $twigRenderer->twig;
-        try {
-            $template = $environment->createTemplate($this->$attribute);
-            $template->render();
-        } catch (TwigError $e) {
-            $this->addError($attribute, Yii::t('prototype', 'Line {lineNumber}: {message}', [
-                'lineNumber' => $e->getTemplateLine(),
-                'message' => $e->getRawMessage()
-            ]));
-        }
     }
 }
