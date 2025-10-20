@@ -10,7 +10,7 @@
 namespace dmstr\modules\prototype\assets;
 
 
-use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap5\BootstrapAsset;
 use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 

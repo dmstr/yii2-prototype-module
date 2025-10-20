@@ -3,7 +3,7 @@
 use dmstr\bootstrap\Tabs;
 use dosamigos\ckeditor\CKEditor;
 use rmrevin\yii\fontawesome\FA;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 
 /**

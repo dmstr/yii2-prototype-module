@@ -61,7 +61,7 @@ class DbAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         // if a full BootstrapAsset (CSS) is compiled, it's recommended to disable it in assetManager configuration
-        'yii\bootstrap\BootstrapPluginAsset', // (JS)
+        'yii\bootstrap5\BootstrapPluginAsset', // (JS)
     ];
     /**
      * internal cache property

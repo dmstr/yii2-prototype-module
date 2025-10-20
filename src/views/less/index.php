@@ -2,7 +2,7 @@
 
 use dmstr\modules\prototype\models\BaseModel;
 use rmrevin\yii\fontawesome\FA;
-use yii\bootstrap\ButtonDropdown;
+use yii\bootstrap5\ButtonDropdown;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
